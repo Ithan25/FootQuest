@@ -88,21 +88,6 @@ export async function uploadProfileImage(
   if (!file || file.size === 0) return { url: null, error: "Aucun fichier" };
   if (file.size > 5 * 1024 * 1024) return { url: null, error: "Max 5MB" };
 
-  // Ensure bucket exists
-  const { data: buckets } = await supabase.storage.listBuckets();
-  const bucketExists = buckets?.some((b) => b.id === "profiles");
-
-  if (!bucketExists) {
-    const { error: bucketError } = await supabase.storage.createBucket("profiles", {
-      public: true,
-      fileSizeLimit: 5242880,
-      allowedMimeTypes: ["image/jpeg", "image/png", "image/webp", "image/gif"],
-    });
-    if (bucketError && !bucketError.message.includes("already exists")) {
-      return { url: null, error: "Impossible de créer le bucket : " + bucketError.message };
-    }
-  }
-
   const ext = file.name.split(".").pop()?.toLowerCase() || "jpg";
   const path = `${user.id}/${type}.${ext}`;
 
@@ -112,6 +97,9 @@ export async function uploadProfileImage(
 
   if (uploadError) {
     console.error("Upload error:", uploadError);
+    if (uploadError.message.includes("Bucket not found") || uploadError.message.includes("row-level security")) {
+      return { url: null, error: "⚠️ Le bucket 'profiles' n'existe pas. Tu dois exécuter le script profile-storage.sql dans Supabase." };
+    }
     return { url: null, error: uploadError.message };
   }
 

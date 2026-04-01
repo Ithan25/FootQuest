@@ -125,5 +125,7 @@
     }
   html {
     @apply font-sans;
-    }
+    overflow-y: scroll; /* Forces scrollbar to prevent layout shift */
+    scrollbar-gutter: stable;
+  }
 }
