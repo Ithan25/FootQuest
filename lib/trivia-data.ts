@@ -1,0 +1,633 @@
+/**
+ * FootQuest - Banque de questions Foot Trivia
+ * 50 questions de culture football avec 4 réponses chacune
+ */
+
+export interface TriviaQuestionData {
+  question: string;
+  categorie: string;
+  difficulte: "facile" | "moyen" | "difficile";
+  points: number;
+  reponses: { reponse: string; est_correcte: boolean }[];
+}
+
+export const TRIVIA_QUESTIONS: TriviaQuestionData[] = [
+  // ===================== FACILE (20 questions) =====================
+  {
+    question: "Quel pays a remporté la Coupe du Monde 2022 ?",
+    categorie: "Palmarès",
+    difficulte: "facile",
+    points: 5,
+    reponses: [
+      { reponse: "Argentine", est_correcte: true },
+      { reponse: "France", est_correcte: false },
+      { reponse: "Brésil", est_correcte: false },
+      { reponse: "Croatie", est_correcte: false },
+    ],
+  },
+  {
+    question: "Combien de joueurs composent une équipe de football sur le terrain ?",
+    categorie: "Règles",
+    difficulte: "facile",
+    points: 5,
+    reponses: [
+      { reponse: "11", est_correcte: true },
+      { reponse: "10", est_correcte: false },
+      { reponse: "12", est_correcte: false },
+      { reponse: "9", est_correcte: false },
+    ],
+  },
+  {
+    question: "Quel joueur est surnommé 'La Pulga' ?",
+    categorie: "Joueurs",
+    difficulte: "facile",
+    points: 5,
+    reponses: [
+      { reponse: "Lionel Messi", est_correcte: true },
+      { reponse: "Cristiano Ronaldo", est_correcte: false },
+      { reponse: "Neymar", est_correcte: false },
+      { reponse: "Diego Maradona", est_correcte: false },
+    ],
+  },
+  {
+    question: "Dans quel pays se tiendra la Coupe du Monde 2026 ?",
+    categorie: "Compétitions",
+    difficulte: "facile",
+    points: 5,
+    reponses: [
+      { reponse: "USA, Canada, Mexique", est_correcte: true },
+      { reponse: "Arabie Saoudite", est_correcte: false },
+      { reponse: "Angleterre", est_correcte: false },
+      { reponse: "Espagne et Portugal", est_correcte: false },
+    ],
+  },
+  {
+    question: "Quel club est surnommé 'Les Blaugrana' ?",
+    categorie: "Clubs",
+    difficulte: "facile",
+    points: 5,
+    reponses: [
+      { reponse: "FC Barcelone", est_correcte: true },
+      { reponse: "Real Madrid", est_correcte: false },
+      { reponse: "Atletico Madrid", est_correcte: false },
+      { reponse: "FC Séville", est_correcte: false },
+    ],
+  },
+  {
+    question: "Quelle est la durée réglementaire d'un match de football ?",
+    categorie: "Règles",
+    difficulte: "facile",
+    points: 5,
+    reponses: [
+      { reponse: "90 minutes", est_correcte: true },
+      { reponse: "80 minutes", est_correcte: false },
+      { reponse: "100 minutes", est_correcte: false },
+      { reponse: "120 minutes", est_correcte: false },
+    ],
+  },
+  {
+    question: "Quel joueur détient le record de Ballons d'Or ?",
+    categorie: "Joueurs",
+    difficulte: "facile",
+    points: 5,
+    reponses: [
+      { reponse: "Lionel Messi", est_correcte: true },
+      { reponse: "Cristiano Ronaldo", est_correcte: false },
+      { reponse: "Michel Platini", est_correcte: false },
+      { reponse: "Johan Cruyff", est_correcte: false },
+    ],
+  },
+  {
+    question: "De quelle couleur est le carton d'expulsion ?",
+    categorie: "Règles",
+    difficulte: "facile",
+    points: 5,
+    reponses: [
+      { reponse: "Rouge", est_correcte: true },
+      { reponse: "Jaune", est_correcte: false },
+      { reponse: "Bleu", est_correcte: false },
+      { reponse: "Vert", est_correcte: false },
+    ],
+  },
+  {
+    question: "Quel pays a remporté le plus de Coupes du Monde ?",
+    categorie: "Palmarès",
+    difficulte: "facile",
+    points: 5,
+    reponses: [
+      { reponse: "Brésil (5)", est_correcte: true },
+      { reponse: "Allemagne (4)", est_correcte: false },
+      { reponse: "Italie (4)", est_correcte: false },
+      { reponse: "Argentine (3)", est_correcte: false },
+    ],
+  },
+  {
+    question: "Dans quel stade se joue la finale de la Ligue des Champions 2024 ?",
+    categorie: "Compétitions",
+    difficulte: "facile",
+    points: 5,
+    reponses: [
+      { reponse: "Wembley (Londres)", est_correcte: true },
+      { reponse: "Santiago Bernabéu (Madrid)", est_correcte: false },
+      { reponse: "San Siro (Milan)", est_correcte: false },
+      { reponse: "Allianz Arena (Munich)", est_correcte: false },
+    ],
+  },
+  {
+    question: "Quel numéro porte traditionnellement le gardien de but ?",
+    categorie: "Règles",
+    difficulte: "facile",
+    points: 5,
+    reponses: [
+      { reponse: "1", est_correcte: true },
+      { reponse: "10", est_correcte: false },
+      { reponse: "9", est_correcte: false },
+      { reponse: "7", est_correcte: false },
+    ],
+  },
+  {
+    question: "Quel club a remporté la Ligue des Champions 2024 ?",
+    categorie: "Palmarès",
+    difficulte: "facile",
+    points: 5,
+    reponses: [
+      { reponse: "Real Madrid", est_correcte: true },
+      { reponse: "Manchester City", est_correcte: false },
+      { reponse: "Bayern Munich", est_correcte: false },
+      { reponse: "Inter Milan", est_correcte: false },
+    ],
+  },
+  {
+    question: "Quel est le surnom de l'équipe de France ?",
+    categorie: "Équipes",
+    difficulte: "facile",
+    points: 5,
+    reponses: [
+      { reponse: "Les Bleus", est_correcte: true },
+      { reponse: "Les Coqs", est_correcte: false },
+      { reponse: "Les Tricolores", est_correcte: false },
+      { reponse: "Les Gaulois", est_correcte: false },
+    ],
+  },
+  {
+    question: "Quelle est la sanction pour une faute de main dans la surface ?",
+    categorie: "Règles",
+    difficulte: "facile",
+    points: 5,
+    reponses: [
+      { reponse: "Penalty", est_correcte: true },
+      { reponse: "Coup franc", est_correcte: false },
+      { reponse: "Corner", est_correcte: false },
+      { reponse: "Touche", est_correcte: false },
+    ],
+  },
+  {
+    question: "Quel joueur français a marqué un triplé en finale de la CDM 2022 ?",
+    categorie: "Joueurs",
+    difficulte: "facile",
+    points: 5,
+    reponses: [
+      { reponse: "Kylian Mbappé", est_correcte: true },
+      { reponse: "Antoine Griezmann", est_correcte: false },
+      { reponse: "Olivier Giroud", est_correcte: false },
+      { reponse: "Ousmane Dembélé", est_correcte: false },
+    ],
+  },
+  {
+    question: "Combien d'équipes participent à la Coupe du Monde 2026 ?",
+    categorie: "Compétitions",
+    difficulte: "facile",
+    points: 5,
+    reponses: [
+      { reponse: "48", est_correcte: true },
+      { reponse: "32", est_correcte: false },
+      { reponse: "64", est_correcte: false },
+      { reponse: "40", est_correcte: false },
+    ],
+  },
+  {
+    question: "De quel pays est originaire Cristiano Ronaldo ?",
+    categorie: "Joueurs",
+    difficulte: "facile",
+    points: 5,
+    reponses: [
+      { reponse: "Portugal", est_correcte: true },
+      { reponse: "Brésil", est_correcte: false },
+      { reponse: "Espagne", est_correcte: false },
+      { reponse: "Argentine", est_correcte: false },
+    ],
+  },
+  {
+    question: "Quel club joue au Camp Nou ?",
+    categorie: "Clubs",
+    difficulte: "facile",
+    points: 5,
+    reponses: [
+      { reponse: "FC Barcelone", est_correcte: true },
+      { reponse: "Real Madrid", est_correcte: false },
+      { reponse: "Atletico Madrid", est_correcte: false },
+      { reponse: "Valence CF", est_correcte: false },
+    ],
+  },
+  {
+    question: "Que signifie 'VAR' en football ?",
+    categorie: "Règles",
+    difficulte: "facile",
+    points: 5,
+    reponses: [
+      {
+        reponse: "Video Assistant Referee",
+        est_correcte: true,
+      },
+      {
+        reponse: "Visual Automatic Review",
+        est_correcte: false,
+      },
+      {
+        reponse: "Video Analysis Report",
+        est_correcte: false,
+      },
+      {
+        reponse: "Verified Action Replay",
+        est_correcte: false,
+      },
+    ],
+  },
+  {
+    question: "Quel pays a organisé la Coupe du Monde 2018 ?",
+    categorie: "Compétitions",
+    difficulte: "facile",
+    points: 5,
+    reponses: [
+      { reponse: "Russie", est_correcte: true },
+      { reponse: "Brésil", est_correcte: false },
+      { reponse: "Qatar", est_correcte: false },
+      { reponse: "Afrique du Sud", est_correcte: false },
+    ],
+  },
+
+  // ===================== MOYEN (20 questions) =====================
+  {
+    question: "Quel joueur est le meilleur buteur de l'histoire de la Ligue des Champions ?",
+    categorie: "Records",
+    difficulte: "moyen",
+    points: 10,
+    reponses: [
+      { reponse: "Cristiano Ronaldo", est_correcte: true },
+      { reponse: "Lionel Messi", est_correcte: false },
+      { reponse: "Robert Lewandowski", est_correcte: false },
+      { reponse: "Raúl", est_correcte: false },
+    ],
+  },
+  {
+    question: "En quelle année le Brésil a-t-il remporté sa 5ème Coupe du Monde ?",
+    categorie: "Palmarès",
+    difficulte: "moyen",
+    points: 10,
+    reponses: [
+      { reponse: "2002", est_correcte: true },
+      { reponse: "1998", est_correcte: false },
+      { reponse: "2006", est_correcte: false },
+      { reponse: "1994", est_correcte: false },
+    ],
+  },
+  {
+    question: "Quel joueur a marqué la 'main de Dieu' en Coupe du Monde ?",
+    categorie: "Histoire",
+    difficulte: "moyen",
+    points: 10,
+    reponses: [
+      { reponse: "Diego Maradona", est_correcte: true },
+      { reponse: "Pelé", est_correcte: false },
+      { reponse: "Thierry Henry", est_correcte: false },
+      { reponse: "Luis Suárez", est_correcte: false },
+    ],
+  },
+  {
+    question: "Quel club a remporté le plus de Ligues des Champions ?",
+    categorie: "Palmarès",
+    difficulte: "moyen",
+    points: 10,
+    reponses: [
+      { reponse: "Real Madrid (15)", est_correcte: true },
+      { reponse: "AC Milan (7)", est_correcte: false },
+      { reponse: "Liverpool (6)", est_correcte: false },
+      { reponse: "Bayern Munich (6)", est_correcte: false },
+    ],
+  },
+  {
+    question: "Quel défenseur a remporté le Ballon d'Or en 2006 ?",
+    categorie: "Joueurs",
+    difficulte: "moyen",
+    points: 10,
+    reponses: [
+      { reponse: "Fabio Cannavaro", est_correcte: true },
+      { reponse: "Paolo Maldini", est_correcte: false },
+      { reponse: "Roberto Carlos", est_correcte: false },
+      { reponse: "Sergio Ramos", est_correcte: false },
+    ],
+  },
+  {
+    question: "Quel est le record de buts en une seule saison de Liga ?",
+    categorie: "Records",
+    difficulte: "moyen",
+    points: 10,
+    reponses: [
+      { reponse: "50 (Messi, 2011-12)", est_correcte: true },
+      { reponse: "48 (Ronaldo, 2014-15)", est_correcte: false },
+      { reponse: "38 (Suárez, 2015-16)", est_correcte: false },
+      { reponse: "45 (Messi, 2012-13)", est_correcte: false },
+    ],
+  },
+  {
+    question: "Quel pays africain a atteint les quarts de finale de la CDM 2022 ?",
+    categorie: "Compétitions",
+    difficulte: "moyen",
+    points: 10,
+    reponses: [
+      { reponse: "Maroc", est_correcte: true },
+      { reponse: "Sénégal", est_correcte: false },
+      { reponse: "Ghana", est_correcte: false },
+      { reponse: "Cameroun", est_correcte: false },
+    ],
+  },
+  {
+    question: "Quel gardien détient le record d'invincibilité en Premier League ?",
+    categorie: "Records",
+    difficulte: "moyen",
+    points: 10,
+    reponses: [
+      { reponse: "Petr Čech (1 025 min)", est_correcte: true },
+      { reponse: "Edwin van der Sar", est_correcte: false },
+      { reponse: "Alisson Becker", est_correcte: false },
+      { reponse: "David de Gea", est_correcte: false },
+    ],
+  },
+  {
+    question: "Quel club italien est surnommé 'La Vecchia Signora' ?",
+    categorie: "Clubs",
+    difficulte: "moyen",
+    points: 10,
+    reponses: [
+      { reponse: "Juventus", est_correcte: true },
+      { reponse: "AC Milan", est_correcte: false },
+      { reponse: "Inter Milan", est_correcte: false },
+      { reponse: "AS Roma", est_correcte: false },
+    ],
+  },
+  {
+    question: "Qui a remporté le premier Ballon d'Or féminin en 2018 ?",
+    categorie: "Joueurs",
+    difficulte: "moyen",
+    points: 10,
+    reponses: [
+      { reponse: "Ada Hegerberg", est_correcte: true },
+      { reponse: "Megan Rapinoe", est_correcte: false },
+      { reponse: "Marta", est_correcte: false },
+      { reponse: "Lucy Bronze", est_correcte: false },
+    ],
+  },
+  {
+    question: "En quelle année la France a-t-elle remporté sa première Coupe du Monde ?",
+    categorie: "Palmarès",
+    difficulte: "moyen",
+    points: 10,
+    reponses: [
+      { reponse: "1998", est_correcte: true },
+      { reponse: "2006", est_correcte: false },
+      { reponse: "1986", est_correcte: false },
+      { reponse: "2002", est_correcte: false },
+    ],
+  },
+  {
+    question: "Quel joueur est surnommé 'CR7' ?",
+    categorie: "Joueurs",
+    difficulte: "moyen",
+    points: 10,
+    reponses: [
+      { reponse: "Cristiano Ronaldo", est_correcte: true },
+      { reponse: "Carlos Rodríguez", est_correcte: false },
+      { reponse: "Clarence Reedijk", est_correcte: false },
+      { reponse: "Cafú Roberto", est_correcte: false },
+    ],
+  },
+  {
+    question: "Quel entraîneur a remporté 3 Ligues des Champions consécutives avec le Real Madrid ?",
+    categorie: "Entraîneurs",
+    difficulte: "moyen",
+    points: 10,
+    reponses: [
+      { reponse: "Zinédine Zidane", est_correcte: true },
+      { reponse: "Carlo Ancelotti", est_correcte: false },
+      { reponse: "José Mourinho", est_correcte: false },
+      { reponse: "Vicente del Bosque", est_correcte: false },
+    ],
+  },
+  {
+    question: "Quel joueur a le plus de sélections en équipe de France ?",
+    categorie: "Records",
+    difficulte: "moyen",
+    points: 10,
+    reponses: [
+      { reponse: "Hugo Lloris", est_correcte: true },
+      { reponse: "Lilian Thuram", est_correcte: false },
+      { reponse: "Thierry Henry", est_correcte: false },
+      { reponse: "Antoine Griezmann", est_correcte: false },
+    ],
+  },
+  {
+    question: "Quel est le stade le plus grand du monde ?",
+    categorie: "Stades",
+    difficulte: "moyen",
+    points: 10,
+    reponses: [
+      { reponse: "Rungrado (Corée du Nord)", est_correcte: true },
+      { reponse: "Camp Nou (Espagne)", est_correcte: false },
+      { reponse: "Wembley (Angleterre)", est_correcte: false },
+      { reponse: "Maracanã (Brésil)", est_correcte: false },
+    ],
+  },
+  {
+    question: "Quel pays a remporté l'Euro 2024 ?",
+    categorie: "Palmarès",
+    difficulte: "moyen",
+    points: 10,
+    reponses: [
+      { reponse: "Espagne", est_correcte: true },
+      { reponse: "Angleterre", est_correcte: false },
+      { reponse: "France", est_correcte: false },
+      { reponse: "Pays-Bas", est_correcte: false },
+    ],
+  },
+  {
+    question: "Quel joueur brésilien est surnommé 'O Fenômeno' ?",
+    categorie: "Joueurs",
+    difficulte: "moyen",
+    points: 10,
+    reponses: [
+      { reponse: "Ronaldo Nazário", est_correcte: true },
+      { reponse: "Ronaldinho", est_correcte: false },
+      { reponse: "Rivaldo", est_correcte: false },
+      { reponse: "Romário", est_correcte: false },
+    ],
+  },
+  {
+    question: "Combien de fois l'Italie a-t-elle remporté la Coupe du Monde ?",
+    categorie: "Palmarès",
+    difficulte: "moyen",
+    points: 10,
+    reponses: [
+      { reponse: "4", est_correcte: true },
+      { reponse: "3", est_correcte: false },
+      { reponse: "5", est_correcte: false },
+      { reponse: "2", est_correcte: false },
+    ],
+  },
+  {
+    question:
+      "Quel joueur détient le record de buts en sélection nationale ?",
+    categorie: "Records",
+    difficulte: "moyen",
+    points: 10,
+    reponses: [
+      { reponse: "Cristiano Ronaldo", est_correcte: true },
+      { reponse: "Ali Daei", est_correcte: false },
+      { reponse: "Lionel Messi", est_correcte: false },
+      { reponse: "Pelé", est_correcte: false },
+    ],
+  },
+  {
+    question: "Quel club a réalisé le 'triplé' historique en 2009 (Liga, C1, Copa del Rey) ?",
+    categorie: "Palmarès",
+    difficulte: "moyen",
+    points: 10,
+    reponses: [
+      { reponse: "FC Barcelone", est_correcte: true },
+      { reponse: "Real Madrid", est_correcte: false },
+      { reponse: "Manchester United", est_correcte: false },
+      { reponse: "Bayern Munich", est_correcte: false },
+    ],
+  },
+
+  // ===================== DIFFICILE (10 questions) =====================
+  {
+    question: "Quel joueur a inscrit le but le plus rapide de l'histoire de la Coupe du Monde ?",
+    categorie: "Records",
+    difficulte: "difficile",
+    points: 15,
+    reponses: [
+      { reponse: "Hakan Şükür (11 sec)", est_correcte: true },
+      { reponse: "Clint Dempsey (29 sec)", est_correcte: false },
+      { reponse: "Valon Behrami (31 sec)", est_correcte: false },
+      { reponse: "Ernst Lehner (25 sec)", est_correcte: false },
+    ],
+  },
+  {
+    question: "Quel est le seul joueur à avoir remporté 3 Coupes du Monde ?",
+    categorie: "Records",
+    difficulte: "difficile",
+    points: 15,
+    reponses: [
+      { reponse: "Pelé", est_correcte: true },
+      { reponse: "Diego Maradona", est_correcte: false },
+      { reponse: "Ronaldo Nazário", est_correcte: false },
+      { reponse: "Cafú", est_correcte: false },
+    ],
+  },
+  {
+    question: "En quelle année le premier match de football international a-t-il eu lieu ?",
+    categorie: "Histoire",
+    difficulte: "difficile",
+    points: 15,
+    reponses: [
+      { reponse: "1872 (Écosse vs Angleterre)", est_correcte: true },
+      { reponse: "1886", est_correcte: false },
+      { reponse: "1900", est_correcte: false },
+      { reponse: "1863", est_correcte: false },
+    ],
+  },
+  {
+    question: "Quel gardien a remporté le Ballon d'Or en 1963 ?",
+    categorie: "Joueurs",
+    difficulte: "difficile",
+    points: 15,
+    reponses: [
+      { reponse: "Lev Yachine", est_correcte: true },
+      { reponse: "Gordon Banks", est_correcte: false },
+      { reponse: "Dino Zoff", est_correcte: false },
+      { reponse: "Sepp Maier", est_correcte: false },
+    ],
+  },
+  {
+    question: "Quel club a remporté la toute première édition de la Coupe d'Europe des clubs champions (1956) ?",
+    categorie: "Palmarès",
+    difficulte: "difficile",
+    points: 15,
+    reponses: [
+      { reponse: "Real Madrid", est_correcte: true },
+      { reponse: "AC Milan", est_correcte: false },
+      { reponse: "Benfica", est_correcte: false },
+      { reponse: "Stade de Reims", est_correcte: false },
+    ],
+  },
+  {
+    question: "Quel joueur détient le record de buts en un seul match de Coupe du Monde ?",
+    categorie: "Records",
+    difficulte: "difficile",
+    points: 15,
+    reponses: [
+      { reponse: "Oleg Salenko (5 buts)", est_correcte: true },
+      { reponse: "Just Fontaine (4 buts)", est_correcte: false },
+      { reponse: "Eusébio (4 buts)", est_correcte: false },
+      { reponse: "Gerd Müller (3 buts)", est_correcte: false },
+    ],
+  },
+  {
+    question: "Quel est le score le plus large enregistré dans un match international ?",
+    categorie: "Records",
+    difficulte: "difficile",
+    points: 15,
+    reponses: [
+      { reponse: "31-0 (Australie vs Samoa)", est_correcte: true },
+      { reponse: "20-0 (Allemagne vs..)", est_correcte: false },
+      { reponse: "15-0 (Espagne vs..)", est_correcte: false },
+      { reponse: "10-1 (Hongrie vs El Salvador)", est_correcte: false },
+    ],
+  },
+  {
+    question: "Quel entraîneur a remporté le plus de Ligues des Champions ?",
+    categorie: "Entraîneurs",
+    difficulte: "difficile",
+    points: 15,
+    reponses: [
+      { reponse: "Carlo Ancelotti (5)", est_correcte: true },
+      { reponse: "Bob Paisley (3)", est_correcte: false },
+      { reponse: "Zinédine Zidane (3)", est_correcte: false },
+      { reponse: "Pep Guardiola (2)", est_correcte: false },
+    ],
+  },
+  {
+    question: "Qui est le plus jeune buteur de l'histoire de la Coupe du Monde ?",
+    categorie: "Records",
+    difficulte: "difficile",
+    points: 15,
+    reponses: [
+      { reponse: "Pelé (17 ans)", est_correcte: true },
+      { reponse: "Michael Owen (18 ans)", est_correcte: false },
+      { reponse: "Kylian Mbappé (19 ans)", est_correcte: false },
+      { reponse: "Lionel Messi (18 ans)", est_correcte: false },
+    ],
+  },
+  {
+    question: "Quel pays a accueilli la toute première Coupe du Monde en 1930 ?",
+    categorie: "Histoire",
+    difficulte: "difficile",
+    points: 15,
+    reponses: [
+      { reponse: "Uruguay", est_correcte: true },
+      { reponse: "Brésil", est_correcte: false },
+      { reponse: "Italie", est_correcte: false },
+      { reponse: "France", est_correcte: false },
+    ],
+  },
+];
