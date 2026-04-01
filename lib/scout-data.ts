@@ -4,8 +4,9 @@
  * Concept : On affiche les LOGOS/NOMS des CLUBS des joueurs sur un terrain.
  * Le joueur doit deviner quelle ÉQUIPE NATIONALE c'est.
  *
- * Ex: Si on voit Real Madrid, Atlético, Barcelone, Bayern → c'est la France !
+ * 48 équipes qualifiées pour la CDM 2026
  */
+import { EXTRA_TEAMS } from "./scout-data-extra";
 
 export interface ScoutPlayer {
   nom: string;
@@ -241,16 +242,19 @@ export const SCOUT_TEAMS: ScoutTeamData[] = [
   },
 ];
 
+/** All 48 WC2026 teams */
+const ALL_TEAMS = [...SCOUT_TEAMS, ...EXTRA_TEAMS];
+
 /**
  * Get shuffled teams for a game.
  */
 export function getRandomScoutTeams(count: number): ScoutTeamData[] {
-  return [...SCOUT_TEAMS].sort(() => Math.random() - 0.5).slice(0, count);
+  return [...ALL_TEAMS].sort(() => Math.random() - 0.5).slice(0, count);
 }
 
 /**
  * Get all country names for autocomplete.
  */
 export function getAllTeamNames(): string[] {
-  return SCOUT_TEAMS.map((t) => t.pays);
+  return ALL_TEAMS.map((t) => t.pays);
 }

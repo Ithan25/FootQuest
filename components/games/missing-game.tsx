@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useCallback, useEffect, useRef } from "react";
+import { Flag } from "@/components/ui/flag";
 import { useTimer } from "@/hooks/use-timer";
 import { useGameSession } from "@/hooks/use-game-session";
 import { POINTS_CONFIG } from "@/lib/constants";
@@ -288,7 +289,7 @@ export function MissingGame() {
 
       {/* Team name */}
       <div className="text-center">
-        <h3 className="text-lg font-bold">{team.drapeau} {team.pays}</h3>
+        <h3 className="text-lg font-bold"><Flag country={team.pays} size="md" className="mr-2" />{team.pays}</h3>
         <p className="text-xs text-muted-foreground">{team.formation}</p>
       </div>
 

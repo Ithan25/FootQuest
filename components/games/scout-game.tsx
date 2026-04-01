@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useCallback, useEffect, useRef } from "react";
+import { Flag } from "@/components/ui/flag";
 import { useTimer } from "@/hooks/use-timer";
 import { useGameSession } from "@/hooks/use-game-session";
 import { POINTS_CONFIG } from "@/lib/constants";
@@ -379,8 +380,9 @@ export function ScoutGame() {
                 <button
                   key={name}
                   onClick={() => handleGuess(name)}
-                  className="w-full px-4 py-2.5 text-left text-sm transition-colors hover:bg-muted/50 first:rounded-t-xl last:rounded-b-xl"
+                  className="flex w-full items-center gap-2 px-4 py-2.5 text-left text-sm transition-colors hover:bg-muted/50 first:rounded-t-xl last:rounded-b-xl"
                 >
+                  <Flag country={name} size="sm" />
                   {name}
                 </button>
               ))}
@@ -398,11 +400,11 @@ export function ScoutGame() {
               : "bg-red-500/15 text-red-500"
           }`}
         >
-          <div className="text-2xl">{currentLevel.team.drapeau}</div>
-          <div className="mt-1 text-sm font-bold">
+          <div className="flex justify-center"><Flag country={currentLevel.team.pays} size="lg" /></div>
+          <div className="mt-1.5 text-sm font-bold">
             {isCorrect
               ? `✅ Bravo ! C'est bien ${currentLevel.team.pays} !`
-              : `❌ C'était ${currentLevel.team.pays} ${currentLevel.team.drapeau}`}
+              : `❌ C'était ${currentLevel.team.pays}`}
           </div>
         </div>
       )}
