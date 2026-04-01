@@ -8,6 +8,7 @@ export interface User {
   email: string;
   pseudo: string;
   avatar_url: string | null;
+  banner_url: string | null;
   role: UserRole;
   foot_points: number;
   parties_jouees_aujourd_hui: number;
