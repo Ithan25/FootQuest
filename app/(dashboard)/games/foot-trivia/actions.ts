@@ -2,41 +2,55 @@
 
 import { createClient } from "@/lib/supabase/server";
 import { TRIVIA_QUESTIONS } from "@/lib/trivia-data";
-import type { TriviaQuestion, TriviaAnswer } from "@/lib/types/database";
 
-export interface TriviaQuestionWithAnswers extends TriviaQuestion {
+export interface TriviaAnswer {
+  id: string;
+  question_id: string;
+  reponse: string;
+  est_correcte: boolean;
+}
+
+export interface TriviaQuestionWithAnswers {
+  id: string;
+  question: string;
+  categorie: string;
+  difficulte: string;
+  points: number;
   reponses: TriviaAnswer[];
 }
 
 /**
  * Get random trivia questions.
- * For MVP, we use the local trivia-data.ts (no DB dependency).
- * Returns questions with shuffled answers.
+ * Maps from local data format to component-expected format.
  */
 export async function getRandomQuestions(
   count: number = 10
 ): Promise<TriviaQuestionWithAnswers[]> {
-  // Shuffle and pick `count` questions from the pool
   const shuffled = [...TRIVIA_QUESTIONS]
     .sort(() => Math.random() - 0.5)
     .slice(0, count);
 
-  // Map to match the TriviaQuestionWithAnswers shape
-  return shuffled.map((q, index) => ({
-    id: `trivia-${index}`,
-    question: q.question,
-    categorie: q.categorie,
-    difficulte: q.difficulte,
-    points: q.points,
-    reponses: q.reponses
-      .sort(() => Math.random() - 0.5) // shuffle answers
-      .map((r, rIndex) => ({
-        id: `answer-${index}-${rIndex}`,
-        question_id: `trivia-${index}`,
-        reponse: r.reponse,
-        est_correcte: r.est_correcte,
-      })),
-  }));
+  return shuffled.map((q, index) => {
+    // Build answer objects from the string array + correct index
+    const answers: TriviaAnswer[] = q.reponses.map((text, rIndex) => ({
+      id: `answer-${index}-${rIndex}`,
+      question_id: `trivia-${index}`,
+      reponse: text,
+      est_correcte: rIndex === q.bonneReponse,
+    }));
+
+    // Shuffle answers so the correct one isn't always in the same position
+    const shuffledAnswers = [...answers].sort(() => Math.random() - 0.5);
+
+    return {
+      id: `trivia-${index}`,
+      question: q.question,
+      categorie: q.categorie,
+      difficulte: q.difficulte,
+      points: q.points,
+      reponses: shuffledAnswers,
+    };
+  });
 }
 
 /**
@@ -60,7 +74,6 @@ export async function submitTriviaSession(data: {
       return { success: false, error: "Non authentifié" };
     }
 
-    // Get the Foot Trivia game ID
     const { data: jeu } = await supabase
       .from("jeu")
       .select("id")
@@ -71,7 +84,6 @@ export async function submitTriviaSession(data: {
       return { success: false, error: "Jeu non trouvé" };
     }
 
-    // Insert game session
     const { error } = await supabase.from("session_partie").insert({
       utilisateur_id: user.id,
       jeu_id: jeu.id,

@@ -288,8 +288,8 @@ export function MissingGame() {
 
       {/* Team name */}
       <div className="text-center">
-        <h3 className="text-lg font-bold">{team.nom}</h3>
-        <p className="text-xs text-muted-foreground">{team.pays}</p>
+        <h3 className="text-lg font-bold">{team.drapeau} {team.pays}</h3>
+        <p className="text-xs text-muted-foreground">{team.formation}</p>
       </div>
 
       {/* Football pitch */}

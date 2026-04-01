@@ -4,7 +4,6 @@ import { useState, useCallback, useEffect, useRef } from "react";
 import { useTimer } from "@/hooks/use-timer";
 import { useGameSession } from "@/hooks/use-game-session";
 import { POINTS_CONFIG } from "@/lib/constants";
-import { countryToFlag } from "@/lib/flag-emoji";
 import type { ScoutLevel } from "@/app/(dashboard)/games/scout-master/actions";
 import {
   getScoutLevels,
@@ -13,13 +12,13 @@ import {
 } from "@/app/(dashboard)/games/scout-master/actions";
 
 const LEVELS_PER_GAME = 5;
-const TIME_PER_LEVEL = 60; // seconds
+const TIME_PER_LEVEL = 60;
 
 export function ScoutGame() {
   const session = useGameSession("scout_master");
   const [levels, setLevels] = useState<ScoutLevel[]>([]);
   const [currentLevelIndex, setCurrentLevelIndex] = useState(0);
-  const [revealedCount, setRevealedCount] = useState(1);
+  const [revealedCount, setRevealedCount] = useState(3);
   const [guess, setGuess] = useState("");
   const [teamNames, setTeamNames] = useState<string[]>([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
@@ -49,7 +48,7 @@ export function ScoutGame() {
       return;
     }
     setCurrentLevelIndex((prev) => prev + 1);
-    setRevealedCount(1);
+    setRevealedCount(3);
     setGuess("");
     setIsCorrect(null);
     setShowSuggestions(false);
@@ -69,7 +68,7 @@ export function ScoutGame() {
       setLevels(newLevels);
       setTeamNames(names);
       setCurrentLevelIndex(0);
-      setRevealedCount(1);
+      setRevealedCount(3);
       setGuess("");
       setIsCorrect(null);
       setShowSuggestions(false);
@@ -83,9 +82,9 @@ export function ScoutGame() {
     }
   };
 
-  const handleRevealNext = () => {
-    if (currentLevel && revealedCount < currentLevel.shuffledNationalites.length) {
-      setRevealedCount((prev) => prev + 1);
+  const handleRevealMore = () => {
+    if (currentLevel && revealedCount < currentLevel.team.joueurs.length) {
+      setRevealedCount((prev) => Math.min(prev + 2, currentLevel.team.joueurs.length));
     }
   };
 
@@ -97,14 +96,13 @@ export function ScoutGame() {
     timer.pause();
 
     const correct =
-      teamName.toLowerCase() === currentLevel.team.nom.toLowerCase();
+      teamName.toLowerCase() === currentLevel.team.pays.toLowerCase();
     setIsCorrect(correct);
 
     if (correct) {
-      // Points: more points for fewer clues used
-      const cluesPenalty = revealedCount - 1; // 0 penalty if guessed with 1 clue
+      const cluesUsed = revealedCount;
       let points = POINTS_CONFIG.scout_master.basePoints;
-      points += Math.max(0, (11 - revealedCount)) * POINTS_CONFIG.scout_master.bonusPerLevel;
+      points += Math.max(0, (11 - cluesUsed)) * POINTS_CONFIG.scout_master.bonusPerLevel;
       if (timer.secondsLeft >= TIME_PER_LEVEL - POINTS_CONFIG.scout_master.timeBonusThreshold) {
         points += POINTS_CONFIG.scout_master.timeBonus;
       }
@@ -116,8 +114,7 @@ export function ScoutGame() {
 
   const filteredSuggestions = teamNames.filter(
     (name) =>
-      guess.length >= 2 &&
-      name.toLowerCase().includes(guess.toLowerCase())
+      guess.length >= 1 && name.toLowerCase().includes(guess.toLowerCase())
   );
 
   // Submit on game end
@@ -136,9 +133,9 @@ export function ScoutGame() {
   // ─── IDLE ───
   if (session.phase === "idle") {
     return (
-      <div className="flex flex-col items-center space-y-6 pt-8">
+      <div className="mx-auto flex max-w-md flex-col items-center space-y-6 pt-8">
         <div className="relative">
-          <div className="flex h-28 w-28 items-center justify-center rounded-3xl bg-gradient-to-br from-blue-500 to-cyan-500 shadow-xl shadow-blue-500/25">
+          <div className="flex h-28 w-28 items-center justify-center rounded-3xl bg-gradient-to-br from-blue-600 to-indigo-700 shadow-xl shadow-blue-600/25">
             <span className="text-5xl">🔍</span>
           </div>
           <div className="absolute -right-2 -top-2 flex h-8 w-8 items-center justify-center rounded-full bg-emerald-500 text-xs font-bold text-white shadow-lg">
@@ -148,6 +145,9 @@ export function ScoutGame() {
 
         <div className="text-center">
           <h2 className="text-xl font-bold">Scout Master</h2>
+          <p className="mt-1 text-sm text-muted-foreground">
+            Coupe du Monde 2026
+          </p>
           <p className="mt-2 text-sm text-muted-foreground">
             {LEVELS_PER_GAME} équipes à deviner · {TIME_PER_LEVEL}s par niveau
           </p>
@@ -160,15 +160,15 @@ export function ScoutGame() {
           <ul className="space-y-1.5 text-sm text-muted-foreground">
             <li className="flex items-start gap-2">
               <span className="text-blue-500">•</span>
-              Des drapeaux de nationalité sont révélés un par un 🏴
+              Les clubs des joueurs sont affichés sur le terrain ⚽
             </li>
             <li className="flex items-start gap-2">
               <span className="text-blue-500">•</span>
-              Devine quel club de football ces joueurs représentent ⚽
+              Devine quelle équipe nationale c&apos;est ! 🏆
             </li>
             <li className="flex items-start gap-2">
               <span className="text-blue-500">•</span>
-              Moins d&apos;indices utilisés = plus de points ! 🏅
+              Moins d&apos;indices = plus de points ! 🏅
             </li>
           </ul>
         </div>
@@ -176,7 +176,7 @@ export function ScoutGame() {
         <button
           onClick={handleStartGame}
           disabled={loading}
-          className="w-full rounded-xl bg-gradient-to-r from-blue-500 to-cyan-500 px-6 py-3.5 text-base font-bold text-white shadow-lg shadow-blue-500/25 transition-all hover:-translate-y-0.5 hover:shadow-xl disabled:opacity-50"
+          className="w-full rounded-xl bg-gradient-to-r from-blue-600 to-indigo-700 px-6 py-3.5 text-base font-bold text-white shadow-lg shadow-blue-600/25 transition-all hover:-translate-y-0.5 hover:shadow-xl disabled:opacity-50"
         >
           {loading ? (
             <span className="flex items-center justify-center gap-2">
@@ -194,8 +194,8 @@ export function ScoutGame() {
   // ─── RESULT ───
   if (session.phase === "result") {
     return (
-      <div className="flex flex-col items-center space-y-6 pt-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
-        <div className="flex h-24 w-24 items-center justify-center rounded-3xl bg-gradient-to-br from-blue-500 to-cyan-500 shadow-xl shadow-blue-500/25">
+      <div className="mx-auto flex max-w-md flex-col items-center space-y-6 pt-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+        <div className="flex h-24 w-24 items-center justify-center rounded-3xl bg-gradient-to-br from-blue-600 to-indigo-700 shadow-xl shadow-blue-600/25">
           <span className="text-5xl">
             {session.score > 0 ? "🏆" : "💪"}
           </span>
@@ -214,7 +214,7 @@ export function ScoutGame() {
         <div className="flex w-full gap-3">
           <button
             onClick={handleStartGame}
-            className="flex-1 rounded-xl bg-gradient-to-r from-blue-500 to-cyan-500 px-6 py-3 font-bold text-white shadow-lg shadow-blue-500/25 transition-all hover:-translate-y-0.5 hover:shadow-xl"
+            className="flex-1 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-700 px-6 py-3 font-bold text-white shadow-lg shadow-blue-600/25 transition-all hover:-translate-y-0.5 hover:shadow-xl"
           >
             🔄 Rejouer
           </button>
@@ -232,98 +232,128 @@ export function ScoutGame() {
   // ─── PLAYING ───
   if (!currentLevel) return null;
 
-  const totalClues = currentLevel.shuffledNationalites.length;
+  const team = currentLevel.team;
+  const totalClues = team.joueurs.length;
 
   return (
-    <div className="space-y-5">
+    <div className="space-y-4">
       {/* Top bar */}
       <div className="flex items-center justify-between">
-        <span className="text-sm font-semibold text-muted-foreground">
-          Niveau {currentLevelIndex + 1}/{levels.length}
-        </span>
-
-        <div className="flex items-center gap-2">
-          <span className="text-xs text-muted-foreground">
-            {revealedCount}/{totalClues} indices
+        <div className="flex items-center gap-3">
+          <span className="text-sm font-semibold text-muted-foreground">
+            Niveau {currentLevelIndex + 1}/{levels.length}
           </span>
-          <div className="relative flex h-12 w-12 items-center justify-center">
-            <svg className="h-12 w-12 -rotate-90" viewBox="0 0 48 48">
-              <circle
-                cx="24" cy="24" r="20" fill="none" stroke="currentColor"
-                strokeWidth="3" className="text-muted/30"
-              />
-              <circle
-                cx="24" cy="24" r="20" fill="none" strokeWidth="3"
-                strokeLinecap="round"
-                strokeDasharray={`${2 * Math.PI * 20}`}
-                strokeDashoffset={`${2 * Math.PI * 20 * (1 - timer.progress)}`}
-                className={`${
-                  timer.progress > 0.5
-                    ? "stroke-blue-500"
-                    : timer.progress > 0.2
-                      ? "stroke-amber-500"
-                      : "stroke-red-500"
-                } transition-all duration-1000 ease-linear`}
-              />
-            </svg>
-            <span className={`absolute text-sm font-bold ${
-              timer.progress > 0.5
-                ? "text-blue-500"
-                : timer.progress > 0.2
-                  ? "text-amber-500"
-                  : "text-red-500"
-            }`}>
-              {timer.secondsLeft}
-            </span>
-          </div>
+          <span className="rounded-full bg-blue-500/15 px-3 py-1 text-xs font-semibold text-blue-500">
+            {team.formation}
+          </span>
+          <span className="text-xs text-muted-foreground">
+            {revealedCount}/{totalClues} clubs visibles
+          </span>
+        </div>
+
+        <div className="relative flex h-12 w-12 items-center justify-center">
+          <svg className="h-12 w-12 -rotate-90" viewBox="0 0 48 48">
+            <circle
+              cx="24" cy="24" r="20" fill="none" stroke="currentColor"
+              strokeWidth="3" className="text-muted/30"
+            />
+            <circle
+              cx="24" cy="24" r="20" fill="none" strokeWidth="3"
+              strokeLinecap="round"
+              strokeDasharray={`${2 * Math.PI * 20}`}
+              strokeDashoffset={`${2 * Math.PI * 20 * (1 - timer.progress)}`}
+              className={`${
+                timer.progress > 0.5
+                  ? "stroke-blue-500"
+                  : timer.progress > 0.2
+                    ? "stroke-amber-500"
+                    : "stroke-red-500"
+              } transition-all duration-1000 ease-linear`}
+            />
+          </svg>
+          <span className={`absolute text-sm font-bold ${
+            timer.progress > 0.5
+              ? "text-blue-500"
+              : timer.progress > 0.2
+                ? "text-amber-500"
+                : "text-red-500"
+          }`}>
+            {timer.secondsLeft}
+          </span>
         </div>
       </div>
 
-      {/* League badge */}
-      <div className="flex items-center gap-2">
-        <span className="rounded-full bg-blue-500/15 px-3 py-1 text-xs font-semibold text-blue-500">
-          {currentLevel.team.ligue}
-        </span>
-        <span className="rounded-full bg-muted px-3 py-1 text-xs font-semibold text-muted-foreground">
-          {currentLevel.team.pays}
-        </span>
-      </div>
+      {/* Football pitch with club badges */}
+      <div className="relative mx-auto aspect-[4/3] w-full overflow-hidden rounded-2xl border-2 border-indigo-600/50 bg-gradient-to-b from-indigo-900 to-indigo-950 shadow-2xl">
+        {/* Pitch lines */}
+        <div className="absolute inset-0">
+          <div className="absolute left-1/2 top-1/2 h-24 w-24 -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/10" />
+          <div className="absolute left-1/2 top-1/2 h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/15" />
+          <div className="absolute left-0 right-0 top-1/2 h-px bg-white/10" />
+          <div className="absolute left-1/2 top-0 h-[15%] w-[45%] -translate-x-1/2 border-b border-l border-r border-white/10" />
+          <div className="absolute bottom-0 left-1/2 h-[15%] w-[45%] -translate-x-1/2 border-l border-r border-t border-white/10" />
+          <div className="absolute left-1/2 top-0 h-[8%] w-[25%] -translate-x-1/2 border-b border-l border-r border-white/8" />
+          <div className="absolute bottom-0 left-1/2 h-[8%] w-[25%] -translate-x-1/2 border-l border-r border-t border-white/8" />
+        </div>
 
-      {/* Flags grid */}
-      <div className="rounded-2xl border border-border/40 bg-card/60 p-5 backdrop-blur-sm">
-        <h3 className="mb-4 text-sm font-semibold text-muted-foreground">
-          Nationalités des joueurs :
-        </h3>
-        <div className="grid grid-cols-4 gap-3">
-          {currentLevel.shuffledNationalites.map((nat, i) => (
+        {/* Players with clubs */}
+        {team.joueurs.map((joueur, index) => {
+          const isVisible = index < revealedCount;
+          const isRevealed = isCorrect !== null;
+
+          return (
             <div
-              key={i}
-              className={`flex flex-col items-center gap-1 transition-all duration-500 ${
-                i < revealedCount
+              key={index}
+              className={`absolute flex flex-col items-center transition-all duration-700 ${
+                isVisible || isRevealed
                   ? "scale-100 opacity-100"
-                  : "scale-75 opacity-20"
+                  : "scale-50 opacity-0"
               }`}
+              style={{
+                left: `${joueur.posX}%`,
+                top: `${joueur.posY}%`,
+                transform: "translate(-50%, -50%)",
+              }}
             >
-              <span className="text-3xl">
-                {i < revealedCount ? countryToFlag(nat) : "❓"}
-              </span>
-              {i < revealedCount && (
-                <span className="text-[10px] text-muted-foreground text-center leading-tight">
-                  {nat}
+              {/* Club badge */}
+              <div
+                className={`flex items-center justify-center rounded-lg px-2 py-1.5 text-center shadow-lg transition-all ${
+                  isVisible || isRevealed
+                    ? "bg-white/95 shadow-black/20"
+                    : "bg-white/20"
+                }`}
+              >
+                <span className="text-[10px] font-bold leading-tight text-indigo-950 sm:text-xs">
+                  {isVisible || isRevealed ? joueur.club : "?"}
+                </span>
+              </div>
+              {/* Player name (shown on reveal) */}
+              {isRevealed && (
+                <span className="mt-0.5 text-[9px] font-medium text-white/70 sm:text-[10px]">
+                  {joueur.nom}
                 </span>
               )}
             </div>
-          ))}
-        </div>
+          );
+        })}
+
+        {/* Mystery overlay when not all revealed */}
+        {isCorrect === null && revealedCount < totalClues && (
+          <div className="absolute bottom-3 left-1/2 -translate-x-1/2">
+            <span className="rounded-full bg-black/40 px-3 py-1 text-xs font-medium text-white/80 backdrop-blur-sm">
+              🔍 Quelle sélection nationale ?
+            </span>
+          </div>
+        )}
       </div>
 
       {/* Reveal more button */}
       {isCorrect === null && revealedCount < totalClues && (
         <button
-          onClick={handleRevealNext}
-          className="w-full rounded-xl border border-blue-500/30 bg-blue-500/10 px-4 py-2.5 text-sm font-semibold text-blue-500 transition-all hover:bg-blue-500/20"
+          onClick={handleRevealMore}
+          className="w-full rounded-xl border border-blue-500/30 bg-blue-500/10 px-4 py-2.5 text-sm font-semibold text-blue-400 transition-all hover:bg-blue-500/20"
         >
-          🔍 Révéler un indice de plus ({revealedCount}/{totalClues})
+          🔍 Révéler plus de clubs ({revealedCount}/{totalClues})
         </button>
       )}
 
@@ -339,11 +369,10 @@ export function ScoutGame() {
               setShowSuggestions(true);
             }}
             onFocus={() => setShowSuggestions(true)}
-            placeholder="Quel club est-ce ? Tape ton guess..."
+            placeholder="Quelle sélection nationale ? Tape le pays..."
             className="w-full rounded-xl border border-border/40 bg-card/60 px-4 py-3 text-sm backdrop-blur-sm transition-all focus:border-blue-500/50 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
           />
 
-          {/* Suggestions dropdown */}
           {showSuggestions && filteredSuggestions.length > 0 && (
             <div className="absolute left-0 right-0 top-full z-10 mt-1 max-h-48 overflow-y-auto rounded-xl border border-border/40 bg-card shadow-xl backdrop-blur-sm">
               {filteredSuggestions.map((name) => (
@@ -369,17 +398,12 @@ export function ScoutGame() {
               : "bg-red-500/15 text-red-500"
           }`}
         >
-          <div className="text-2xl">{currentLevel.team.logoEmoji}</div>
+          <div className="text-2xl">{currentLevel.team.drapeau}</div>
           <div className="mt-1 text-sm font-bold">
             {isCorrect
-              ? `✅ Bravo ! C'est bien ${currentLevel.team.nom} !`
-              : `❌ C'était ${currentLevel.team.nom}`}
+              ? `✅ Bravo ! C'est bien ${currentLevel.team.pays} !`
+              : `❌ C'était ${currentLevel.team.pays} ${currentLevel.team.drapeau}`}
           </div>
-          {isCorrect && (
-            <div className="mt-0.5 text-xs opacity-80">
-              Deviné avec {revealedCount} indice{revealedCount > 1 ? "s" : ""}
-            </div>
-          )}
         </div>
       )}
 

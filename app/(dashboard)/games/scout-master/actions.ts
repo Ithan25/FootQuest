@@ -7,28 +7,18 @@ import type { ScoutTeamData } from "@/lib/scout-data";
 export interface ScoutLevel {
   index: number;
   team: ScoutTeamData;
-  /** Nationalities shuffled (order of clues revealed) */
-  shuffledNationalites: string[];
 }
 
 /**
- * Get a set of Scout Master levels (teams to guess).
- * Levels are ordered by implicit difficulty (more generic nationalities first).
+ * Get Scout Master levels (national teams to guess).
  */
 export async function getScoutLevels(count: number = 5): Promise<ScoutLevel[]> {
   const teams = getRandomScoutTeams(count);
-
-  return teams.map((team, index) => ({
-    index,
-    team,
-    shuffledNationalites: [...team.joueurNationalites].sort(
-      () => Math.random() - 0.5
-    ),
-  }));
+  return teams.map((team, index) => ({ index, team }));
 }
 
 /**
- * Get team names for autocomplete.
+ * Get country names for autocomplete.
  */
 export async function getTeamNames(): Promise<string[]> {
   return getAllTeamNames();

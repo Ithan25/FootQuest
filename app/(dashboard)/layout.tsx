@@ -15,7 +15,7 @@ export default function DashboardLayout({
 
       <DashboardHeader />
 
-      <main className="mx-auto max-w-lg px-4 pb-24 pt-6">{children}</main>
+      <main className="mx-auto max-w-3xl px-4 pb-24 pt-6 sm:px-8">{children}</main>
 
       <BottomNav />
     </div>
