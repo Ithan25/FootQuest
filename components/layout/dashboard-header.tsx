@@ -1,48 +1,51 @@
 "use client";
 
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
+import { useEffect, useState } from "react";
+import { createClient } from "@/lib/supabase/client";
 
-interface DashboardHeaderProps {
-  pseudo?: string;
-  footPoints?: number;
-  role?: "basic" | "golden_ball";
-}
+export function DashboardHeader() {
+  const [footPoints, setFootPoints] = useState<number | null>(null);
 
-export function DashboardHeader({
-  pseudo = "Joueur",
-  footPoints = 0,
-  role = "basic",
-}: DashboardHeaderProps) {
+  useEffect(() => {
+    const supabase = createClient();
+    supabase.auth.getUser().then(async ({ data: { user } }) => {
+      if (!user) return;
+      const { data } = await supabase
+        .from("utilisateur")
+        .select("foot_points")
+        .eq("id", user.id)
+        .single();
+      if (data) setFootPoints(data.foot_points ?? 0);
+    });
+  }, []);
+
   return (
-    <header className="sticky top-0 z-40 border-b border-border/40 bg-background/80 backdrop-blur-xl">
-      <div className="mx-auto flex max-w-lg items-center justify-between px-4 py-3">
-        {/* Logo + branding */}
-        <Link href="/hub" className="flex items-center gap-2.5">
-          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-500 to-emerald-700 shadow-md shadow-emerald-500/20">
-            <span className="text-lg">⚽</span>
+    <header className="sticky top-0 z-40 border-b border-emerald-500/10 bg-[#0a0f1a]/90 backdrop-blur-xl">
+      <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-3">
+        {/* Logo */}
+        <Link href="/hub" className="group flex items-center gap-3">
+          <div className="relative flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-400 to-emerald-600 shadow-lg shadow-emerald-500/30 transition-transform group-hover:scale-105">
+            <span className="text-xl">⚽</span>
+            <div className="absolute inset-0 rounded-xl bg-white/10 opacity-0 transition-opacity group-hover:opacity-100" />
           </div>
-          <span className="text-lg font-bold tracking-tight">
-            Foot<span className="text-emerald-500">Quest</span>
+          <span className="text-xl font-black tracking-tight text-white">
+            Foot<span className="bg-gradient-to-r from-emerald-400 to-emerald-300 bg-clip-text text-transparent">Quest</span>
           </span>
         </Link>
 
-        {/* FootPoints + Role badge */}
+        {/* Points + badges */}
         <div className="flex items-center gap-3">
-          {/* FootPoints pill */}
-          <div className="flex items-center gap-1.5 rounded-full border border-amber-500/30 bg-amber-500/10 px-3 py-1.5">
-            <span className="text-sm">🏅</span>
-            <span className="text-sm font-semibold text-amber-500">
-              {footPoints.toLocaleString("fr-FR")}
-            </span>
-          </div>
-
-          {/* Premium badge */}
-          {role === "golden_ball" && (
-            <div className="flex items-center gap-1 rounded-full bg-gradient-to-r from-amber-500 to-yellow-400 px-2.5 py-1 text-xs font-bold text-black shadow-md shadow-amber-500/25">
-              ⭐ Premium
+          {/* Animated FootPoints */}
+          <div className="flex items-center gap-2 rounded-full border border-amber-500/20 bg-gradient-to-r from-amber-500/10 to-amber-600/5 px-4 py-2 shadow-inner">
+            <div className="relative flex h-5 w-5 items-center justify-center">
+              <span className="text-sm">💰</span>
             </div>
-          )}
+            <span className="text-sm font-bold tabular-nums text-amber-400">
+              {footPoints !== null ? footPoints.toLocaleString("fr-FR") : "..."}
+            </span>
+            <span className="hidden text-[10px] font-medium uppercase tracking-wider text-amber-500/60 sm:inline">FP</span>
+          </div>
         </div>
       </div>
     </header>

@@ -14,6 +14,11 @@ const navItems = [
         <polyline points="9 22 9 12 15 12 15 22" />
       </svg>
     ),
+    activeIcon: (
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-5 w-5">
+        <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+      </svg>
+    ),
   },
   {
     href: "/leaderboard",
@@ -56,8 +61,8 @@ export function BottomNav() {
   const pathname = usePathname();
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-50 border-t border-border/40 bg-background/80 backdrop-blur-xl">
-      <div className="mx-auto flex max-w-lg items-center justify-around py-2">
+    <nav className="fixed bottom-0 left-0 right-0 z-50 border-t border-white/5 bg-[#0a0f1a]/95 backdrop-blur-xl">
+      <div className="mx-auto flex max-w-5xl items-center justify-around py-1">
         {navItems.map((item) => {
           const isActive =
             pathname === item.href ||
@@ -68,30 +73,24 @@ export function BottomNav() {
               key={item.href}
               href={item.href}
               className={cn(
-                "flex flex-col items-center gap-0.5 rounded-xl px-4 py-1.5 text-xs font-medium transition-all",
+                "relative flex flex-col items-center gap-1 rounded-2xl px-5 py-2 text-[11px] font-semibold transition-all",
                 isActive
-                  ? "text-emerald-500"
-                  : "text-muted-foreground hover:text-foreground"
+                  ? "text-emerald-400"
+                  : "text-white/40 hover:text-white/70"
               )}
             >
-              <div
-                className={cn(
-                  "relative rounded-lg p-1 transition-all",
-                  isActive && "bg-emerald-500/10"
-                )}
-              >
-                {item.icon}
-                {isActive && (
-                  <div className="absolute -bottom-1 left-1/2 h-1 w-1 -translate-x-1/2 rounded-full bg-emerald-500" />
-                )}
+              {/* Active glow */}
+              {isActive && (
+                <div className="absolute -top-px left-1/2 h-[2px] w-8 -translate-x-1/2 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.6)]" />
+              )}
+              <div className={cn("transition-transform", isActive && "scale-110")}>
+                {"activeIcon" in item && isActive ? item.activeIcon : item.icon}
               </div>
               <span>{item.label}</span>
             </Link>
           );
         })}
       </div>
-
-      {/* Safe area for iOS */}
       <div className="h-[env(safe-area-inset-bottom)]" />
     </nav>
   );

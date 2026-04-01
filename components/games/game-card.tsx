@@ -23,64 +23,46 @@ export function GameCard({
   const content = (
     <div
       className={cn(
-        "group relative overflow-hidden rounded-2xl border border-border/40 bg-card/60 p-5 backdrop-blur-sm transition-all duration-300",
-        !disabled && "hover:-translate-y-1 hover:shadow-xl cursor-pointer",
-        disabled && "opacity-50 cursor-not-allowed"
+        "group relative overflow-hidden rounded-2xl border border-white/[0.06] bg-white/[0.03] transition-all duration-300",
+        !disabled && "hover:-translate-y-1.5 hover:border-white/10 hover:shadow-2xl cursor-pointer",
+        disabled && "opacity-40 cursor-not-allowed"
       )}
     >
-      {/* Background gradient overlay */}
-      <div
-        className={cn(
-          "absolute inset-0 opacity-[0.06] transition-opacity duration-300",
-          !disabled && "group-hover:opacity-[0.12]",
-          gradient
-        )}
-      />
+      {/* Top gradient banner */}
+      <div className={cn("relative h-28 overflow-hidden sm:h-32", gradient)}>
+        {/* Animated circles in background */}
+        <div className="absolute -right-4 -top-4 h-20 w-20 rounded-full bg-white/10 transition-transform duration-500 group-hover:scale-150" />
+        <div className="absolute -bottom-6 -left-6 h-28 w-28 rounded-full bg-black/10" />
 
-      {/* Content */}
-      <div className="relative flex items-center gap-4">
-        {/* Icon */}
-        <div
-          className={cn(
-            "flex h-14 w-14 shrink-0 items-center justify-center rounded-xl shadow-lg transition-transform duration-300",
-            gradient,
-            shadowColor,
-            !disabled && "group-hover:scale-110"
-          )}
-        >
-          <span className="text-2xl">{icon}</span>
+        {/* Icon centered */}
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className={cn(
+            "flex h-16 w-16 items-center justify-center rounded-2xl bg-white/20 text-3xl shadow-lg backdrop-blur-sm transition-all duration-300 sm:h-18 sm:w-18 sm:text-4xl",
+            !disabled && "group-hover:scale-110 group-hover:rotate-3 group-hover:bg-white/25"
+          )}>
+            {icon}
+          </div>
         </div>
 
-        {/* Text */}
-        <div className="min-w-0 flex-1">
-          <h3 className="text-base font-bold tracking-tight">{title}</h3>
-          <p className="mt-0.5 text-sm text-muted-foreground line-clamp-2">
-            {description}
-          </p>
-        </div>
-
-        {/* Arrow */}
+        {/* Play button overlay */}
         {!disabled && (
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="h-5 w-5 shrink-0 text-muted-foreground transition-transform duration-300 group-hover:translate-x-1 group-hover:text-foreground"
-          >
-            <path d="m9 18 6-6-6-6" />
-          </svg>
+          <div className="absolute bottom-2 right-2 flex h-8 w-8 items-center justify-center rounded-full bg-white/20 text-white opacity-0 backdrop-blur-sm transition-all duration-300 group-hover:opacity-100">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4">
+              <polygon points="5 3 19 12 5 21" />
+            </svg>
+          </div>
         )}
+      </div>
+
+      {/* Info section */}
+      <div className="p-4">
+        <h3 className="text-base font-bold tracking-tight text-white sm:text-lg">{title}</h3>
+        <p className="mt-1 text-xs text-white/50 line-clamp-2 sm:text-sm">{description}</p>
       </div>
     </div>
   );
 
-  if (disabled) {
-    return content;
-  }
+  if (disabled) return content;
 
   return (
     <Link href={href} className="block">
