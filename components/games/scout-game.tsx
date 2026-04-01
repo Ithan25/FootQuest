@@ -285,7 +285,7 @@ export function ScoutGame() {
       </div>
 
       {/* Football pitch with club badges */}
-      <div className="relative mx-auto aspect-[4/3] w-full overflow-hidden rounded-2xl border-2 border-indigo-600/50 bg-gradient-to-b from-indigo-900 to-indigo-950 shadow-2xl">
+      <div className="relative mx-auto aspect-[3/4] w-full max-w-sm overflow-hidden rounded-2xl border-2 border-indigo-600/50 bg-gradient-to-b from-indigo-900 to-indigo-950 shadow-2xl">
         {/* Pitch lines */}
         <div className="absolute inset-0">
           <div className="absolute left-1/2 top-1/2 h-24 w-24 -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/10" />
