@@ -59,7 +59,8 @@ export default function SignupPage() {
       if (error.message.includes("already registered")) {
         setError("Cet email est déjà utilisé.");
       } else {
-        setError("Erreur lors de l'inscription. Réessaie.");
+        setError(`Erreur: ${error.message}`);
+        console.error("Signup error:", error);
       }
       setLoading(false);
       return;
