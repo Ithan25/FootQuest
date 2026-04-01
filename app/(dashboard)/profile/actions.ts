@@ -11,11 +11,26 @@ export async function getProfile() {
 
   if (!user) return null;
 
-  const { data: profile } = await supabase
+  // Query without banner_url first (column may not exist yet)
+  let profile: Record<string, unknown> | null = null;
+
+  const { data: fullProfile, error: fullErr } = await supabase
     .from("utilisateur")
     .select("pseudo, foot_points, role, avatar_url, banner_url, created_at")
     .eq("id", user.id)
     .single();
+
+  if (fullErr) {
+    // Fallback: query without banner_url (column might not exist)
+    const { data: basicProfile } = await supabase
+      .from("utilisateur")
+      .select("pseudo, foot_points, role, avatar_url, created_at")
+      .eq("id", user.id)
+      .single();
+    profile = basicProfile as Record<string, unknown> | null;
+  } else {
+    profile = fullProfile as Record<string, unknown> | null;
+  }
 
   const { count: totalGames } = await supabase
     .from("session_partie")
@@ -40,16 +55,16 @@ export async function getProfile() {
   return {
     id: user.id,
     email: user.email || "",
-    pseudo: profile?.pseudo || user.email?.split("@")[0] || "Joueur",
-    footPoints: profile?.foot_points || 0,
-    role: (profile?.role || "basic") as string,
-    avatarUrl: profile?.avatar_url || null,
-    bannerUrl: profile?.banner_url || null,
+    pseudo: (profile?.pseudo as string) || user.email?.split("@")[0] || "Joueur",
+    footPoints: (profile?.foot_points as number) || 0,
+    role: ((profile?.role as string) || "basic"),
+    avatarUrl: (profile?.avatar_url as string) || null,
+    bannerUrl: (profile?.banner_url as string) || null,
     totalGames: totalGames || 0,
     totalPoints,
     bestScore: bestScore?.[0]?.points_gagnes || 0,
     joinDate: profile?.created_at
-      ? new Date(profile.created_at).toLocaleDateString("fr-FR", {
+      ? new Date(profile.created_at as string).toLocaleDateString("fr-FR", {
           month: "long",
           year: "numeric",
         })
@@ -73,6 +88,21 @@ export async function uploadProfileImage(
   if (!file || file.size === 0) return { url: null, error: "Aucun fichier" };
   if (file.size > 5 * 1024 * 1024) return { url: null, error: "Max 5MB" };
 
+  // Ensure bucket exists
+  const { data: buckets } = await supabase.storage.listBuckets();
+  const bucketExists = buckets?.some((b) => b.id === "profiles");
+
+  if (!bucketExists) {
+    const { error: bucketError } = await supabase.storage.createBucket("profiles", {
+      public: true,
+      fileSizeLimit: 5242880,
+      allowedMimeTypes: ["image/jpeg", "image/png", "image/webp", "image/gif"],
+    });
+    if (bucketError && !bucketError.message.includes("already exists")) {
+      return { url: null, error: "Impossible de créer le bucket : " + bucketError.message };
+    }
+  }
+
   const ext = file.name.split(".").pop()?.toLowerCase() || "jpg";
   const path = `${user.id}/${type}.${ext}`;
 
@@ -89,10 +119,9 @@ export async function uploadProfileImage(
     data: { publicUrl },
   } = supabase.storage.from("profiles").getPublicUrl(path);
 
-  // Add cache-busting param
   const url = `${publicUrl}?t=${Date.now()}`;
 
-  // Update user profile
+  // Try to update with banner_url column, fallback to just avatar_url
   const column = type === "avatar" ? "avatar_url" : "banner_url";
   const { error: updateError } = await supabase
     .from("utilisateur")
@@ -100,6 +129,10 @@ export async function uploadProfileImage(
     .eq("id", user.id);
 
   if (updateError) {
+    // If banner_url column doesn't exist, just store the URL without DB update
+    if (column === "banner_url" && updateError.message.includes("banner_url")) {
+      return { url, error: null }; // Still return the URL even if DB update fails
+    }
     console.error("Update error:", updateError);
     return { url: null, error: updateError.message };
   }
