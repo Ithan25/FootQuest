@@ -324,13 +324,14 @@ export function ScoutGame() {
             >
               {/* Club badge */}
               <div
-                className={`flex items-center justify-center rounded-lg px-2 py-1.5 text-center shadow-lg transition-all ${
+                className={`flex items-center justify-center rounded-md px-1.5 py-1 text-center shadow-md transition-all sm:max-w-[80px] z-10 ${
                   isVisible || isRevealed
-                    ? "bg-white/95 shadow-black/20"
+                    ? "bg-white/95 shadow-black/20 hover:scale-150 hover:z-50"
                     : "bg-white/20"
                 }`}
+                style={{ maxWidth: '78px' }}
               >
-                <span className="text-[10px] font-bold leading-tight text-indigo-950 sm:text-xs">
+                <span className="text-[8px] font-bold leading-[1.1] tracking-tighter text-indigo-950 sm:text-[9px] break-words">
                   {isVisible || isRevealed ? joueur.club : "?"}
                 </span>
               </div>
