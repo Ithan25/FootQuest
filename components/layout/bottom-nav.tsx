@@ -36,7 +36,7 @@ export function BottomNav() {
   const pathname = usePathname();
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-50 border-t border-slate-200 dark:border-white/[0.06] bg-slate-50/95 dark:bg-[#080c15]/95 backdrop-blur-xl transition-colors duration-500">
+    <nav className="fixed bottom-0 left-0 right-0 z-50 border-t border-slate-200 dark:border-white/[0.06] bg-slate-50/95 dark:bg-[#080c15]/95 backdrop-blur-xl transition-colors duration-700 ease-in-out">
       <div className="mx-auto flex max-w-5xl items-center justify-around py-1">
         {navItems.map((item) => {
           const isActive =
@@ -48,7 +48,7 @@ export function BottomNav() {
               key={item.href}
               href={item.href}
               className={cn(
-                "relative flex flex-col items-center gap-1 rounded-2xl px-5 py-2 text-[11px] font-semibold transition-colors duration-500",
+                "relative flex flex-col items-center gap-1 rounded-2xl px-5 py-2 text-[11px] font-semibold transition-colors duration-700 ease-in-out",
                 isActive
                   ? "text-emerald-500 dark:text-emerald-400"
                   : "text-slate-400 hover:text-slate-800 dark:text-white/40 dark:hover:text-white/70"

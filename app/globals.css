@@ -121,7 +121,7 @@
     @apply border-border outline-ring/50;
     }
   body {
-    @apply bg-background text-foreground transition-colors duration-500;
+    @apply bg-background text-foreground transition-colors duration-700 ease-in-out;
     }
   html {
     @apply font-sans;
