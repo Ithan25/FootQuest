@@ -176,9 +176,9 @@ export function ProfileClient({ initialProfile }: { initialProfile: ProfileData 
         <form action="/auth/signout" method="POST">
           <button
             type="submit"
-            className="w-full rounded-xl border border-red-500/20 bg-red-500/10 px-6 py-3 text-sm font-semibold text-red-400 transition-all hover:bg-red-500/20"
+            className="flex w-full items-center justify-center gap-2 rounded-xl border border-red-500/20 bg-red-500/10 px-6 py-3 text-sm font-semibold text-red-400 transition-all hover:bg-red-500/20"
           >
-            <LogOut className="h-4 w-4 mr-1.5" /> Se déconnecter
+            <LogOut className="h-4 w-4" /> Se déconnecter
           </button>
         </form>
       </section>
