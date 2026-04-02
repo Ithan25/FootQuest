@@ -20,7 +20,10 @@ export interface MissingPieceTeamData {
   joueurManquantIndex: number;
 }
 
-export const MISSING_PIECE_TEAMS: MissingPieceTeamData[] = [
+import { MISSING_PIECE_EXPANSION_1 } from "./missing-expansion1";
+import { MISSING_PIECE_EXPANSION_2 } from "./missing-expansion2";
+
+const BASE_TEAMS: MissingPieceTeamData[] = [
   {
     pays: "France",
     drapeau: "🇫🇷",
@@ -213,6 +216,12 @@ export const MISSING_PIECE_TEAMS: MissingPieceTeamData[] = [
   },
 ];
 
+export const MISSING_PIECE_TEAMS: MissingPieceTeamData[] = [
+  ...BASE_TEAMS,
+  ...MISSING_PIECE_EXPANSION_1,
+  ...MISSING_PIECE_EXPANSION_2,
+];
+
 /**
  * Get all player names from all teams (for autocomplete).
  */
@@ -230,5 +239,10 @@ export function getAllPlayerNames(): string[] {
  * Get random Missing Piece levels.
  */
 export function getRandomMissingPieceLevels(count: number): MissingPieceTeamData[] {
-  return [...MISSING_PIECE_TEAMS].sort(() => Math.random() - 0.5).slice(0, count);
+  const selected = [...MISSING_PIECE_TEAMS].sort(() => Math.random() - 0.5).slice(0, count);
+  return selected.map(team => ({
+    ...team,
+    // Pick a completely random missing player for infinite replayability
+    joueurManquantIndex: Math.floor(Math.random() * team.joueurs.length)
+  }));
 }
