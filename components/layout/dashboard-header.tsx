@@ -1,11 +1,12 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 
 import { ThemeToggle } from "@/components/theme-toggle";
-import { Trophy, Coins } from "lucide-react";
+import { Coins } from "lucide-react";
 
 export function DashboardHeader() {
   const [footPoints, setFootPoints] = useState<number | null>(null);
@@ -28,9 +29,8 @@ export function DashboardHeader() {
       <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-3">
         {/* Logo */}
         <Link href="/hub" className="group flex items-center gap-3">
-          <div className="relative flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-400 to-emerald-600 shadow-lg shadow-emerald-500/30 transition-transform group-hover:scale-105">
-            <Trophy className="h-5 w-5 text-white drop-shadow-md" />
-            <div className="absolute inset-0 rounded-xl bg-white/10 opacity-0 transition-opacity group-hover:opacity-100" />
+          <div className="relative flex h-10 w-10 items-center justify-center transition-transform group-hover:scale-105">
+            <Image src="/images/Logo.svg" alt="FootQuest Logo" width={40} height={40} className="drop-shadow-md" />
           </div>
           <span className="text-xl font-black tracking-tight text-slate-900 dark:text-white">
             Foot<span className="bg-gradient-to-r from-emerald-400 to-emerald-300 bg-clip-text text-transparent">Quest</span>

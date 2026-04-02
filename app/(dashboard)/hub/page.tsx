@@ -8,7 +8,7 @@ const games = [
     title: "Scout Master",
     description:
       "Devine la sélection nationale à partir des clubs de ses joueurs.",
-    icon: <Search className="h-6 w-6 text-blue-500" />,
+    imageSrc: "/images/ScoutMaster.svg",
     href: "/games/scout-master",
     gradient: "bg-gradient-to-br from-blue-600 to-indigo-700",
     shadowColor: "shadow-blue-600/25",
@@ -17,7 +17,7 @@ const games = [
     title: "The Missing Piece",
     description:
       "Une compo nationale, un joueur manquant. Retrouve la pièce !",
-    icon: <Puzzle className="h-6 w-6 text-purple-500" />,
+    imageSrc: "/images/TheMissingPiece.svg",
     href: "/games/missing-piece",
     gradient: "bg-gradient-to-br from-purple-600 to-fuchsia-600",
     shadowColor: "shadow-purple-500/25",
@@ -26,7 +26,7 @@ const games = [
     title: "Foot Trivia",
     description:
       "Quiz Coupe du Monde avec timer ! Teste ta culture foot.",
-    icon: <HelpCircle className="h-6 w-6 text-amber-500" />,
+    imageSrc: "/images/FootTrivia.svg",
     href: "/games/foot-trivia",
     gradient: "bg-gradient-to-br from-amber-500 to-orange-600",
     shadowColor: "shadow-amber-500/25",

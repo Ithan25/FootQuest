@@ -1,10 +1,12 @@
+import Image from "next/image";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 
 interface GameCardProps {
   title: string;
   description: string;
-  icon: string;
+  icon?: React.ReactNode;
+  imageSrc?: string;
   href: string;
   gradient: string;
   shadowColor: string;
@@ -15,6 +17,7 @@ export function GameCard({
   title,
   description,
   icon,
+  imageSrc,
   href,
   gradient,
   shadowColor,
@@ -40,7 +43,11 @@ export function GameCard({
             "flex h-16 w-16 items-center justify-center rounded-2xl bg-white/20 text-3xl shadow-lg backdrop-blur-sm transition-all duration-300 sm:h-18 sm:w-18 sm:text-4xl",
             !disabled && "group-hover:scale-110 group-hover:rotate-3 group-hover:bg-white/25"
           )}>
-            {icon}
+            {imageSrc ? (
+              <Image src={imageSrc} alt={`${title} logo`} width={48} height={48} className="object-contain" />
+            ) : (
+              icon
+            )}
           </div>
         </div>
 
