@@ -24,6 +24,13 @@ export function ProfileClient({ initialProfile }: { initialProfile: ProfileData 
   const bannerInputRef = useRef<HTMLInputElement>(null);
 
   const handleUpload = async (file: File, type: "avatar" | "banner") => {
+    // Next.js server actions have a 1MB limit by default.
+    // Enforcing 1MB on client side with a clear error message.
+    if (file.size > 1 * 1024 * 1024) {
+      alert("📸 L'image est trop volumineuse. La taille maximum autorisée est de 1 Mo.");
+      return;
+    }
+
     setUploading(type);
     const formData = new FormData();
     formData.append("file", file);

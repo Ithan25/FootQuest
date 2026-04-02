@@ -58,12 +58,27 @@ async function getUserStats() {
       .eq("utilisateur_id", user.id)
       .gte("created_at", today.toISOString());
 
-    const { data: recentGames } = await supabase
+    const { data: recentGamesData } = await supabase
       .from("session_partie")
-      .select("jeu_id, points_gagnes, created_at")
+      .select(`
+        points_gagnes,
+        created_at,
+        jeu (
+          nom,
+          icone,
+          type
+        )
+      `)
       .eq("utilisateur_id", user.id)
       .order("created_at", { ascending: false })
       .limit(3);
+
+    const recentGames = recentGamesData?.map((session: any) => ({
+      gameName: session.jeu?.nom || "Jeu Inconnu",
+      gameIcon: session.jeu?.icone || "🎮",
+      points_gagnes: session.points_gagnes,
+      created_at: session.created_at,
+    })) || [];
 
     return {
       pseudo: profile?.pseudo || user.email?.split("@")[0] || "Joueur",
@@ -157,21 +172,16 @@ export default async function HubPage() {
 }
 
 function RecentGameCard({
-  jeu_id,
+  gameName,
+  gameIcon,
   points_gagnes,
   created_at,
 }: {
-  jeu_id: string;
+  gameName: string;
+  gameIcon: string;
   points_gagnes: number;
   created_at: string;
 }) {
-  const gameDetails: Record<string, { name: string; icon: string }> = {
-    scout_master: { name: "Scout Master", icon: "🔍" },
-    missing_piece: { name: "The Missing Piece", icon: "🧩" },
-    foot_trivia: { name: "Foot Trivia", icon: "❓" },
-  };
-
-  const game = gameDetails[jeu_id] || { name: jeu_id, icon: "🎮" };
   const timeInfo = new Date(created_at).toLocaleDateString("fr-FR", {
     day: "numeric",
     month: "short",
@@ -183,10 +193,10 @@ function RecentGameCard({
     <div className="flex items-center justify-between rounded-xl border border-white/[0.06] bg-white/[0.03] px-4 py-3 transition-colors hover:border-white/10 hover:bg-white/[0.06]">
       <div className="flex items-center gap-3">
         <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-white/5 text-lg">
-          {game.icon}
+          {gameIcon}
         </div>
         <div>
-          <p className="text-sm font-bold text-white">{game.name}</p>
+          <p className="text-sm font-bold text-white">{gameName}</p>
           <p className="text-[11px] text-white/40">{timeInfo}</p>
         </div>
       </div>
