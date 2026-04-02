@@ -3,6 +3,7 @@
 import { useState, useCallback, useEffect, useRef } from "react";
 import { Flag } from "@/components/ui/flag";
 import { useTimer } from "@/hooks/use-timer";
+import { Puzzle, Shield, Trophy, Timer, Medal, CheckCircle2, XCircle, Users, Gamepad2, Zap, Target } from "lucide-react";
 import { useGameSession } from "@/hooks/use-game-session";
 import { POINTS_CONFIG } from "@/lib/constants";
 import type { MissingPieceLevel } from "@/app/(dashboard)/games/missing-piece/actions";
@@ -133,7 +134,7 @@ export function MissingGame() {
       <div className="flex flex-col items-center space-y-6 pt-8">
         <div className="relative">
           <div className="flex h-28 w-28 items-center justify-center rounded-3xl bg-gradient-to-br from-purple-500 to-pink-500 shadow-xl shadow-purple-500/25">
-            <span className="text-5xl">🧩</span>
+            <Puzzle className="h-12 w-12 text-white drop-shadow-md" />
           </div>
           <div className="absolute -right-2 -top-2 flex h-8 w-8 items-center justify-center rounded-full bg-emerald-500 text-xs font-bold text-white shadow-lg">
             {LEVELS_PER_GAME}
@@ -154,15 +155,15 @@ export function MissingGame() {
           <ul className="space-y-1.5 text-sm text-muted-foreground">
             <li className="flex items-start gap-2">
               <span className="text-purple-500">•</span>
-              Une composition d&apos;équipe est affichée sur le terrain ⚽
+              Une composition d&apos;équipe est affichée sur le terrain <Users className="inline h-4 w-4 ml-1" />
             </li>
             <li className="flex items-start gap-2">
               <span className="text-purple-500">•</span>
-              Un joueur est manquant — retrouve la pièce manquante ! 🧩
+              Un joueur est manquant — retrouve la pièce manquante ! <Puzzle className="inline h-4 w-4 ml-1" />
             </li>
             <li className="flex items-start gap-2">
               <span className="text-purple-500">•</span>
-              Réponds vite pour gagner plus de points ! ⏱️
+              Réponds vite pour gagner plus de points ! <Timer className="inline h-4 w-4 ml-1" />
             </li>
           </ul>
         </div>
@@ -178,7 +179,7 @@ export function MissingGame() {
               Chargement...
             </span>
           ) : (
-            "🎮 Jouer"
+            <span className="flex items-center justify-center gap-2"><Gamepad2 className="h-5 w-5" /> Jouer</span>
           )}
         </button>
       </div>
@@ -190,9 +191,7 @@ export function MissingGame() {
     return (
       <div className="flex flex-col items-center space-y-6 pt-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
         <div className="flex h-24 w-24 items-center justify-center rounded-3xl bg-gradient-to-br from-purple-500 to-pink-500 shadow-xl shadow-purple-500/25">
-          <span className="text-5xl">
-            {session.score > 0 ? "🏆" : "💪"}
-          </span>
+          {session.score > 0 ? <Trophy className="h-10 w-10 text-white" /> : <Zap className="h-10 w-10 text-white" />}
         </div>
 
         <div className="text-center">
@@ -203,17 +202,17 @@ export function MissingGame() {
           <StatBox
             label="Niveaux"
             value={`${session.currentLevel}/${LEVELS_PER_GAME}`}
-            icon="🎯"
+            icon={<Target className="h-6 w-6 text-purple-400" />}
           />
           <StatBox
             label="Points"
             value={`+${session.pointsEarned}`}
-            icon="🏅"
+            icon={<Medal className="h-6 w-6 text-amber-400" />}
           />
           <StatBox
             label="Temps"
             value={`${session.durationSeconds}s`}
-            icon="⏱️"
+            icon={<Timer className="h-6 w-6 text-emerald-400" />}
           />
         </div>
 
@@ -416,8 +415,8 @@ export function MissingGame() {
         >
           <div className="text-sm font-bold">
             {isCorrect
-              ? `✅ Bravo ! C'est bien ${missingPlayer.prenom} ${missingPlayer.nom} !`
-              : `❌ C'était ${missingPlayer.prenom} ${missingPlayer.nom}`}
+              ? <span className="flex justify-center items-center gap-1.5"><CheckCircle2 className="h-4 w-4" /> Bravo ! C'est bien {missingPlayer.prenom} {missingPlayer.nom} !</span>
+              : <span className="flex justify-center items-center gap-1.5"><XCircle className="h-4 w-4" /> C'était {missingPlayer.prenom} {missingPlayer.nom}</span>}
           </div>
         </div>
       )}
@@ -425,8 +424,8 @@ export function MissingGame() {
       {/* Score */}
       <div className="flex items-center justify-between rounded-xl border border-border/40 bg-card/60 px-4 py-2.5 backdrop-blur-sm">
         <span className="text-xs text-muted-foreground">Score actuel</span>
-        <span className="font-bold text-purple-500">
-          🏅 {session.pointsEarned} pts
+        <span className="flex items-center gap-1.5 font-bold text-purple-500">
+          <Medal className="h-4 w-4" /> {session.pointsEarned} pts
         </span>
       </div>
     </div>
@@ -440,11 +439,11 @@ function StatBox({
 }: {
   label: string;
   value: string;
-  icon: string;
+  icon: React.ReactNode;
 }) {
   return (
     <div className="flex flex-col items-center rounded-xl border border-border/40 bg-card/60 p-3 backdrop-blur-sm">
-      <span className="text-lg">{icon}</span>
+      <div className="flex justify-center">{icon}</div>
       <span className="mt-1 text-lg font-bold">{value}</span>
       <span className="text-[11px] text-muted-foreground">{label}</span>
     </div>

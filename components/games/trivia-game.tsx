@@ -2,6 +2,7 @@
 
 import { useState, useCallback, useEffect } from "react";
 import { useTimer } from "@/hooks/use-timer";
+import { HelpCircle, Flame, Trophy, ThumbsUp, Medal, Timer, Target, Zap, CheckCircle2, XCircle, Gamepad2 } from "lucide-react";
 import { useGameSession } from "@/hooks/use-game-session";
 import { TRIVIA_TIMER_SECONDS, POINTS_CONFIG } from "@/lib/constants";
 import type { TriviaQuestionWithAnswers } from "@/app/(dashboard)/games/foot-trivia/actions";
@@ -126,7 +127,7 @@ export function TriviaGame() {
         {/* Game icon */}
         <div className="relative">
           <div className="flex h-28 w-28 items-center justify-center rounded-3xl bg-gradient-to-br from-amber-500 to-orange-500 shadow-xl shadow-amber-500/25">
-            <span className="text-5xl">❓</span>
+            <HelpCircle className="h-12 w-12 text-white drop-shadow-md" />
           </div>
           <div className="absolute -right-2 -top-2 flex h-8 w-8 items-center justify-center rounded-full bg-emerald-500 text-xs font-bold text-white shadow-lg">
             {QUESTIONS_PER_GAME}
@@ -157,7 +158,7 @@ export function TriviaGame() {
             </li>
             <li className="flex items-start gap-2">
               <span className="text-amber-500">•</span>
-              Bonus de streak à 5 bonnes réponses d&apos;affilée ! 🔥
+              Bonus de streak à 5 bonnes réponses d&apos;affilée ! <Flame className="inline h-4 w-4 text-orange-500 ml-1" />
             </li>
           </ul>
         </div>
@@ -173,7 +174,7 @@ export function TriviaGame() {
               Chargement...
             </span>
           ) : (
-            "🎮 Jouer"
+            <span className="flex items-center justify-center gap-2"><Gamepad2 className="h-5 w-5" /> Jouer</span>
           )}
         </button>
       </div>
@@ -183,13 +184,11 @@ export function TriviaGame() {
   // ─── RESULT: End screen ───
   if (session.phase === "result") {
     const percentage = Math.round((correctCount / QUESTIONS_PER_GAME) * 100);
-    const emoji =
-      percentage >= 80 ? "🏆" : percentage >= 50 ? "👏" : "💪";
 
     return (
       <div className="flex flex-col items-center space-y-6 pt-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
         <div className="flex h-24 w-24 items-center justify-center rounded-3xl bg-gradient-to-br from-amber-500 to-orange-500 shadow-xl shadow-amber-500/25">
-          <span className="text-5xl">{emoji}</span>
+          {percentage >= 80 ? <Trophy className="h-10 w-10 text-white" /> : percentage >= 50 ? <ThumbsUp className="h-10 w-10 text-white" /> : <Zap className="h-10 w-10 text-white" />}
         </div>
 
         <div className="text-center">
@@ -201,16 +200,16 @@ export function TriviaGame() {
 
         {/* Stats */}
         <div className="grid w-full grid-cols-3 gap-3">
-          <StatBox label="Score" value={`${percentage}%`} icon="🎯" />
+          <StatBox label="Score" value={`${percentage}%`} icon={<Target className="h-6 w-6 text-amber-400" />} />
           <StatBox
             label="Points"
             value={`+${session.pointsEarned}`}
-            icon="🏅"
+            icon={<Medal className="h-6 w-6 text-orange-400" />}
           />
           <StatBox
             label="Temps"
             value={`${session.durationSeconds}s`}
-            icon="⏱️"
+            icon={<Timer className="h-6 w-6 text-emerald-400" />}
           />
         </div>
 
@@ -327,9 +326,9 @@ export function TriviaGame() {
 
       {/* Streak indicator */}
       {streak >= 3 && (
-        <div className="flex items-center justify-center gap-1 animate-in fade-in slide-in-from-top-2 duration-300">
-          <span className="text-sm font-bold text-orange-500">
-            🔥 Streak x{streak}
+        <div className="flex items-center justify-center animate-in fade-in slide-in-from-top-2 duration-300">
+          <span className="flex items-center gap-1.5 text-sm font-bold text-orange-500">
+            <Flame className="h-4 w-4" /> Streak x{streak}
           </span>
         </div>
       )}
@@ -427,19 +426,17 @@ export function TriviaGame() {
               : "bg-red-500/15 text-red-500"
           }`}
         >
-          {selectedAnswer &&
-          currentQuestion.reponses.find((r) => r.id === selectedAnswer)
-            ?.est_correcte
-            ? `✅ Bonne réponse ! +${POINTS_CONFIG.foot_trivia.basePoints + POINTS_CONFIG.foot_trivia.bonusPerCorrect}${streak >= 5 ? ` +${POINTS_CONFIG.foot_trivia.streakBonus} streak bonus 🔥` : ""}`
-            : `❌ Mauvaise réponse ! La bonne réponse était : ${correctAnswer?.reponse}`}
+          {selectedAnswer && currentQuestion.reponses.find((r) => r.id === selectedAnswer)?.est_correcte
+            ? <span className="flex justify-center items-center gap-1.5"><CheckCircle2 className="h-4 w-4" /> Bonne réponse ! +{POINTS_CONFIG.foot_trivia.basePoints + POINTS_CONFIG.foot_trivia.bonusPerCorrect} {streak >= 5 && <span className="flex items-center ml-1">+{POINTS_CONFIG.foot_trivia.streakBonus} streak bonus <Flame className="h-3.5 w-3.5 ml-1" /></span>}</span>
+            : <span className="flex justify-center items-center gap-1.5"><XCircle className="h-4 w-4" /> Mauvaise réponse ! C'était : {correctAnswer?.reponse}</span>}
         </div>
       )}
 
       {/* Score display */}
       <div className="flex items-center justify-between rounded-xl border border-border/40 bg-card/60 px-4 py-2.5 backdrop-blur-sm">
         <span className="text-xs text-muted-foreground">Score actuel</span>
-        <span className="font-bold text-amber-500">
-          🏅 {session.pointsEarned} pts
+        <span className="flex items-center gap-1.5 font-bold text-amber-500">
+          <Medal className="h-4 w-4" /> {session.pointsEarned} pts
         </span>
       </div>
     </div>
@@ -453,11 +450,11 @@ function StatBox({
 }: {
   label: string;
   value: string;
-  icon: string;
+  icon: React.ReactNode;
 }) {
   return (
     <div className="flex flex-col items-center rounded-xl border border-border/40 bg-card/60 p-3 backdrop-blur-sm">
-      <span className="text-lg">{icon}</span>
+      <div className="flex justify-center">{icon}</div>
       <span className="mt-1 text-lg font-bold">{value}</span>
       <span className="text-[11px] text-muted-foreground">{label}</span>
     </div>

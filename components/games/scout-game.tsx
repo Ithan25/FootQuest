@@ -3,6 +3,7 @@
 import { useState, useCallback, useEffect, useRef } from "react";
 import { Flag } from "@/components/ui/flag";
 import { useTimer } from "@/hooks/use-timer";
+import { Search, Shield, Trophy, Timer, Medal, CheckCircle2, XCircle, Gamepad2, Zap, Target } from "lucide-react";
 import { useGameSession } from "@/hooks/use-game-session";
 import { POINTS_CONFIG } from "@/lib/constants";
 import type { ScoutLevel } from "@/app/(dashboard)/games/scout-master/actions";
@@ -137,7 +138,7 @@ export function ScoutGame() {
       <div className="mx-auto flex max-w-md flex-col items-center space-y-6 pt-8">
         <div className="relative">
           <div className="flex h-28 w-28 items-center justify-center rounded-3xl bg-gradient-to-br from-blue-600 to-indigo-700 shadow-xl shadow-blue-600/25">
-            <span className="text-5xl">🔍</span>
+            <Search className="h-12 w-12 text-white drop-shadow-md" />
           </div>
           <div className="absolute -right-2 -top-2 flex h-8 w-8 items-center justify-center rounded-full bg-emerald-500 text-xs font-bold text-white shadow-lg">
             {LEVELS_PER_GAME}
@@ -161,15 +162,15 @@ export function ScoutGame() {
           <ul className="space-y-1.5 text-sm text-muted-foreground">
             <li className="flex items-start gap-2">
               <span className="text-blue-500">•</span>
-              Les clubs des joueurs sont affichés sur le terrain ⚽
+              Les clubs des joueurs sont affichés sur le terrain <Shield className="inline h-4 w-4 ml-1" />
             </li>
             <li className="flex items-start gap-2">
               <span className="text-blue-500">•</span>
-              Devine quelle équipe nationale c&apos;est ! 🏆
+              Devine quelle équipe nationale c&apos;est ! <Trophy className="inline h-4 w-4 ml-1" />
             </li>
             <li className="flex items-start gap-2">
               <span className="text-blue-500">•</span>
-              Moins d&apos;indices = plus de points ! 🏅
+              Moins d&apos;indices = plus de points ! <Medal className="inline h-4 w-4 ml-1" />
             </li>
           </ul>
         </div>
@@ -185,7 +186,7 @@ export function ScoutGame() {
               Chargement...
             </span>
           ) : (
-            "🎮 Jouer"
+            <span className="flex items-center justify-center gap-2"><Gamepad2 className="h-5 w-5" /> Jouer</span>
           )}
         </button>
       </div>
@@ -197,9 +198,7 @@ export function ScoutGame() {
     return (
       <div className="mx-auto flex max-w-md flex-col items-center space-y-6 pt-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
         <div className="flex h-24 w-24 items-center justify-center rounded-3xl bg-gradient-to-br from-blue-600 to-indigo-700 shadow-xl shadow-blue-600/25">
-          <span className="text-5xl">
-            {session.score > 0 ? "🏆" : "💪"}
-          </span>
+          {session.score > 0 ? <Trophy className="h-10 w-10 text-white" /> : <Zap className="h-10 w-10 text-white" />}
         </div>
 
         <div className="text-center">
@@ -207,9 +206,9 @@ export function ScoutGame() {
         </div>
 
         <div className="grid w-full grid-cols-3 gap-3">
-          <StatBox label="Niveaux" value={`${session.currentLevel}/${LEVELS_PER_GAME}`} icon="🎯" />
-          <StatBox label="Points" value={`+${session.pointsEarned}`} icon="🏅" />
-          <StatBox label="Temps" value={`${session.durationSeconds}s`} icon="⏱️" />
+          <StatBox label="Niveaux" value={`${session.currentLevel}/${LEVELS_PER_GAME}`} icon={<Target className="h-6 w-6 text-blue-400" />} />
+          <StatBox label="Points" value={`+${session.pointsEarned}`} icon={<Medal className="h-6 w-6 text-amber-400" />} />
+          <StatBox label="Temps" value={`${session.durationSeconds}s`} icon={<Timer className="h-6 w-6 text-emerald-400" />} />
         </div>
 
         <div className="flex w-full gap-3">
@@ -341,8 +340,8 @@ export function ScoutGame() {
         {/* Mystery overlay when not all revealed */}
         {isCorrect === null && revealedCount < totalClues && (
           <div className="absolute bottom-3 left-1/2 -translate-x-1/2">
-            <span className="rounded-full bg-black/40 px-3 py-1 text-xs font-medium text-white/80 backdrop-blur-sm">
-              🔍 Quelle sélection nationale ?
+            <span className="flex items-center justify-center gap-1.5 rounded-full bg-black/40 px-3 py-1 text-xs font-medium text-white/80 backdrop-blur-sm">
+              <Search className="h-3.5 w-3.5" /> Quelle sélection nationale ?
             </span>
           </div>
         )}
@@ -352,9 +351,9 @@ export function ScoutGame() {
       {isCorrect === null && revealedCount < totalClues && (
         <button
           onClick={handleRevealMore}
-          className="w-full rounded-xl border border-blue-500/30 bg-blue-500/10 px-4 py-2.5 text-sm font-semibold text-blue-400 transition-all hover:bg-blue-500/20"
+          className="w-full justify-center flex items-center gap-2 rounded-xl border border-blue-500/30 bg-blue-500/10 px-4 py-2.5 text-sm font-semibold text-blue-400 transition-all hover:bg-blue-500/20"
         >
-          🔍 Révéler plus de clubs ({revealedCount}/{totalClues})
+          <Search className="h-4 w-4" /> Révéler plus de clubs ({revealedCount}/{totalClues})
         </button>
       )}
 
@@ -403,8 +402,8 @@ export function ScoutGame() {
           <div className="flex justify-center"><Flag country={currentLevel.team.pays} size="lg" /></div>
           <div className="mt-1.5 text-sm font-bold">
             {isCorrect
-              ? `✅ Bravo ! C'est bien ${currentLevel.team.pays} !`
-              : `❌ C'était ${currentLevel.team.pays}`}
+              ? <span className="flex justify-center items-center gap-1.5"><CheckCircle2 className="h-4 w-4" /> Bravo ! C'est bien {currentLevel.team.pays} !</span>
+              : <span className="flex justify-center items-center gap-1.5"><XCircle className="h-4 w-4" /> C'était {currentLevel.team.pays}</span>}
           </div>
         </div>
       )}
@@ -412,8 +411,8 @@ export function ScoutGame() {
       {/* Score */}
       <div className="flex items-center justify-between rounded-xl border border-border/40 bg-card/60 px-4 py-2.5 backdrop-blur-sm">
         <span className="text-xs text-muted-foreground">Score actuel</span>
-        <span className="font-bold text-blue-500">
-          🏅 {session.pointsEarned} pts
+        <span className="flex items-center gap-1.5 font-bold text-blue-500">
+          <Medal className="h-4 w-4" /> {session.pointsEarned} pts
         </span>
       </div>
     </div>
@@ -427,11 +426,11 @@ function StatBox({
 }: {
   label: string;
   value: string;
-  icon: string;
+  icon: React.ReactNode;
 }) {
   return (
     <div className="flex flex-col items-center rounded-xl border border-border/40 bg-card/60 p-3 backdrop-blur-sm">
-      <span className="text-lg">{icon}</span>
+      <div className="flex justify-center">{icon}</div>
       <span className="mt-1 text-lg font-bold">{value}</span>
       <span className="text-[11px] text-muted-foreground">{label}</span>
     </div>

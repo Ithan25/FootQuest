@@ -23,8 +23,8 @@ export function GameCard({
   const content = (
     <div
       className={cn(
-        "group relative overflow-hidden rounded-2xl border border-white/[0.06] bg-white/[0.03] transition-all duration-300",
-        !disabled && "hover:-translate-y-1.5 hover:border-white/10 hover:shadow-2xl cursor-pointer",
+        "group relative overflow-hidden rounded-2xl border border-slate-200 dark:border-white/[0.06] bg-white shadow-sm dark:shadow-none dark:bg-white/[0.03] transition-all duration-300",
+        !disabled && "hover:-translate-y-1.5 hover:border-slate-300 dark:hover:border-white/10 hover:shadow-md dark:hover:shadow-2xl cursor-pointer",
         disabled && "opacity-40 cursor-not-allowed"
       )}
     >
@@ -56,8 +56,8 @@ export function GameCard({
 
       {/* Info section */}
       <div className="p-4">
-        <h3 className="text-base font-bold tracking-tight text-white sm:text-lg">{title}</h3>
-        <p className="mt-1 text-xs text-white/50 line-clamp-2 sm:text-sm">{description}</p>
+        <h3 className="text-base font-bold tracking-tight text-slate-900 dark:text-white sm:text-lg">{title}</h3>
+        <p className="mt-1 text-xs text-slate-500 dark:text-white/50 line-clamp-2 sm:text-sm">{description}</p>
       </div>
     </div>
   );
