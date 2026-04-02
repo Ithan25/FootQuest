@@ -2,7 +2,7 @@
 
 import { useState, useCallback, useEffect } from "react";
 import { useTimer } from "@/hooks/use-timer";
-import { HelpCircle, Flame, Trophy, ThumbsUp, Medal, Timer, Target, Zap, CheckCircle2, XCircle, Gamepad2 } from "lucide-react";
+import { HelpCircle, Flame, Trophy, ThumbsUp, Medal, Timer, Target, Zap, CheckCircle2, XCircle, Gamepad2, RefreshCw, Home } from "lucide-react";
 import { useGameSession } from "@/hooks/use-game-session";
 import { TRIVIA_TIMER_SECONDS, POINTS_CONFIG } from "@/lib/constants";
 import type { TriviaQuestionWithAnswers } from "@/app/(dashboard)/games/foot-trivia/actions";
@@ -228,13 +228,13 @@ export function TriviaGame() {
             onClick={handleStartGame}
             className="flex-1 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 px-6 py-3 font-bold text-white shadow-lg shadow-amber-500/25 transition-all hover:-translate-y-0.5 hover:shadow-xl"
           >
-            🔄 Rejouer
+            <span className="flex items-center justify-center gap-2"><RefreshCw className="h-5 w-5" /> Rejouer</span>
           </button>
           <a
             href="/hub"
-            className="flex items-center justify-center rounded-xl border border-border/40 bg-card/60 px-6 py-3 font-semibold transition-all hover:-translate-y-0.5 backdrop-blur-sm"
+            className="flex items-center justify-center gap-2 rounded-xl border border-border/40 bg-card/60 px-6 py-3 font-semibold transition-all hover:-translate-y-0.5 backdrop-blur-sm"
           >
-            🏠 Hub
+            <Home className="h-5 w-5" /> Hub
           </a>
         </div>
       </div>

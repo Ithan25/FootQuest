@@ -126,4 +126,11 @@
   html {
     @apply font-sans;
   }
+  
+  /* Rendre les icônes lucide plus fines et plus sharp (moins arrondies) */
+  svg.lucide {
+    stroke-width: 1.5 !important;
+    stroke-linecap: square !important;
+    stroke-linejoin: miter !important;
+  }
 }

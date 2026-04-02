@@ -98,7 +98,7 @@ export async function uploadProfileImage(
   if (uploadError) {
     console.error("Upload error:", uploadError);
     if (uploadError.message.includes("Bucket not found") || uploadError.message.includes("row-level security")) {
-      return { url: null, error: "⚠️ Le bucket 'profiles' n'existe pas. Tu dois exécuter le script profile-storage.sql dans Supabase." };
+      return { url: null, error: "Le bucket 'profiles' n'existe pas. Tu dois exécuter le script profile-storage.sql dans Supabase." };
     }
     return { url: null, error: uploadError.message };
   }

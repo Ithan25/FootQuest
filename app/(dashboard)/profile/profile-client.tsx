@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { User, Star, Coins, Gamepad2, Medal, Trophy } from "lucide-react";
+import { User, Star, Coins, Gamepad2, Medal, Trophy, Camera, Loader2, ClipboardList, Circle, LogOut } from "lucide-react";
 import { uploadProfileImage } from "./actions";
 
 export type ProfileData = {
@@ -28,7 +28,7 @@ export function ProfileClient({ initialProfile }: { initialProfile: ProfileData 
     // Next.js server actions have a 1MB limit by default.
     // Enforcing 1MB on client side with a clear error message.
     if (file.size > 1 * 1024 * 1024) {
-      alert("📸 L'image est trop volumineuse. La taille maximum autorisée est de 1 Mo.");
+      alert("L'image est trop volumineuse. La taille maximum autorisée est de 1 Mo.");
       return;
     }
 
@@ -79,8 +79,8 @@ export function ProfileClient({ initialProfile }: { initialProfile: ProfileData 
           )}
           {/* Hover overlay */}
           <div className="absolute inset-0 flex items-center justify-center bg-black/0 transition-all group-hover:bg-black/40">
-            <span className="rounded-full bg-white/20 px-4 py-2 text-xs font-semibold text-white opacity-0 backdrop-blur-sm transition-opacity group-hover:opacity-100">
-              {uploading === "banner" ? "⏳ Upload..." : "📷 Changer la bannière"}
+            <span className="flex items-center gap-2 rounded-full bg-white/20 px-4 py-2 text-xs font-semibold text-white opacity-0 backdrop-blur-sm transition-opacity group-hover:opacity-100">
+              {uploading === "banner" ? <><Loader2 className="h-3 w-3 animate-spin" /> Upload...</> : <><Camera className="h-3 w-3" /> Changer la bannière</>}
             </span>
           </div>
           <input
@@ -116,8 +116,8 @@ export function ProfileClient({ initialProfile }: { initialProfile: ProfileData 
               </div>
               {/* Hover overlay */}
               <div className="absolute inset-0 flex items-center justify-center rounded-2xl border-4 border-transparent bg-black/0 transition-all group-hover:bg-black/50">
-                <span className="text-xl opacity-0 transition-opacity group-hover:opacity-100">
-                  {uploading === "avatar" ? "⏳" : "📷"}
+                <span className="flex items-center text-xl opacity-0 transition-opacity group-hover:opacity-100 text-white">
+                  {uploading === "avatar" ? <Loader2 className="h-5 w-5 animate-spin" /> : <Camera className="h-5 w-5" />}
                 </span>
               </div>
               <input
@@ -162,11 +162,11 @@ export function ProfileClient({ initialProfile }: { initialProfile: ProfileData 
 
       {/* Account info */}
       <section className="space-y-4">
-        <h2 className="text-lg font-bold text-slate-900 dark:text-white">📋 Informations</h2>
+        <h2 className="flex items-center gap-2 text-lg font-bold text-slate-900 dark:text-white"><ClipboardList className="h-5 w-5 text-indigo-500" /> Informations</h2>
         <div className="rounded-2xl border border-slate-200 dark:border-white/[0.06] bg-white shadow-sm dark:shadow-none dark:bg-white/[0.03] divide-y divide-slate-100 dark:divide-white/[0.06]">
           <InfoRow label="Pseudo" value={profile.pseudo} />
           <InfoRow label="Email" value={profile.email} />
-          <InfoRow label="Rôle" value={profile.role === "golden_ball" ? "⭐ Golden Ball" : "🟢 Basic"} />
+          <InfoRow label="Rôle" value={profile.role === "golden_ball" ? <><Star className="inline h-4 w-4 text-amber-500 mr-1" /> Golden Ball</> : <><Circle className="inline h-4 w-4 font-bold text-emerald-500 mr-1" /> Basic</>} />
           <InfoRow label="Membre depuis" value={profile.joinDate} />
         </div>
       </section>
@@ -178,7 +178,7 @@ export function ProfileClient({ initialProfile }: { initialProfile: ProfileData 
             type="submit"
             className="w-full rounded-xl border border-red-500/20 bg-red-500/10 px-6 py-3 text-sm font-semibold text-red-400 transition-all hover:bg-red-500/20"
           >
-            🚪 Se déconnecter
+            <LogOut className="h-4 w-4 mr-1.5" /> Se déconnecter
           </button>
         </form>
       </section>
@@ -208,7 +208,7 @@ function StatCard({
   );
 }
 
-function InfoRow({ label, value }: { label: string; value: string }) {
+function InfoRow({ label, value }: { label: string; value: React.ReactNode }) {
   return (
     <div className="flex items-center justify-between px-5 py-3.5">
       <span className="text-sm text-slate-500 dark:text-white/40">{label}</span>

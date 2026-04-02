@@ -3,7 +3,7 @@
 import { useState, useCallback, useEffect, useRef } from "react";
 import { Flag } from "@/components/ui/flag";
 import { useTimer } from "@/hooks/use-timer";
-import { Puzzle, Shield, Trophy, Timer, Medal, CheckCircle2, XCircle, Users, Gamepad2, Zap, Target } from "lucide-react";
+import { Puzzle, Shield, Trophy, Timer, Medal, CheckCircle2, XCircle, Users, Gamepad2, Zap, Target, RefreshCw, Home } from "lucide-react";
 import { useGameSession } from "@/hooks/use-game-session";
 import { POINTS_CONFIG } from "@/lib/constants";
 import type { MissingPieceLevel } from "@/app/(dashboard)/games/missing-piece/actions";
@@ -221,13 +221,13 @@ export function MissingGame() {
             onClick={handleStartGame}
             className="flex-1 rounded-xl bg-gradient-to-r from-purple-500 to-pink-500 px-6 py-3 font-bold text-white shadow-lg shadow-purple-500/25 transition-all hover:-translate-y-0.5 hover:shadow-xl"
           >
-            🔄 Rejouer
+            <span className="flex items-center justify-center gap-2"><RefreshCw className="h-5 w-5" /> Rejouer</span>
           </button>
           <a
             href="/hub"
-            className="flex items-center justify-center rounded-xl border border-border/40 bg-card/60 px-6 py-3 font-semibold transition-all hover:-translate-y-0.5 backdrop-blur-sm"
+            className="flex items-center justify-center gap-2 rounded-xl border border-border/40 bg-card/60 px-6 py-3 font-semibold transition-all hover:-translate-y-0.5 backdrop-blur-sm"
           >
-            🏠 Hub
+            <Home className="h-5 w-5" /> Hub
           </a>
         </div>
       </div>

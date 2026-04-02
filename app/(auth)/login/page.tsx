@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
+import { Trophy } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -60,7 +61,7 @@ export default function LoginPage() {
       <CardHeader className="space-y-2 text-center">
         {/* Logo */}
         <div className="mx-auto mb-2 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-emerald-500 to-emerald-700 shadow-lg shadow-emerald-500/25">
-          <span className="text-3xl">⚽</span>
+          <Trophy className="h-8 w-8 text-white drop-shadow-md" />
         </div>
         <CardTitle className="text-2xl font-bold tracking-tight">
           Bienvenue sur FootQuest
