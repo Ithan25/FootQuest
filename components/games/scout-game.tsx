@@ -114,6 +114,13 @@ export function ScoutGame() {
     setTimeout(() => advanceToNext(), 2500);
   };
 
+  const handleSkip = () => {
+    if (isCorrect !== null) return;
+    timer.pause();
+    setIsCorrect(false);
+    setTimeout(() => advanceToNext(), 2500);
+  };
+
   const filteredSuggestions = teamNames.filter(
     (name) =>
       guess.length >= 1 && name.toLowerCase().includes(guess.toLowerCase())
@@ -338,13 +345,7 @@ export function ScoutGame() {
         })}
 
         {/* Mystery overlay when not all revealed */}
-        {isCorrect === null && revealedCount < totalClues && (
-          <div className="absolute bottom-3 left-1/2 -translate-x-1/2">
-            <span className="flex items-center justify-center gap-1.5 rounded-full bg-black/40 px-3 py-1 text-xs font-medium text-white/80 backdrop-blur-sm">
-              <Search className="h-3.5 w-3.5" /> Quelle sélection nationale ?
-            </span>
-          </div>
-        )}
+        {/* Removed because it overlaps with the goalkeeper and is redundant with the search input placeholder */}
       </div>
 
       {/* Reveal more button */}
@@ -359,7 +360,7 @@ export function ScoutGame() {
 
       {/* Guess input with autocomplete */}
       {isCorrect === null && (
-        <div className="relative">
+        <div className="relative flex gap-2">
           <input
             ref={inputRef}
             type="text"
@@ -369,9 +370,15 @@ export function ScoutGame() {
               setShowSuggestions(true);
             }}
             onFocus={() => setShowSuggestions(true)}
-            placeholder="Quelle sélection nationale ? Tape le pays..."
+            placeholder="Quelle sélection ? Tape le pays..."
             className="w-full rounded-xl border border-border/40 bg-card/60 px-4 py-3 text-sm backdrop-blur-sm transition-all focus:border-blue-500/50 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
           />
+          <button
+            onClick={handleSkip}
+            className="shrink-0 rounded-xl bg-slate-200 dark:bg-white/10 px-4 text-sm font-semibold text-slate-600 dark:text-white/60 transition-colors hover:bg-slate-300 dark:hover:bg-white/20"
+          >
+            Passer
+          </button>
 
           {showSuggestions && filteredSuggestions.length > 0 && (
             <div className="absolute left-0 right-0 top-full z-10 mt-1 max-h-48 overflow-y-auto rounded-xl border border-border/40 bg-card shadow-xl backdrop-blur-sm">

@@ -110,6 +110,13 @@ export function MissingGame() {
     setTimeout(() => advanceToNext(), 2500);
   };
 
+  const handleSkip = () => {
+    if (isCorrect !== null) return;
+    timer.pause();
+    setIsCorrect(false);
+    setTimeout(() => advanceToNext(), 2500);
+  };
+
   const filteredSuggestions = playerNames.filter(
     (name) =>
       guess.length >= 2 && name.toLowerCase().includes(guess.toLowerCase())
@@ -374,7 +381,7 @@ export function MissingGame() {
 
       {/* Guess input */}
       {isCorrect === null && (
-        <div className="relative">
+        <div className="relative flex gap-2">
           <input
             ref={inputRef}
             type="text"
@@ -384,9 +391,15 @@ export function MissingGame() {
               setShowSuggestions(true);
             }}
             onFocus={() => setShowSuggestions(true)}
-            placeholder="Quel joueur manque ? Tape ton guess..."
+            placeholder="Quel joueur ? Tape ton guess..."
             className="w-full rounded-xl border border-border/40 bg-card/60 px-4 py-3 text-sm backdrop-blur-sm transition-all focus:border-purple-500/50 focus:outline-none focus:ring-2 focus:ring-purple-500/20"
           />
+          <button
+            onClick={handleSkip}
+            className="shrink-0 rounded-xl bg-slate-200 dark:bg-white/10 px-4 text-sm font-semibold text-slate-600 dark:text-white/60 transition-colors hover:bg-slate-300 dark:hover:bg-white/20"
+          >
+            Passer
+          </button>
 
           {showSuggestions && filteredSuggestions.length > 0 && (
             <div className="absolute left-0 right-0 top-full z-10 mt-1 max-h-48 overflow-y-auto rounded-xl border border-border/40 bg-card shadow-xl backdrop-blur-sm">
