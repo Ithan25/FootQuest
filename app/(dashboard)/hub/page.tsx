@@ -40,7 +40,7 @@ async function getUserStats() {
     } = await supabase.auth.getUser();
 
     if (!user) {
-      return { pseudo: "Joueur", footPoints: 0, partiesJoueesAujourdHui: 0, role: "basic" as const };
+      return { pseudo: "Joueur", footPoints: 0, partiesJoueesAujourdHui: 0, role: "basic" as const, recentGames: [] };
     }
 
     const { data: profile } = await supabase
@@ -58,14 +58,22 @@ async function getUserStats() {
       .eq("utilisateur_id", user.id)
       .gte("created_at", today.toISOString());
 
+    const { data: recentGames } = await supabase
+      .from("session_partie")
+      .select("jeu_id, points_gagnes, created_at")
+      .eq("utilisateur_id", user.id)
+      .order("created_at", { ascending: false })
+      .limit(3);
+
     return {
       pseudo: profile?.pseudo || user.email?.split("@")[0] || "Joueur",
       footPoints: profile?.foot_points || 0,
       partiesJoueesAujourdHui: todayGames || 0,
       role: (profile?.role || "basic") as "basic" | "golden_ball",
+      recentGames: recentGames || [],
     };
   } catch {
-    return { pseudo: "Joueur", footPoints: 0, partiesJoueesAujourdHui: 0, role: "basic" as const };
+    return { pseudo: "Joueur", footPoints: 0, partiesJoueesAujourdHui: 0, role: "basic" as const, recentGames: [] };
   }
 }
 
@@ -132,6 +140,60 @@ export default async function HubPage() {
           <QuickAction href="/shop" icon="🎁" label="Boutique" />
         </div>
       </section>
+
+      {/* Recent history */}
+      {user.recentGames.length > 0 && (
+        <section className="space-y-4">
+          <h2 className="text-lg font-bold tracking-tight text-white">📅 Historique récent</h2>
+          <div className="grid gap-3 sm:grid-cols-3">
+            {user.recentGames.map((game, i) => (
+              <RecentGameCard key={i} {...game} />
+            ))}
+          </div>
+        </section>
+      )}
+    </div>
+  );
+}
+
+function RecentGameCard({
+  jeu_id,
+  points_gagnes,
+  created_at,
+}: {
+  jeu_id: string;
+  points_gagnes: number;
+  created_at: string;
+}) {
+  const gameDetails: Record<string, { name: string; icon: string }> = {
+    scout_master: { name: "Scout Master", icon: "🔍" },
+    missing_piece: { name: "The Missing Piece", icon: "🧩" },
+    foot_trivia: { name: "Foot Trivia", icon: "❓" },
+  };
+
+  const game = gameDetails[jeu_id] || { name: jeu_id, icon: "🎮" };
+  const timeInfo = new Date(created_at).toLocaleDateString("fr-FR", {
+    day: "numeric",
+    month: "short",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+
+  return (
+    <div className="flex items-center justify-between rounded-xl border border-white/[0.06] bg-white/[0.03] px-4 py-3 transition-colors hover:border-white/10 hover:bg-white/[0.06]">
+      <div className="flex items-center gap-3">
+        <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-white/5 text-lg">
+          {game.icon}
+        </div>
+        <div>
+          <p className="text-sm font-bold text-white">{game.name}</p>
+          <p className="text-[11px] text-white/40">{timeInfo}</p>
+        </div>
+      </div>
+      <div className="flex items-center gap-1.5 font-bold text-amber-400">
+        <span>+{points_gagnes}</span>
+        <span className="text-xs">💰</span>
+      </div>
     </div>
   );
 }
