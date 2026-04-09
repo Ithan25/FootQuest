@@ -5,6 +5,8 @@ import { Flag } from "@/components/ui/flag";
 import { useTimer } from "@/hooks/use-timer";
 import { Search, Shield, Trophy, Timer, Medal, CheckCircle2, XCircle, Gamepad2, Zap, Target, RefreshCw, Home } from "lucide-react";
 import { useGameSession } from "@/hooks/use-game-session";
+import { usePremiumContext } from "@/components/premium-context";
+import { AdInterstitial } from "@/components/games/ad-interstitial";
 import { POINTS_CONFIG } from "@/lib/constants";
 import type { ScoutLevel } from "@/app/(dashboard)/games/scout-master/actions";
 import {
@@ -18,6 +20,7 @@ const TIME_PER_LEVEL = 60;
 
 export function ScoutGame() {
   const session = useGameSession("scout_master");
+  const { isPremium } = usePremiumContext();
   const [levels, setLevels] = useState<ScoutLevel[]>([]);
   const [currentLevelIndex, setCurrentLevelIndex] = useState(0);
   const [revealedCount, setRevealedCount] = useState(3);
@@ -26,6 +29,7 @@ export function ScoutGame() {
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
   const [loading, setLoading] = useState(false);
+  const [showAd, setShowAd] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const currentLevel = levels[currentLevelIndex];
@@ -60,7 +64,7 @@ export function ScoutGame() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentLevelIndex, levels.length]);
 
-  const handleStartGame = async () => {
+  const launchGame = async () => {
     setLoading(true);
     try {
       const [newLevels, names] = await Promise.all([
@@ -81,6 +85,14 @@ export function ScoutGame() {
       console.error("Failed to load levels");
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleStartGame = () => {
+    if (!isPremium) {
+      setShowAd(true);
+    } else {
+      launchGame();
     }
   };
 
@@ -138,6 +150,18 @@ export function ScoutGame() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [session.phase]);
+
+  // ─── AD INTERSTITIAL ───
+  if (showAd) {
+    return (
+      <AdInterstitial
+        onClose={() => {
+          setShowAd(false);
+          launchGame();
+        }}
+      />
+    );
+  }
 
   // ─── IDLE ───
   if (session.phase === "idle") {

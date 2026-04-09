@@ -4,6 +4,8 @@ import { useState, useCallback, useEffect } from "react";
 import { useTimer } from "@/hooks/use-timer";
 import { HelpCircle, Flame, Trophy, ThumbsUp, Medal, Timer, Target, Zap, CheckCircle2, XCircle, Gamepad2, RefreshCw, Home } from "lucide-react";
 import { useGameSession } from "@/hooks/use-game-session";
+import { usePremiumContext } from "@/components/premium-context";
+import { AdInterstitial } from "@/components/games/ad-interstitial";
 import { TRIVIA_TIMER_SECONDS, POINTS_CONFIG } from "@/lib/constants";
 import type { TriviaQuestionWithAnswers } from "@/app/(dashboard)/games/foot-trivia/actions";
 import {
@@ -15,6 +17,7 @@ const QUESTIONS_PER_GAME = 10;
 
 export function TriviaGame() {
   const session = useGameSession("foot_trivia");
+  const { isPremium } = usePremiumContext();
   const [questions, setQuestions] = useState<TriviaQuestionWithAnswers[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
@@ -23,6 +26,7 @@ export function TriviaGame() {
   const [correctCount, setCorrectCount] = useState(0);
   const [loading, setLoading] = useState(false);
   const [animatingOut, setAnimatingOut] = useState(false);
+  const [showAd, setShowAd] = useState(false);
 
   const currentQuestion = questions[currentIndex];
 
@@ -59,7 +63,7 @@ export function TriviaGame() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentIndex, questions.length]);
 
-  const handleStartGame = async () => {
+  const launchGame = async () => {
     setLoading(true);
     try {
       const q = await getRandomQuestions(QUESTIONS_PER_GAME);
@@ -76,6 +80,14 @@ export function TriviaGame() {
       console.error("Failed to load questions");
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleStartGame = () => {
+    if (!isPremium) {
+      setShowAd(true);
+    } else {
+      launchGame();
     }
   };
 
@@ -119,6 +131,18 @@ export function TriviaGame() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [session.phase]);
+
+  // ─── AD INTERSTITIAL ───
+  if (showAd) {
+    return (
+      <AdInterstitial
+        onClose={() => {
+          setShowAd(false);
+          launchGame();
+        }}
+      />
+    );
+  }
 
   // ─── IDLE: Start screen ───
   if (session.phase === "idle") {

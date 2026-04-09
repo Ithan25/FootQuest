@@ -1,8 +1,8 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { User, Star, Coins, Gamepad2, Medal, Trophy, Camera, Loader2, ClipboardList, Circle, LogOut } from "lucide-react";
-import { uploadProfileImage } from "./actions";
+import { User, Star, Coins, Gamepad2, Medal, Trophy, Camera, Loader2, ClipboardList, Circle, LogOut, Crown, Sparkles } from "lucide-react";
+import { uploadProfileImage, togglePremium } from "./actions";
 
 export type ProfileData = {
   id: string;
@@ -21,6 +21,7 @@ export type ProfileData = {
 export function ProfileClient({ initialProfile }: { initialProfile: ProfileData }) {
   const [profile, setProfile] = useState<ProfileData>(initialProfile);
   const [uploading, setUploading] = useState<"avatar" | "banner" | null>(null);
+  const [toggling, setToggling] = useState(false);
   const avatarInputRef = useRef<HTMLInputElement>(null);
   const bannerInputRef = useRef<HTMLInputElement>(null);
 
@@ -168,6 +169,74 @@ export function ProfileClient({ initialProfile }: { initialProfile: ProfileData 
           <InfoRow label="Email" value={profile.email} />
           <InfoRow label="Rôle" value={profile.role === "golden_ball" ? <><Star className="inline h-4 w-4 text-amber-500 mr-1" /> Golden Ball</> : <><Circle className="inline h-4 w-4 font-bold text-emerald-500 mr-1" /> Basic</>} />
           <InfoRow label="Membre depuis" value={profile.joinDate} />
+        </div>
+      </section>
+
+      {/* Premium toggle */}
+      <section className="space-y-4">
+        <h2 className="flex items-center gap-2 text-lg font-bold text-slate-900 dark:text-white">
+          <Crown className="h-5 w-5 text-amber-500" /> Premium
+        </h2>
+        <div className="rounded-2xl border border-slate-200 dark:border-white/[0.06] bg-white shadow-sm dark:shadow-none dark:bg-white/[0.03] p-5">
+          <div className="flex items-center justify-between">
+            <div className="flex-1">
+              <div className="flex items-center gap-2">
+                <span className="text-sm font-semibold text-slate-900 dark:text-white">
+                  {profile.role === "golden_ball" ? "Golden Ball" : "Compte Basic"}
+                </span>
+                {profile.role === "golden_ball" && (
+                  <span className="flex items-center rounded-full bg-gradient-to-r from-amber-500 to-yellow-400 px-2 py-0.5 text-[10px] font-bold text-amber-900">
+                    <Star className="mr-0.5 h-3 w-3 fill-current" /> ACTIF
+                  </span>
+                )}
+              </div>
+              <p className="mt-1 text-xs text-slate-500 dark:text-white/40">
+                {profile.role === "golden_ball"
+                  ? "Tu profites de FootQuest sans publicité !"
+                  : "Passe Premium pour jouer sans pub"}
+              </p>
+            </div>
+            <button
+              onClick={async () => {
+                setToggling(true);
+                const result = await togglePremium();
+                if (!result.error) {
+                  setProfile((prev) => ({ ...prev, role: result.role }));
+                }
+                setToggling(false);
+              }}
+              disabled={toggling}
+              className={`shrink-0 rounded-xl px-5 py-2.5 text-sm font-bold transition-all hover:-translate-y-0.5 disabled:opacity-50 ${
+                profile.role === "golden_ball"
+                  ? "border border-red-500/20 bg-red-500/10 text-red-400 hover:bg-red-500/20"
+                  : "bg-gradient-to-r from-amber-500 to-yellow-400 text-amber-900 shadow-lg shadow-amber-500/25 hover:shadow-xl"
+              }`}
+            >
+              {toggling ? (
+                <Loader2 className="h-4 w-4 animate-spin" />
+              ) : profile.role === "golden_ball" ? (
+                "Désactiver"
+              ) : (
+                <span className="flex items-center gap-1.5">
+                  <Sparkles className="h-4 w-4" /> Activer Premium
+                </span>
+              )}
+            </button>
+          </div>
+
+          {profile.role !== "golden_ball" && (
+            <div className="mt-4 space-y-2 rounded-xl bg-amber-500/5 dark:bg-amber-500/10 p-3">
+              <div className="flex items-center gap-2 text-xs text-amber-600 dark:text-amber-400">
+                <Star className="h-3.5 w-3.5" /> Zéro publicité
+              </div>
+              <div className="flex items-center gap-2 text-xs text-amber-600 dark:text-amber-400">
+                <Star className="h-3.5 w-3.5" /> Badge exclusif Golden Ball
+              </div>
+              <div className="flex items-center gap-2 text-xs text-amber-600 dark:text-amber-400">
+                <Star className="h-3.5 w-3.5" /> Accès prioritaire aux nouveautés
+              </div>
+            </div>
+          )}
         </div>
       </section>
 

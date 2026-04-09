@@ -114,7 +114,17 @@ export default async function HubPage() {
       <section className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 className="flex items-center text-3xl font-black tracking-tight text-slate-900 dark:text-white sm:text-4xl">
-            Salut, <span className="ml-2 bg-gradient-to-r from-emerald-500 to-emerald-400 dark:from-emerald-400 dark:to-emerald-300 bg-clip-text text-transparent">{user.pseudo}</span> <Hand className="ml-3 h-8 w-8 text-amber-400 drop-shadow-sm" />
+            Salut, <span className={`ml-2 bg-clip-text text-transparent ${
+              user.role === "golden_ball"
+                ? "bg-gradient-to-r from-amber-500 to-yellow-400"
+                : "bg-gradient-to-r from-emerald-500 to-emerald-400 dark:from-emerald-400 dark:to-emerald-300"
+            }`}>{user.pseudo}</span>
+            {user.role === "golden_ball" && (
+              <span className="ml-2 flex items-center rounded-full bg-gradient-to-r from-amber-500 to-yellow-400 px-2.5 py-0.5 text-[10px] font-bold text-amber-900 shadow-sm">
+                ⭐ Golden Ball
+              </span>
+            )}
+            <Hand className="ml-3 h-8 w-8 text-amber-400 drop-shadow-sm" />
           </h1>
           <p className="mt-1.5 text-sm text-slate-500 dark:text-white/40">
             Prêt pour un nouveau défi ? • Coupe du Monde 2026

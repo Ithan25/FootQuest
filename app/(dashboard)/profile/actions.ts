@@ -128,3 +128,39 @@ export async function uploadProfileImage(
   revalidatePath("/profile");
   return { url, error: null };
 }
+
+export async function togglePremium(): Promise<{
+  role: string;
+  error: string | null;
+}> {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) return { role: "basic", error: "Non authentifié" };
+
+  // Get current role
+  const { data: profile } = await supabase
+    .from("utilisateur")
+    .select("role")
+    .eq("id", user.id)
+    .single();
+
+  const currentRole = (profile?.role as string) || "basic";
+  const newRole = currentRole === "golden_ball" ? "basic" : "golden_ball";
+
+  const { error: updateError } = await supabase
+    .from("utilisateur")
+    .update({ role: newRole })
+    .eq("id", user.id);
+
+  if (updateError) {
+    console.error("Toggle premium error:", updateError);
+    return { role: currentRole, error: updateError.message };
+  }
+
+  revalidatePath("/profile");
+  revalidatePath("/hub");
+  return { role: newRole, error: null };
+}
