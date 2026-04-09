@@ -1,5 +1,5 @@
 import { GameCard } from "@/components/games/game-card";
-import { Search, Puzzle, HelpCircle, Gamepad2, Hand, Coins, Trophy, AlertTriangle, Gift, Zap } from "lucide-react";
+import { Search, Puzzle, HelpCircle, Gamepad2, Hand, Coins, Trophy, AlertTriangle, Gift, Zap, Star } from "lucide-react";
 import { GAME_LIMITS } from "@/lib/constants";
 import { createClient } from "@/lib/supabase/server";
 
@@ -120,8 +120,8 @@ export default async function HubPage() {
                 : "bg-gradient-to-r from-emerald-500 to-emerald-400 dark:from-emerald-400 dark:to-emerald-300"
             }`}>{user.pseudo}</span>
             {user.role === "golden_ball" && (
-              <span className="ml-2 flex items-center rounded-full bg-gradient-to-r from-amber-500 to-yellow-400 px-2.5 py-0.5 text-[10px] font-bold text-amber-900 shadow-sm">
-                ⭐ Golden Ball
+              <span className="ml-2 flex items-center gap-1 rounded-full bg-gradient-to-r from-amber-500 to-yellow-400 px-2.5 py-0.5 text-[10px] font-bold text-amber-900 shadow-sm">
+                <Star className="h-3 w-3 fill-current" /> Golden Ball
               </span>
             )}
             <Hand className="ml-3 h-8 w-8 text-amber-400 drop-shadow-sm" />
