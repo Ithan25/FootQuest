@@ -43,8 +43,20 @@ export async function updateSession(request: NextRequest) {
 
   // Don't interfere with OAuth callback — let the route/page handle it
   // The code_verifier cookie must remain intact for exchangeCodeForSession
-  if (request.nextUrl.pathname === "/auth/callback" || request.nextUrl.searchParams.has("code")) {
+  if (request.nextUrl.pathname === "/auth/callback") {
     return supabaseResponse;
+  }
+
+  // OAuth code arrived — redirect to /login which handles the exchange server-side
+  if (request.nextUrl.searchParams.has("code")) {
+    if (request.nextUrl.pathname === "/login") {
+      // Already on login page — let server component handle it
+      return supabaseResponse;
+    }
+    // Redirect to login with the code preserved
+    const url = request.nextUrl.clone();
+    url.pathname = "/login";
+    return NextResponse.redirect(url);
   }
 
   // Refresh the session - important for Server Components
