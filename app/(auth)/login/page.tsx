@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useEffect, Suspense } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
 import { Trophy } from "lucide-react";
@@ -18,22 +18,24 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-function LoginForm() {
+export default function LoginPage() {
   const router = useRouter();
-  const searchParams = useSearchParams();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // Handle OAuth code if redirected here with ?code=
-  // Redirect to server-side callback which can access the PKCE code verifier
+  // Handle auth state change (for OAuth implicit flow)
   useEffect(() => {
-    const code = searchParams.get("code");
-    if (code) {
-      window.location.href = `/auth/callback?code=${code}`;
-    }
-  }, [searchParams]);
+    const supabase = createClient();
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event) => {
+      if (event === 'SIGNED_IN') {
+        router.push('/hub');
+        router.refresh();
+      }
+    });
+    return () => subscription.unsubscribe();
+  }, [router]);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -61,7 +63,10 @@ function LoginForm() {
     await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo: `${window.location.origin}/auth/callback`,
+        queryParams: {
+          access_type: 'offline',
+          prompt: 'consent',
+        },
       },
     });
   };
@@ -186,13 +191,5 @@ function LoginForm() {
         </p>
       </CardFooter>
     </Card>
-  );
-}
-
-export default function LoginPage() {
-  return (
-    <Suspense>
-      <LoginForm />
-    </Suspense>
   );
 }
