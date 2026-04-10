@@ -92,8 +92,13 @@ const COUNTRY_CODES: Record<string, string> = {
   "Cap-Vert": "cv",
 };
 
+function cleanCountryName(name: string): string {
+  return name.replace(/\d{4}/g, "").replace(/\([^)]+\)/g, "").trim();
+}
+
 function getCountryCode(country: string): string | null {
-  return COUNTRY_CODES[country] || null;
+  const cleaned = cleanCountryName(country);
+  return COUNTRY_CODES[cleaned] || null;
 }
 
 function getFlagUrl(countryCode: string, size: number = 40): string {

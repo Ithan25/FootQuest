@@ -275,6 +275,15 @@ export function ScoutGame() {
           <span className="rounded-full bg-blue-500/15 px-3 py-1 text-xs font-semibold text-blue-500">
             {team.formation}
           </span>
+          {(team as any).difficulty && (
+            <span className={`rounded-full px-2 py-0.5 text-[10px] font-semibold ${
+              (team as any).difficulty === 'facile' ? 'bg-emerald-500/15 text-emerald-500' :
+              (team as any).difficulty === 'moyen' ? 'bg-amber-500/15 text-amber-500' :
+              'bg-red-500/15 text-red-500'
+            }`}>
+              {(team as any).difficulty === 'facile' ? 'Facile' : (team as any).difficulty === 'moyen' ? 'Moyen' : 'Difficile'}
+            </span>
+          )}
           <span className="text-xs text-muted-foreground">
             {revealedCount}/{totalClues} clubs visibles
           </span>
@@ -333,7 +342,7 @@ export function ScoutGame() {
           return (
             <div
               key={index}
-              className={`absolute flex flex-col items-center transition-all duration-700 ${
+              className={`absolute flex flex-col items-center justify-center transition-all duration-700 ${
                 isVisible || isRevealed
                   ? "scale-100 opacity-100"
                   : "scale-50 opacity-0"
@@ -341,12 +350,14 @@ export function ScoutGame() {
               style={{
                 left: `${joueur.posX}%`,
                 top: `${joueur.posY}%`,
+                width: "80px",
+                height: "24px",
                 transform: "translate(-50%, -50%)",
               }}
             >
               {/* Club badge */}
               <div
-                className={`flex items-center justify-center rounded-md px-1.5 py-1 text-center shadow-md transition-all sm:max-w-[80px] z-10 ${
+                className={`flex shrink-0 items-center justify-center rounded-md px-1.5 py-1 text-center shadow-md transition-all sm:max-w-[80px] z-10 ${
                   isVisible || isRevealed
                     ? "bg-white/95 shadow-black/20 hover:scale-150 hover:z-50"
                     : "bg-white/20"
@@ -359,7 +370,7 @@ export function ScoutGame() {
               </div>
               {/* Player name (shown on reveal) */}
               {isRevealed && (
-                <span className="mt-0.5 text-[9px] font-medium text-white/70 sm:text-[10px]">
+                <span className="absolute top-full mt-0.5 w-[80px] text-center text-[9px] font-medium leading-[1.1] text-white/70 sm:text-[10px]">
                   {joueur.nom}
                 </span>
               )}

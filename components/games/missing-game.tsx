@@ -277,6 +277,15 @@ export function MissingGame() {
           <span className="rounded-full bg-purple-500/15 px-2 py-0.5 text-xs font-semibold text-purple-500">
             {team.formation}
           </span>
+          {(team as any).difficulty && (
+            <span className={`rounded-full px-2 py-0.5 text-[10px] font-semibold ${
+              (team as any).difficulty === 'facile' ? 'bg-emerald-500/15 text-emerald-500' :
+              (team as any).difficulty === 'moyen' ? 'bg-amber-500/15 text-amber-500' :
+              'bg-red-500/15 text-red-500'
+            }`}>
+              {(team as any).difficulty === 'facile' ? 'Facile' : (team as any).difficulty === 'moyen' ? 'Moyen' : 'Difficile'}
+            </span>
+          )}
         </div>
 
         <div className="relative flex h-12 w-12 items-center justify-center">
@@ -344,16 +353,18 @@ export function MissingGame() {
           return (
             <div
               key={index}
-              className="absolute flex flex-col items-center transition-all duration-500"
+              className="absolute flex flex-col items-center justify-center transition-all duration-500"
               style={{
                 left: `${joueur.posX}%`,
                 top: `${joueur.posY}%`,
+                width: "80px",
+                height: "32px",
                 transform: "translate(-50%, -50%)",
               }}
             >
               {/* Player circle */}
               <div
-                className={`flex h-8 w-8 items-center justify-center rounded-full text-[10px] font-bold shadow-md transition-all ${
+                className={`flex shrink-0 h-8 w-8 items-center justify-center rounded-full text-[10px] font-bold shadow-md transition-all ${
                   isMissing && !isRevealed
                     ? "animate-pulse border-2 border-dashed border-amber-400 bg-amber-500/30 text-amber-300"
                     : isMissing && isRevealed && isCorrect
@@ -367,7 +378,7 @@ export function MissingGame() {
               </div>
               {/* Player name */}
               <span
-                className={`mt-0.5 max-w-[70px] truncate text-center text-[9px] font-medium leading-tight ${
+                className={`absolute top-full mt-0.5 w-[80px] text-center text-[9px] font-medium leading-[1.1] ${
                   isMissing && !isRevealed
                     ? "text-amber-300"
                     : "text-white/90"

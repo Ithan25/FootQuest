@@ -295,6 +295,15 @@ export function TriviaGame() {
           <span className="text-sm font-semibold text-muted-foreground">
             {currentIndex + 1}/{questions.length}
           </span>
+          {currentQuestion.difficulte && (
+            <span className={`rounded-full px-2 py-0.5 text-[10px] font-semibold ${
+              currentQuestion.difficulte === 'facile' ? 'bg-emerald-500/15 text-emerald-500' :
+              currentQuestion.difficulte === 'moyen' ? 'bg-amber-500/15 text-amber-500' :
+              'bg-red-500/15 text-red-500'
+            }`}>
+              {currentQuestion.difficulte === 'facile' ? 'Facile' : currentQuestion.difficulte === 'moyen' ? 'Moyen' : 'Difficile'}
+            </span>
+          )}
           {/* Progress dots */}
           <div className="flex gap-1">
             {questions.map((_, i) => (
