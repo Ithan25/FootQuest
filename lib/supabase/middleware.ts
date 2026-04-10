@@ -40,29 +40,10 @@ export async function updateSession(request: NextRequest) {
       },
     }
   );
-  // Handle OAuth callback: exchange code for session
-  // Supabase may redirect the code to /auth/callback OR /login depending on config
-  const code = request.nextUrl.searchParams.get("code");
-  if (code) {
-    const allCookies = request.cookies.getAll();
-    const codeVerifierCookie = allCookies.find(c => c.name.includes("code-verifier") || c.name.includes("code_verifier"));
-    console.log("[OAuth] Code received on path:", request.nextUrl.pathname);
-    console.log("[OAuth] All cookies:", allCookies.map(c => c.name).join(", "));
-    console.log("[OAuth] Code verifier cookie:", codeVerifierCookie ? "FOUND" : "MISSING");
-    
-    const { error } = await supabase.auth.exchangeCodeForSession(code);
-    if (!error) {
-      const forwardedHost = request.headers.get("x-forwarded-host");
-      const isLocalEnv = process.env.NODE_ENV === "development";
-      if (isLocalEnv) {
-        return NextResponse.redirect(new URL("/hub", request.url));
-      } else if (forwardedHost) {
-        return NextResponse.redirect(`https://${forwardedHost}/hub`);
-      } else {
-        return NextResponse.redirect(new URL("/hub", request.url));
-      }
-    }
-    console.error("[OAuth] Code exchange FAILED:", error.message, error.status);
+
+  // Don't interfere with OAuth callback — let the route handler manage it
+  if (request.nextUrl.pathname === "/auth/callback") {
+    return supabaseResponse;
   }
 
   // Refresh the session - important for Server Components
@@ -71,7 +52,7 @@ export async function updateSession(request: NextRequest) {
   } = await supabase.auth.getUser();
 
   // Redirect unauthenticated users to login (except public routes)
-  const publicRoutes = ["/login", "/signup", "/auth/callback"];
+  const publicRoutes = ["/login", "/signup"];
   const isPublicRoute = publicRoutes.some((route) =>
     request.nextUrl.pathname.startsWith(route)
   );
@@ -84,4 +65,3 @@ export async function updateSession(request: NextRequest) {
 
   return supabaseResponse;
 }
-

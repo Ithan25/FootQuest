@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
-import { Trophy, Mail } from "lucide-react";
+import { Trophy } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -18,60 +18,35 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-export default function SignupPage() {
+export default function LoginForm() {
   const router = useRouter();
-  const [pseudo, setPseudo] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [success, setSuccess] = useState(false);
 
-  const handleSignup = async (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true);
     setError(null);
 
-    if (password !== confirmPassword) {
-      setError("Les mots de passe ne correspondent pas.");
-      return;
-    }
-
-    if (pseudo.length < 3) {
-      setError("Le pseudo doit contenir au moins 3 caractères.");
-      return;
-    }
-
-    setLoading(true);
-
     const supabase = createClient();
-    const { error } = await supabase.auth.signUp({
+    const { error } = await supabase.auth.signInWithPassword({
       email,
       password,
-      options: {
-        data: {
-          pseudo: pseudo,
-        },
-        emailRedirectTo: `${window.location.origin}/auth/callback`,
-      },
     });
 
     if (error) {
-      if (error.message.includes("already registered")) {
-        setError("Cet email est déjà utilisé.");
-      } else {
-        setError(`Erreur: ${error.message}`);
-        console.error("Signup error:", error);
-      }
+      setError("Email ou mot de passe incorrect.");
       setLoading(false);
       return;
     }
 
-    setSuccess(true);
-    setLoading(false);
+    router.push("/hub");
+    router.refresh();
   };
 
-  const handleGoogleSignup = async () => {
+  const handleGoogleLogin = async () => {
     const supabase = createClient();
     await supabase.auth.signInWithOAuth({
       provider: "google",
@@ -81,35 +56,6 @@ export default function SignupPage() {
     });
   };
 
-  if (success) {
-    return (
-      <Card className="border-border/40 bg-card/60 shadow-2xl backdrop-blur-xl">
-        <CardHeader className="space-y-2 text-center">
-          <div className="mx-auto mb-2 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-emerald-500 to-emerald-700 shadow-lg shadow-emerald-500/25">
-            <Mail className="h-8 w-8 text-white drop-shadow-md" />
-          </div>
-          <CardTitle className="text-2xl font-bold tracking-tight">
-            Vérifie ton email !
-          </CardTitle>
-          <CardDescription className="text-muted-foreground">
-            Un lien de confirmation a été envoyé à{" "}
-            <span className="font-medium text-foreground">{email}</span>.
-            <br />
-            Clique dessus pour activer ton compte.
-          </CardDescription>
-        </CardHeader>
-        <CardFooter className="justify-center">
-          <Link
-            href="/login"
-            className="text-sm font-medium text-emerald-500 underline-offset-4 transition-colors hover:text-emerald-400 hover:underline"
-          >
-            ← Retour à la connexion
-          </Link>
-        </CardFooter>
-      </Card>
-    );
-  }
-
   return (
     <Card className="border-border/40 bg-card/60 shadow-2xl backdrop-blur-xl">
       <CardHeader className="space-y-2 text-center">
@@ -118,10 +64,10 @@ export default function SignupPage() {
           <Trophy className="h-8 w-8 text-white drop-shadow-md" />
         </div>
         <CardTitle className="text-2xl font-bold tracking-tight">
-          Rejoins FootQuest
+          Bienvenue sur FootQuest
         </CardTitle>
         <CardDescription className="text-muted-foreground">
-          Crée ton compte et commence à collectionner des FootPoints
+          Connecte-toi pour jouer et grimper dans le classement
         </CardDescription>
       </CardHeader>
 
@@ -130,7 +76,7 @@ export default function SignupPage() {
         <Button
           variant="outline"
           className="w-full gap-2 border-border/50 bg-background/50 transition-all hover:bg-background/80"
-          onClick={handleGoogleSignup}
+          onClick={handleGoogleLogin}
           type="button"
         >
           <svg className="h-5 w-5" viewBox="0 0 24 24">
@@ -151,7 +97,7 @@ export default function SignupPage() {
               fill="#EA4335"
             />
           </svg>
-          S'inscrire avec Google
+          Continuer avec Google
         </Button>
 
         {/* Divider */}
@@ -166,27 +112,12 @@ export default function SignupPage() {
           </div>
         </div>
 
-        {/* Signup form */}
-        <form onSubmit={handleSignup} className="space-y-4">
+        {/* Email/Password form */}
+        <form onSubmit={handleLogin} className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="signup-pseudo">Pseudo</Label>
+            <Label htmlFor="login-email">Email</Label>
             <Input
-              id="signup-pseudo"
-              type="text"
-              placeholder="TonPseudo"
-              value={pseudo}
-              onChange={(e) => setPseudo(e.target.value)}
-              required
-              minLength={3}
-              maxLength={20}
-              className="border-border/50 bg-background/50"
-            />
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="signup-email">Email</Label>
-            <Input
-              id="signup-email"
+              id="login-email"
               type="email"
               placeholder="ton@email.com"
               value={email}
@@ -197,27 +128,13 @@ export default function SignupPage() {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="signup-password">Mot de passe</Label>
+            <Label htmlFor="login-password">Mot de passe</Label>
             <Input
-              id="signup-password"
+              id="login-password"
               type="password"
               placeholder="••••••••"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              required
-              minLength={6}
-              className="border-border/50 bg-background/50"
-            />
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="signup-confirm">Confirmer le mot de passe</Label>
-            <Input
-              id="signup-confirm"
-              type="password"
-              placeholder="••••••••"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
               required
               minLength={6}
               className="border-border/50 bg-background/50"
@@ -238,10 +155,10 @@ export default function SignupPage() {
             {loading ? (
               <span className="flex items-center gap-2">
                 <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
-                Création...
+                Connexion...
               </span>
             ) : (
-              "Créer mon compte"
+              "Se connecter"
             )}
           </Button>
         </form>
@@ -249,12 +166,12 @@ export default function SignupPage() {
 
       <CardFooter className="justify-center">
         <p className="text-sm text-muted-foreground">
-          Déjà un compte ?{" "}
+          Pas encore de compte ?{" "}
           <Link
-            href="/login"
+            href="/signup"
             className="font-medium text-emerald-500 underline-offset-4 transition-colors hover:text-emerald-400 hover:underline"
           >
-            Se connecter
+            Créer un compte
           </Link>
         </p>
       </CardFooter>
