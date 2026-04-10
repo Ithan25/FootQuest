@@ -155,48 +155,10 @@ export function ProfileClient({ initialProfile }: { initialProfile: ProfileData 
             {/* Name + role */}
             <div className="flex-1 pb-1">
               <div className="flex items-center gap-2">
-                {isEditingPseudo ? (
-                  <div className="flex items-center gap-2">
-                    <input
-                      type="text"
-                      className="rounded-md border border-slate-300 dark:border-white/10 bg-transparent px-2 py-1 text-xl font-black text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500 sm:text-2xl w-32 sm:w-48"
-                      value={pseudoInput}
-                      onChange={(e) => setPseudoInput(e.target.value)}
-                      disabled={updatingPseudo}
-                      autoFocus
-                      onKeyDown={(e) => e.key === "Enter" && handleUpdatePseudo()}
-                    />
-                    <button
-                      onClick={handleUpdatePseudo}
-                      disabled={updatingPseudo}
-                      className="rounded-md bg-emerald-500 p-1 text-white hover:bg-emerald-600 disabled:opacity-50"
-                    >
-                      {updatingPseudo ? <Loader2 className="h-4 w-4 animate-spin" /> : <Check className="h-4 w-4" />}
-                    </button>
-                    <button
-                      onClick={() => {
-                        setIsEditingPseudo(false);
-                        setPseudoInput(profile.pseudo);
-                      }}
-                      disabled={updatingPseudo}
-                      className="rounded-md bg-slate-200 dark:bg-white/10 p-1 text-slate-600 dark:text-white/60 hover:bg-slate-300 dark:hover:bg-white/20 disabled:opacity-50"
-                    >
-                      <X className="h-4 w-4" />
-                    </button>
-                  </div>
-                ) : (
-                  <h1 className="group flex items-center gap-2 text-xl font-black text-slate-900 dark:text-white sm:text-2xl">
-                    {profile.pseudo}
-                    <button
-                      onClick={() => setIsEditingPseudo(true)}
-                      className="opacity-0 transition-opacity group-hover:opacity-100 text-slate-400 hover:text-emerald-500"
-                    >
-                      <Pencil className="h-4 w-4" />
-                    </button>
-                  </h1>
-                )}
-                
-                {profile.role === "golden_ball" && !isEditingPseudo && (
+                <h1 className="text-xl font-black text-slate-900 dark:text-white sm:text-2xl">
+                  {profile.pseudo}
+                </h1>
+                {profile.role === "golden_ball" && (
                   <span className="flex items-center rounded-full bg-gradient-to-r from-amber-500 to-yellow-400 px-2.5 py-0.5 text-[10px] font-bold text-black ml-2">
                     <Star className="mr-1 h-3 w-3 fill-current" /> PREMIUM
                   </span>
@@ -222,7 +184,50 @@ export function ProfileClient({ initialProfile }: { initialProfile: ProfileData 
       <section className="space-y-4">
         <h2 className="flex items-center gap-2 text-lg font-bold text-slate-900 dark:text-white"><ClipboardList className="h-5 w-5 text-indigo-500" /> Informations</h2>
         <div className="rounded-2xl border border-slate-200 dark:border-white/[0.06] bg-white shadow-sm dark:shadow-none dark:bg-white/[0.03] divide-y divide-slate-100 dark:divide-white/[0.06]">
-          <InfoRow label="Pseudo" value={profile.pseudo} />
+          <InfoRow 
+            label="Pseudo" 
+            value={
+              isEditingPseudo ? (
+                <div className="flex items-center gap-1.5">
+                  <input
+                    type="text"
+                    className="rounded-md border border-slate-300 dark:border-white/10 bg-transparent px-2 py-0.5 text-sm font-semibold text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500 w-32"
+                    value={pseudoInput}
+                    onChange={(e) => setPseudoInput(e.target.value)}
+                    disabled={updatingPseudo}
+                    autoFocus
+                    onKeyDown={(e) => e.key === "Enter" && handleUpdatePseudo()}
+                  />
+                  <button
+                    onClick={handleUpdatePseudo}
+                    disabled={updatingPseudo}
+                    className="rounded-md bg-emerald-500 p-1 text-white hover:bg-emerald-600 disabled:opacity-50"
+                  >
+                    {updatingPseudo ? <Loader2 className="h-3 w-3 animate-spin" /> : <Check className="h-3 w-3" />}
+                  </button>
+                  <button
+                    onClick={() => {
+                      setIsEditingPseudo(false);
+                      setPseudoInput(profile.pseudo);
+                    }}
+                    disabled={updatingPseudo}
+                    className="rounded-md bg-slate-200 dark:bg-white/10 p-1 text-slate-600 dark:text-white/60 hover:bg-slate-300 dark:hover:bg-white/20 disabled:opacity-50"
+                  >
+                    <X className="h-3 w-3" />
+                  </button>
+                </div>
+              ) : (
+                <span className="group flex items-center gap-2 cursor-pointer" onClick={() => setIsEditingPseudo(true)}>
+                  {profile.pseudo}
+                  <button
+                    className="text-slate-400 transition-colors hover:text-emerald-500"
+                  >
+                    <Pencil className="h-3.5 w-3.5" />
+                  </button>
+                </span>
+              )
+            } 
+          />
           <InfoRow label="Email" value={profile.email} />
           <InfoRow label="Rôle" value={profile.role === "golden_ball" ? <><Star className="inline h-4 w-4 text-amber-500 mr-1" /> Golden Ball</> : <><Circle className="inline h-4 w-4 font-bold text-emerald-500 mr-1" /> Basic</>} />
           <InfoRow label="Membre depuis" value={profile.joinDate} />
