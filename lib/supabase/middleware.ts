@@ -44,6 +44,12 @@ export async function updateSession(request: NextRequest) {
   // Supabase may redirect the code to /auth/callback OR /login depending on config
   const code = request.nextUrl.searchParams.get("code");
   if (code) {
+    const allCookies = request.cookies.getAll();
+    const codeVerifierCookie = allCookies.find(c => c.name.includes("code-verifier") || c.name.includes("code_verifier"));
+    console.log("[OAuth] Code received on path:", request.nextUrl.pathname);
+    console.log("[OAuth] All cookies:", allCookies.map(c => c.name).join(", "));
+    console.log("[OAuth] Code verifier cookie:", codeVerifierCookie ? "FOUND" : "MISSING");
+    
     const { error } = await supabase.auth.exchangeCodeForSession(code);
     if (!error) {
       const forwardedHost = request.headers.get("x-forwarded-host");
@@ -56,7 +62,7 @@ export async function updateSession(request: NextRequest) {
         return NextResponse.redirect(new URL("/hub", request.url));
       }
     }
-    console.error("[OAuth callback] Code exchange error:", error.message);
+    console.error("[OAuth] Code exchange FAILED:", error.message, error.status);
   }
 
   // Refresh the session - important for Server Components
