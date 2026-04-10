@@ -27,20 +27,13 @@ function LoginForm() {
   const [error, setError] = useState<string | null>(null);
 
   // Handle OAuth code if redirected here with ?code=
+  // Redirect to server-side callback which can access the PKCE code verifier
   useEffect(() => {
     const code = searchParams.get("code");
     if (code) {
-      const supabase = createClient();
-      supabase.auth.exchangeCodeForSession(code).then(({ error }) => {
-        if (!error) {
-          router.push("/hub");
-          router.refresh();
-        } else {
-          setError("Échec de la connexion Google. Réessaie.");
-        }
-      });
+      window.location.href = `/auth/callback?code=${code}`;
     }
-  }, [searchParams, router]);
+  }, [searchParams]);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
