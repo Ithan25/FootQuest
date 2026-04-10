@@ -1,5 +1,5 @@
 import { TriviaGame } from "@/components/games/trivia-game";
-import { HelpCircle } from "lucide-react";
+import Image from "next/image";
 
 export const metadata = {
   title: "Foot Trivia | FootQuest",
@@ -12,7 +12,7 @@ export default function FootTriviaPage() {
       <section>
         <h1 className="flex items-center gap-3 text-2xl font-bold tracking-tight">
           <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-amber-500 to-orange-500 shadow-md">
-            <HelpCircle className="h-6 w-6 text-white" />
+            <Image src="/images/FootTrivia.svg" width={24} height={24} className="drop-shadow-sm" alt="Foot Trivia logo" />
           </div>
           Foot Trivia
         </h1>

@@ -2,7 +2,8 @@
 
 import { useState, useCallback, useEffect } from "react";
 import { useTimer } from "@/hooks/use-timer";
-import { HelpCircle, Flame, Trophy, ThumbsUp, Medal, Timer, Target, Zap, CheckCircle2, XCircle, Gamepad2, RefreshCw, Home } from "lucide-react";
+import { Flame, Trophy, ThumbsUp, Medal, Timer, Target, Zap, CheckCircle2, XCircle, Gamepad2, RefreshCw, Home } from "lucide-react";
+import Image from "next/image";
 import { useGameSession } from "@/hooks/use-game-session";
 import { usePremiumContext } from "@/components/premium-context";
 import { AdInterstitial } from "@/components/games/ad-interstitial";
@@ -160,7 +161,7 @@ export function TriviaGame() {
         {/* Game icon */}
         <div className="relative">
           <div className="flex h-28 w-28 items-center justify-center rounded-3xl bg-gradient-to-br from-amber-500 to-orange-500 shadow-xl shadow-amber-500/25">
-            <HelpCircle className="h-12 w-12 text-white drop-shadow-md" />
+            <Image src="/images/FootTrivia.svg" width={48} height={48} className="drop-shadow-md" alt="Foot Trivia logo" />
           </div>
           <div className="absolute -right-2 -top-2 flex h-8 w-8 items-center justify-center rounded-full bg-emerald-500 text-xs font-bold text-white shadow-lg">
             {QUESTIONS_PER_GAME}
