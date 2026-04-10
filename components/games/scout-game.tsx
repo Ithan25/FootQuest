@@ -4,6 +4,7 @@ import { useState, useCallback, useEffect, useRef } from "react";
 import { Flag } from "@/components/ui/flag";
 import { useTimer } from "@/hooks/use-timer";
 import { Search, Shield, Trophy, Timer, Medal, CheckCircle2, XCircle, Gamepad2, Zap, Target, RefreshCw, Home } from "lucide-react";
+import Image from "next/image";
 import { useGameSession } from "@/hooks/use-game-session";
 import { usePremiumContext } from "@/components/premium-context";
 import { AdInterstitial } from "@/components/games/ad-interstitial";
@@ -180,7 +181,7 @@ export function ScoutGame() {
       <div className="mx-auto flex max-w-md flex-col items-center space-y-6 pt-8">
         <div className="relative">
           <div className="flex h-28 w-28 items-center justify-center rounded-3xl bg-gradient-to-br from-blue-600 to-indigo-700 shadow-xl shadow-blue-600/25">
-            <Search className="h-12 w-12 text-white drop-shadow-md" />
+            <Image src="/images/ScoutMaster.svg" width={48} height={48} className="drop-shadow-md" alt="Scout Master logo" />
           </div>
           <div className="absolute -right-2 -top-2 flex h-8 w-8 items-center justify-center rounded-full bg-emerald-500 text-xs font-bold text-white shadow-lg">
             {LEVELS_PER_GAME}
