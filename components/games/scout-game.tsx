@@ -7,7 +7,9 @@ import { Search, Shield, Trophy, Timer, Medal, CheckCircle2, XCircle, Gamepad2, 
 import { useGameSession } from "@/hooks/use-game-session";
 import { usePremiumContext } from "@/components/premium-context";
 import { AdInterstitial } from "@/components/games/ad-interstitial";
-import { POINTS_CONFIG } from "@/lib/constants";
+import { DifficultySelector } from "@/components/games/difficulty-selector";
+import { POINTS_CONFIG, SCOUT_CONFIG, DIFFICULTY_MULTIPLIER } from "@/lib/constants";
+import type { Difficulty } from "@/lib/constants";
 import type { ScoutLevel } from "@/app/(dashboard)/games/scout-master/actions";
 import {
   getScoutLevels,
@@ -30,6 +32,9 @@ export function ScoutGame() {
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
   const [loading, setLoading] = useState(false);
   const [showAd, setShowAd] = useState(false);
+  const [difficulty, setDifficulty] = useState<Difficulty | undefined>(undefined);
+  const [timePer, setTimePer] = useState(TIME_PER_LEVEL);
+  const [initialClues, setInitialClues] = useState(3);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const currentLevel = levels[currentLevelIndex];
@@ -43,7 +48,7 @@ export function ScoutGame() {
   }, [isCorrect]);
 
   const timer = useTimer({
-    duration: TIME_PER_LEVEL,
+    duration: timePer,
     onExpire: handleTimeUp,
     autoStart: false,
   });
@@ -54,32 +59,35 @@ export function ScoutGame() {
       return;
     }
     setCurrentLevelIndex((prev) => prev + 1);
-    setRevealedCount(3);
+    setRevealedCount(initialClues);
     setGuess("");
     setIsCorrect(null);
     setShowSuggestions(false);
     session.nextLevel();
-    timer.reset(TIME_PER_LEVEL);
+    timer.reset(timePer);
     timer.start();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentLevelIndex, levels.length]);
 
-  const launchGame = async () => {
+  const launchGame = async (diff?: Difficulty) => {
     setLoading(true);
+    const cfg = diff ? SCOUT_CONFIG[diff] : { timer: TIME_PER_LEVEL, revealedClues: 3 };
+    setTimePer(cfg.timer);
+    setInitialClues(cfg.revealedClues);
     try {
       const [newLevels, names] = await Promise.all([
-        getScoutLevels(LEVELS_PER_GAME),
+        getScoutLevels(LEVELS_PER_GAME, diff),
         getTeamNames(),
       ]);
       setLevels(newLevels);
       setTeamNames(names);
       setCurrentLevelIndex(0);
-      setRevealedCount(3);
+      setRevealedCount(cfg.revealedClues);
       setGuess("");
       setIsCorrect(null);
       setShowSuggestions(false);
       session.startGame();
-      timer.reset(TIME_PER_LEVEL);
+      timer.reset(cfg.timer);
       timer.start();
     } catch {
       console.error("Failed to load levels");
@@ -88,11 +96,13 @@ export function ScoutGame() {
     }
   };
 
-  const handleStartGame = () => {
+  const handleDifficultySelect = (selection: Difficulty | "all") => {
+    const diff = selection === "all" ? undefined : selection;
+    setDifficulty(diff);
     if (!isPremium) {
       setShowAd(true);
     } else {
-      launchGame();
+      launchGame(diff);
     }
   };
 
@@ -117,10 +127,11 @@ export function ScoutGame() {
       const cluesUsed = revealedCount;
       let points = POINTS_CONFIG.scout_master.basePoints;
       points += Math.max(0, (11 - cluesUsed)) * POINTS_CONFIG.scout_master.bonusPerLevel;
-      if (timer.secondsLeft >= TIME_PER_LEVEL - POINTS_CONFIG.scout_master.timeBonusThreshold) {
+      if (timer.secondsLeft >= timePer - POINTS_CONFIG.scout_master.timeBonusThreshold) {
         points += POINTS_CONFIG.scout_master.timeBonus;
       }
-      session.addScore(points);
+      const mult = difficulty ? DIFFICULTY_MULTIPLIER[difficulty] : 1;
+      session.addScore(Math.round(points * mult));
     }
 
     setTimeout(() => advanceToNext(), 2500);
@@ -157,7 +168,7 @@ export function ScoutGame() {
       <AdInterstitial
         onClose={() => {
           setShowAd(false);
-          launchGame();
+          launchGame(difficulty);
         }}
       />
     );
@@ -206,20 +217,7 @@ export function ScoutGame() {
           </ul>
         </div>
 
-        <button
-          onClick={handleStartGame}
-          disabled={loading}
-          className="w-full rounded-xl bg-gradient-to-r from-blue-600 to-indigo-700 px-6 py-3.5 text-base font-bold text-white shadow-lg shadow-blue-600/25 transition-all hover:-translate-y-0.5 hover:shadow-xl disabled:opacity-50"
-        >
-          {loading ? (
-            <span className="flex items-center justify-center gap-2">
-              <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
-              Chargement...
-            </span>
-          ) : (
-            <span className="flex items-center justify-center gap-2"><Gamepad2 className="h-5 w-5" /> Jouer</span>
-          )}
-        </button>
+        <DifficultySelector onSelect={handleDifficultySelect} loading={loading} accentColor="blue" />
       </div>
     );
   }
@@ -244,7 +242,7 @@ export function ScoutGame() {
 
         <div className="flex w-full gap-3">
           <button
-            onClick={handleStartGame}
+            onClick={() => session.resetGame()}
             className="flex-1 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-700 px-6 py-3 font-bold text-white shadow-lg shadow-blue-600/25 transition-all hover:-translate-y-0.5 hover:shadow-xl"
           >
             <span className="flex items-center justify-center gap-2"><RefreshCw className="h-5 w-5" /> Rejouer</span>

@@ -3,6 +3,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { getRandomScoutTeams, getAllTeamNames } from "@/lib/scout-data";
 import type { ScoutTeamData } from "@/lib/scout-data";
+import type { Difficulty } from "@/lib/constants";
 
 export interface ScoutLevel {
   index: number;
@@ -12,8 +13,8 @@ export interface ScoutLevel {
 /**
  * Get Scout Master levels (national teams to guess).
  */
-export async function getScoutLevels(count: number = 5): Promise<ScoutLevel[]> {
-  const teams = getRandomScoutTeams(count);
+export async function getScoutLevels(count: number = 5, difficulty?: Difficulty): Promise<ScoutLevel[]> {
+  const teams = getRandomScoutTeams(count, difficulty);
   return teams.map((team, index) => ({ index, team }));
 }
 

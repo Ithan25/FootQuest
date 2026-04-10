@@ -6,7 +6,9 @@ import { HelpCircle, Flame, Trophy, ThumbsUp, Medal, Timer, Target, Zap, CheckCi
 import { useGameSession } from "@/hooks/use-game-session";
 import { usePremiumContext } from "@/components/premium-context";
 import { AdInterstitial } from "@/components/games/ad-interstitial";
-import { TRIVIA_TIMER_SECONDS, POINTS_CONFIG } from "@/lib/constants";
+import { DifficultySelector } from "@/components/games/difficulty-selector";
+import { TRIVIA_TIMER_SECONDS, TRIVIA_CONFIG, DIFFICULTY_MULTIPLIER, POINTS_CONFIG } from "@/lib/constants";
+import type { Difficulty } from "@/lib/constants";
 import type { TriviaQuestionWithAnswers } from "@/app/(dashboard)/games/foot-trivia/actions";
 import {
   getRandomQuestions,
@@ -27,6 +29,8 @@ export function TriviaGame() {
   const [loading, setLoading] = useState(false);
   const [animatingOut, setAnimatingOut] = useState(false);
   const [showAd, setShowAd] = useState(false);
+  const [difficulty, setDifficulty] = useState<Difficulty | undefined>(undefined);
+  const [timerDuration, setTimerDuration] = useState(TRIVIA_TIMER_SECONDS);
 
   const currentQuestion = questions[currentIndex];
 
@@ -41,7 +45,7 @@ export function TriviaGame() {
   }, [isRevealed]);
 
   const timer = useTimer({
-    duration: TRIVIA_TIMER_SECONDS,
+    duration: timerDuration,
     onExpire: handleTimeUp,
     autoStart: false,
   });
@@ -57,16 +61,18 @@ export function TriviaGame() {
       setSelectedAnswer(null);
       setIsRevealed(false);
       setAnimatingOut(false);
-      timer.reset(TRIVIA_TIMER_SECONDS);
+      timer.reset(timerDuration);
       timer.start();
     }, 300);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentIndex, questions.length]);
 
-  const launchGame = async () => {
+  const launchGame = async (diff?: Difficulty) => {
     setLoading(true);
+    const dur = diff ? TRIVIA_CONFIG[diff].timer : TRIVIA_TIMER_SECONDS;
+    setTimerDuration(dur);
     try {
-      const q = await getRandomQuestions(QUESTIONS_PER_GAME);
+      const q = await getRandomQuestions(QUESTIONS_PER_GAME, diff ?? "facile");
       setQuestions(q);
       setCurrentIndex(0);
       setSelectedAnswer(null);
@@ -74,7 +80,7 @@ export function TriviaGame() {
       setStreak(0);
       setCorrectCount(0);
       session.startGame();
-      timer.reset(TRIVIA_TIMER_SECONDS);
+      timer.reset(dur);
       timer.start();
     } catch {
       console.error("Failed to load questions");
@@ -83,11 +89,13 @@ export function TriviaGame() {
     }
   };
 
-  const handleStartGame = () => {
+  const handleDifficultySelect = (selection: Difficulty | "all") => {
+    const diff = selection === "all" ? undefined : selection;
+    setDifficulty(diff);
     if (!isPremium) {
       setShowAd(true);
     } else {
-      launchGame();
+      launchGame(diff);
     }
   };
 
@@ -109,7 +117,8 @@ export function TriviaGame() {
       if (newStreak >= 5) {
         points += POINTS_CONFIG.foot_trivia.streakBonus;
       }
-      session.addScore(points);
+      const mult = difficulty ? DIFFICULTY_MULTIPLIER[difficulty] : 1;
+      session.addScore(Math.round(points * mult));
     } else {
       setStreak(0);
     }
@@ -138,7 +147,7 @@ export function TriviaGame() {
       <AdInterstitial
         onClose={() => {
           setShowAd(false);
-          launchGame();
+          launchGame(difficulty);
         }}
       />
     );
@@ -147,7 +156,7 @@ export function TriviaGame() {
   // ─── IDLE: Start screen ───
   if (session.phase === "idle") {
     return (
-      <div className="flex flex-col items-center space-y-6 pt-8">
+      <div className="mx-auto flex max-w-md flex-col items-center space-y-6 pt-8">
         {/* Game icon */}
         <div className="relative">
           <div className="flex h-28 w-28 items-center justify-center rounded-3xl bg-gradient-to-br from-amber-500 to-orange-500 shadow-xl shadow-amber-500/25">
@@ -187,20 +196,7 @@ export function TriviaGame() {
           </ul>
         </div>
 
-        <button
-          onClick={handleStartGame}
-          disabled={loading}
-          className="w-full rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 px-6 py-3.5 text-base font-bold text-white shadow-lg shadow-amber-500/25 transition-all hover:-translate-y-0.5 hover:shadow-xl disabled:opacity-50"
-        >
-          {loading ? (
-            <span className="flex items-center justify-center gap-2">
-              <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
-              Chargement...
-            </span>
-          ) : (
-            <span className="flex items-center justify-center gap-2"><Gamepad2 className="h-5 w-5" /> Jouer</span>
-          )}
-        </button>
+        <DifficultySelector onSelect={handleDifficultySelect} loading={loading} accentColor="amber" />
       </div>
     );
   }
@@ -249,7 +245,7 @@ export function TriviaGame() {
 
         <div className="flex w-full gap-3">
           <button
-            onClick={handleStartGame}
+            onClick={() => session.resetGame()}
             className="flex-1 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 px-6 py-3 font-bold text-white shadow-lg shadow-amber-500/25 transition-all hover:-translate-y-0.5 hover:shadow-xl"
           >
             <span className="flex items-center justify-center gap-2"><RefreshCw className="h-5 w-5" /> Rejouer</span>

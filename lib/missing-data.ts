@@ -22,6 +22,7 @@ export interface MissingPieceTeamData {
 
 import { MISSING_PIECE_EXPANSION_1 } from "./missing-expansion1";
 import { MISSING_PIECE_EXPANSION_2 } from "./missing-expansion2";
+import type { Difficulty } from "./constants";
 
 const BASE_TEAMS: MissingPieceTeamData[] = [
   {
@@ -235,14 +236,39 @@ export function getAllPlayerNames(): string[] {
   return Array.from(names).sort();
 }
 
+/** Teams classified by difficulty (same as scout-data) */
+const EASY_TEAMS = new Set([
+  "France", "Argentine", "Brésil", "Angleterre", "Espagne",
+  "Portugal", "Allemagne", "Pays-Bas", "Belgique", "Maroc",
+  "Croatie", "Uruguay",
+]);
+const MEDIUM_TEAMS = new Set([
+  "Japon", "Sénégal", "Suisse", "Canada", "Colombie",
+  "Corée du Sud", "Égypte", "Algérie", "Turquie", "Norvège",
+  "Suède", "Côte d'Ivoire", "Iran", "Autriche", "Écosse",
+  "Ghana",
+]);
+
+function getTeamDifficulty(pays: string): Difficulty {
+  if (EASY_TEAMS.has(pays)) return "facile";
+  if (MEDIUM_TEAMS.has(pays)) return "moyen";
+  return "difficile";
+}
+
 /**
- * Get random Missing Piece levels.
+ * Get random Missing Piece levels, optionally filtered by difficulty.
  */
-export function getRandomMissingPieceLevels(count: number): MissingPieceTeamData[] {
-  const selected = [...MISSING_PIECE_TEAMS].sort(() => Math.random() - 0.5).slice(0, count);
+export function getRandomMissingPieceLevels(count: number, difficulty?: Difficulty): MissingPieceTeamData[] {
+  let pool = MISSING_PIECE_TEAMS;
+  if (difficulty) {
+    pool = MISSING_PIECE_TEAMS.filter((t) => getTeamDifficulty(t.pays) === difficulty);
+    if (pool.length < count) {
+      pool = MISSING_PIECE_TEAMS;
+    }
+  }
+  const selected = [...pool].sort(() => Math.random() - 0.5).slice(0, count);
   return selected.map(team => ({
     ...team,
-    // Pick a completely random missing player for infinite replayability
     joueurManquantIndex: Math.floor(Math.random() * team.joueurs.length)
   }));
 }

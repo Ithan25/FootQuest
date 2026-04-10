@@ -7,7 +7,9 @@ import { Puzzle, Shield, Trophy, Timer, Medal, CheckCircle2, XCircle, Users, Gam
 import { useGameSession } from "@/hooks/use-game-session";
 import { usePremiumContext } from "@/components/premium-context";
 import { AdInterstitial } from "@/components/games/ad-interstitial";
-import { POINTS_CONFIG } from "@/lib/constants";
+import { DifficultySelector } from "@/components/games/difficulty-selector";
+import { POINTS_CONFIG, MISSING_CONFIG, DIFFICULTY_MULTIPLIER } from "@/lib/constants";
+import type { Difficulty } from "@/lib/constants";
 import type { MissingPieceLevel } from "@/app/(dashboard)/games/missing-piece/actions";
 import {
   getMissingPieceLevels,
@@ -29,6 +31,8 @@ export function MissingGame() {
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
   const [loading, setLoading] = useState(false);
   const [showAd, setShowAd] = useState(false);
+  const [difficulty, setDifficulty] = useState<Difficulty | undefined>(undefined);
+  const [timePer, setTimePer] = useState(TIME_PER_LEVEL);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const currentLevel = levels[currentLevelIndex];
@@ -45,7 +49,7 @@ export function MissingGame() {
   }, [isCorrect]);
 
   const timer = useTimer({
-    duration: TIME_PER_LEVEL,
+    duration: timePer,
     onExpire: handleTimeUp,
     autoStart: false,
   });
@@ -60,16 +64,18 @@ export function MissingGame() {
     setIsCorrect(null);
     setShowSuggestions(false);
     session.nextLevel();
-    timer.reset(TIME_PER_LEVEL);
+    timer.reset(timePer);
     timer.start();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentLevelIndex, levels.length]);
 
-  const launchGame = async () => {
+  const launchGame = async (diff?: Difficulty) => {
     setLoading(true);
+    const dur = diff ? MISSING_CONFIG[diff].timer : TIME_PER_LEVEL;
+    setTimePer(dur);
     try {
       const [newLevels, names] = await Promise.all([
-        getMissingPieceLevels(LEVELS_PER_GAME),
+        getMissingPieceLevels(LEVELS_PER_GAME, diff),
         getPlayerNames(),
       ]);
       setLevels(newLevels);
@@ -79,7 +85,7 @@ export function MissingGame() {
       setIsCorrect(null);
       setShowSuggestions(false);
       session.startGame();
-      timer.reset(TIME_PER_LEVEL);
+      timer.reset(dur);
       timer.start();
     } catch {
       console.error("Failed to load levels");
@@ -88,11 +94,13 @@ export function MissingGame() {
     }
   };
 
-  const handleStartGame = () => {
+  const handleDifficultySelect = (selection: Difficulty | "all") => {
+    const diff = selection === "all" ? undefined : selection;
+    setDifficulty(diff);
     if (!isPremium) {
       setShowAd(true);
     } else {
-      launchGame();
+      launchGame(diff);
     }
   };
 
@@ -112,11 +120,12 @@ export function MissingGame() {
       points += POINTS_CONFIG.missing_piece.bonusPerLevel;
       if (
         timer.secondsLeft >=
-        TIME_PER_LEVEL - POINTS_CONFIG.missing_piece.timeBonusThreshold
+        timePer - POINTS_CONFIG.missing_piece.timeBonusThreshold
       ) {
         points += POINTS_CONFIG.missing_piece.timeBonus;
       }
-      session.addScore(points);
+      const mult = difficulty ? DIFFICULTY_MULTIPLIER[difficulty] : 1;
+      session.addScore(Math.round(points * mult));
     }
 
     setTimeout(() => advanceToNext(), 2500);
@@ -153,7 +162,7 @@ export function MissingGame() {
       <AdInterstitial
         onClose={() => {
           setShowAd(false);
-          launchGame();
+          launchGame(difficulty);
         }}
       />
     );
@@ -162,7 +171,7 @@ export function MissingGame() {
   // ─── IDLE ───
   if (session.phase === "idle") {
     return (
-      <div className="flex flex-col items-center space-y-6 pt-8">
+      <div className="mx-auto flex max-w-md flex-col items-center space-y-6 pt-8">
         <div className="relative">
           <div className="flex h-28 w-28 items-center justify-center rounded-3xl bg-gradient-to-br from-purple-500 to-pink-500 shadow-xl shadow-purple-500/25">
             <Puzzle className="h-12 w-12 text-white drop-shadow-md" />
@@ -199,20 +208,7 @@ export function MissingGame() {
           </ul>
         </div>
 
-        <button
-          onClick={handleStartGame}
-          disabled={loading}
-          className="w-full rounded-xl bg-gradient-to-r from-purple-500 to-pink-500 px-6 py-3.5 text-base font-bold text-white shadow-lg shadow-purple-500/25 transition-all hover:-translate-y-0.5 hover:shadow-xl disabled:opacity-50"
-        >
-          {loading ? (
-            <span className="flex items-center justify-center gap-2">
-              <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
-              Chargement...
-            </span>
-          ) : (
-            <span className="flex items-center justify-center gap-2"><Gamepad2 className="h-5 w-5" /> Jouer</span>
-          )}
-        </button>
+        <DifficultySelector onSelect={handleDifficultySelect} loading={loading} accentColor="purple" />
       </div>
     );
   }
@@ -249,7 +245,7 @@ export function MissingGame() {
 
         <div className="flex w-full gap-3">
           <button
-            onClick={handleStartGame}
+            onClick={() => session.resetGame()}
             className="flex-1 rounded-xl bg-gradient-to-r from-purple-500 to-pink-500 px-6 py-3 font-bold text-white shadow-lg shadow-purple-500/25 transition-all hover:-translate-y-0.5 hover:shadow-xl"
           >
             <span className="flex items-center justify-center gap-2"><RefreshCw className="h-5 w-5" /> Rejouer</span>

@@ -2,6 +2,7 @@
 
 import { createClient } from "@/lib/supabase/server";
 import { TRIVIA_QUESTIONS } from "@/lib/trivia-data";
+import type { Difficulty } from "@/lib/constants";
 
 export interface TriviaAnswer {
   id: string;
@@ -20,18 +21,30 @@ export interface TriviaQuestionWithAnswers {
 }
 
 /**
- * Get random trivia questions.
- * Maps from local data format to component-expected format.
+ * Get random trivia questions filtered by difficulty.
+ * - facile: only "facile" questions
+ * - moyen: mix of "facile" + "moyen"
+ * - difficile: mix of "moyen" + "difficile"
  */
 export async function getRandomQuestions(
-  count: number = 10
+  count: number = 10,
+  difficulty: Difficulty = "facile"
 ): Promise<TriviaQuestionWithAnswers[]> {
-  const shuffled = [...TRIVIA_QUESTIONS]
+  let pool = TRIVIA_QUESTIONS;
+  
+  if (difficulty === "facile") {
+    pool = TRIVIA_QUESTIONS.filter((q) => q.difficulte === "facile");
+  } else if (difficulty === "moyen") {
+    pool = TRIVIA_QUESTIONS.filter((q) => q.difficulte === "facile" || q.difficulte === "moyen");
+  } else {
+    pool = TRIVIA_QUESTIONS.filter((q) => q.difficulte === "moyen" || q.difficulte === "difficile");
+  }
+  
+  const shuffled = [...pool]
     .sort(() => Math.random() - 0.5)
     .slice(0, count);
 
   return shuffled.map((q, index) => {
-    // Build answer objects from the string array + correct index
     const answers: TriviaAnswer[] = q.reponses.map((text, rIndex) => ({
       id: `answer-${index}-${rIndex}`,
       question_id: `trivia-${index}`,
@@ -39,7 +52,6 @@ export async function getRandomQuestions(
       est_correcte: rIndex === q.bonneReponse,
     }));
 
-    // Shuffle answers so the correct one isn't always in the same position
     const shuffledAnswers = [...answers].sort(() => Math.random() - 0.5);
 
     return {

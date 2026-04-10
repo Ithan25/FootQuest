@@ -6,6 +6,7 @@ import {
   getAllPlayerNames,
 } from "@/lib/missing-data";
 import type { MissingPieceTeamData } from "@/lib/missing-data";
+import type { Difficulty } from "@/lib/constants";
 
 export interface MissingPieceLevel {
   index: number;
@@ -16,9 +17,10 @@ export interface MissingPieceLevel {
  * Get Missing Piece levels.
  */
 export async function getMissingPieceLevels(
-  count: number = 5
+  count: number = 5,
+  difficulty?: Difficulty
 ): Promise<MissingPieceLevel[]> {
-  const teams = getRandomMissingPieceLevels(count);
+  const teams = getRandomMissingPieceLevels(count, difficulty);
   return teams.map((team, index) => ({ index, team }));
 }
 

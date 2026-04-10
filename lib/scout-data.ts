@@ -7,6 +7,7 @@
  * 48 équipes qualifiées pour la CDM 2026
  */
 import { EXTRA_TEAMS } from "./scout-data-extra";
+import type { Difficulty } from "./constants";
 
 export interface ScoutPlayer {
   nom: string;
@@ -245,11 +246,39 @@ export const SCOUT_TEAMS: ScoutTeamData[] = [
 /** All 48 WC2026 teams */
 const ALL_TEAMS = [...SCOUT_TEAMS, ...EXTRA_TEAMS];
 
+/** Teams classified by difficulty (by international fame) */
+const EASY_TEAMS = new Set([
+  "France", "Argentine", "Brésil", "Angleterre", "Espagne",
+  "Portugal", "Allemagne", "Pays-Bas", "Belgique", "Maroc",
+  "Croatie", "Uruguay", "États-Unis", "Mexique",
+]);
+const MEDIUM_TEAMS = new Set([
+  "Japon", "Sénégal", "Suisse", "Canada", "Colombie",
+  "Corée du Sud", "Égypte", "Algérie", "Turquie", "Norvège",
+  "Suède", "Côte d'Ivoire", "Iran", "Autriche", "Écosse",
+  "Ghana",
+]);
+// All remaining teams are HARD
+
+function getTeamDifficulty(pays: string): Difficulty {
+  if (EASY_TEAMS.has(pays)) return "facile";
+  if (MEDIUM_TEAMS.has(pays)) return "moyen";
+  return "difficile";
+}
+
 /**
- * Get shuffled teams for a game.
+ * Get shuffled teams for a game, optionally filtered by difficulty.
  */
-export function getRandomScoutTeams(count: number): ScoutTeamData[] {
-  return [...ALL_TEAMS].sort(() => Math.random() - 0.5).slice(0, count);
+export function getRandomScoutTeams(count: number, difficulty?: Difficulty): ScoutTeamData[] {
+  let pool = ALL_TEAMS;
+  if (difficulty) {
+    pool = ALL_TEAMS.filter((t) => getTeamDifficulty(t.pays) === difficulty);
+    // If not enough teams for the difficulty, pad with adjacent difficulty
+    if (pool.length < count) {
+      pool = ALL_TEAMS;
+    }
+  }
+  return [...pool].sort(() => Math.random() - 0.5).slice(0, count);
 }
 
 /**
