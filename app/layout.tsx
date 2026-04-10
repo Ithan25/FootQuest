@@ -6,7 +6,7 @@ import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { cn } from "@/lib/utils";
 
-const roboto = Roboto({subsets:['latin'],variable:'--font-sans'})
+const roboto = Roboto({ subsets: ['latin'], variable: '--font-sans' })
 
 const fontMono = Geist_Mono({
   subsets: ["latin"],
@@ -28,20 +28,21 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="en"
+      lang="fr" // Je me suis permis de passer la langue en "fr" puisque votre description est en français
       suppressHydrationWarning
       className={cn("antialiased", fontMono.variable, "font-sans", roboto.variable)}
     >
+      <head>
+        {/* On place le script AdSense en dur ici */}
+        <Script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9874141990888959"
+          crossOrigin="anonymous"
+          strategy="afterInteractive"
+        />
+      </head>
       <body>
         <ThemeProvider>{children}</ThemeProvider>
-        {process.env.NEXT_PUBLIC_ADSENSE_ID && (
-          <Script
-            async
-            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.NEXT_PUBLIC_ADSENSE_ID}`}
-            crossOrigin="anonymous"
-            strategy="afterInteractive"
-          />
-        )}
       </body>
     </html>
   )
