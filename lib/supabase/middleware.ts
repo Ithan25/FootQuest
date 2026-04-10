@@ -41,8 +41,9 @@ export async function updateSession(request: NextRequest) {
     }
   );
 
-  // Don't interfere with OAuth callback — let the route handler manage it
-  if (request.nextUrl.pathname === "/auth/callback") {
+  // Don't interfere with OAuth callback — let the route/page handle it
+  // The code_verifier cookie must remain intact for exchangeCodeForSession
+  if (request.nextUrl.pathname === "/auth/callback" || request.nextUrl.searchParams.has("code")) {
     return supabaseResponse;
   }
 
