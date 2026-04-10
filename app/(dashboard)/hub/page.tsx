@@ -112,19 +112,19 @@ export default async function HubPage() {
     <div className="space-y-10">
       {/* Welcome + Stats */}
       <section className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
-        <div>
-          <h1 className="flex items-center text-3xl font-black tracking-tight text-slate-900 dark:text-white sm:text-4xl">
-            Salut, <span className={`ml-2 bg-clip-text text-transparent ${
+        <div className="min-w-0">
+          <h1 className="flex flex-wrap items-center gap-1 text-2xl font-black tracking-tight text-slate-900 dark:text-white sm:text-4xl">
+            Salut, <span className={`bg-clip-text text-transparent ${
               user.role === "golden_ball"
                 ? "bg-gradient-to-r from-amber-500 to-yellow-400"
                 : "bg-gradient-to-r from-emerald-500 to-emerald-400 dark:from-emerald-400 dark:to-emerald-300"
             }`}>{user.pseudo}</span>
             {user.role === "golden_ball" && (
-              <span className="ml-2 flex items-center gap-1 rounded-full bg-gradient-to-r from-amber-500 to-yellow-400 px-2.5 py-0.5 text-[10px] font-bold text-amber-900 shadow-sm">
+              <span className="flex items-center gap-1 rounded-full bg-gradient-to-r from-amber-500 to-yellow-400 px-2.5 py-0.5 text-[10px] font-bold text-amber-900 shadow-sm">
                 <Star className="h-3 w-3 fill-current" /> Golden Ball
               </span>
             )}
-            <Hand className="ml-3 h-8 w-8 text-amber-400 drop-shadow-sm" />
+            <Hand className="h-7 w-7 text-amber-400 drop-shadow-sm sm:h-8 sm:w-8" />
           </h1>
           <p className="mt-1.5 text-sm text-slate-500 dark:text-white/40">
             Prêt pour un nouveau défi ? • Coupe du Monde 2026
@@ -132,7 +132,7 @@ export default async function HubPage() {
         </div>
 
         {/* Compact stats row */}
-        <div className="flex gap-3">
+        <div className="flex gap-2 sm:gap-3">
           <StatPill icon={<Coins className="h-4 w-4 text-amber-500" />} value={user.footPoints.toLocaleString("fr-FR")} label="FP" color="text-amber-400" />
           <StatPill icon={<Gamepad2 className="h-4 w-4 text-emerald-500" />} value={`${user.partiesJoueesAujourdHui}/${maxGames}`} label="Parties" color="text-emerald-400" />
           <StatPill icon={<Trophy className="h-4 w-4 text-blue-500" />} value="—" label="Rang" color="text-blue-400" />
@@ -238,11 +238,11 @@ function StatPill({
   color: string;
 }) {
   return (
-    <div className="flex items-center gap-2 rounded-xl border border-slate-200 dark:border-white/[0.06] bg-white shadow-sm dark:shadow-none dark:bg-white/[0.03] px-4 py-2.5">
+    <div className="flex items-center gap-1.5 rounded-xl border border-slate-200 dark:border-white/[0.06] bg-white shadow-sm dark:shadow-none dark:bg-white/[0.03] px-3 py-2 sm:gap-2 sm:px-4 sm:py-2.5">
       <div className="flex items-center justify-center">{icon}</div>
       <div className="flex flex-col leading-none">
-        <span className={`text-sm font-bold tabular-nums ${color.replace('text-', 'text-emerald-600 dark:text-')}`}>{value}</span>
-        <span className="mt-0.5 text-[10px] font-medium uppercase tracking-wider text-slate-400 dark:text-white/30">{label}</span>
+        <span className={`text-xs font-bold tabular-nums sm:text-sm ${color.replace('text-', 'text-emerald-600 dark:text-')}`}>{value}</span>
+        <span className="mt-0.5 text-[9px] font-medium uppercase tracking-wider text-slate-400 dark:text-white/30 sm:text-[10px]">{label}</span>
       </div>
     </div>
   );

@@ -34,13 +34,13 @@ export function DashboardHeader() {
         ? "border-amber-500/20 bg-slate-50/90 dark:bg-[#080c15]/90"
         : "border-emerald-500/10 bg-slate-50/90 dark:bg-[#080c15]/90"
     }`}>
-      <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-3">
+      <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-3 sm:px-6">
         {/* Logo */}
-        <Link href="/hub" className="group flex items-center gap-3">
-          <div className="relative flex h-10 w-10 items-center justify-center transition-transform group-hover:scale-105">
+        <Link href="/hub" className="group flex shrink-0 items-center gap-2 sm:gap-3">
+          <div className="relative flex h-8 w-8 items-center justify-center transition-transform group-hover:scale-105 sm:h-10 sm:w-10">
             <Image src="/images/Logo.svg" alt="FootQuest Logo" width={40} height={40} className="drop-shadow-md" />
           </div>
-          <span className="text-xl font-black tracking-tight text-slate-900 dark:text-white">
+          <span className="text-lg font-black tracking-tight text-slate-900 dark:text-white sm:text-xl">
             Foot<span className={`bg-clip-text text-transparent ${
               isPremium
                 ? "bg-gradient-to-r from-amber-500 to-yellow-400"
@@ -50,30 +50,27 @@ export function DashboardHeader() {
         </Link>
 
         {/* Points + badges */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-1.5 sm:gap-3">
           <ThemeToggle />
           
-          {/* Premium badge */}
+          {/* Premium badge — icon only on mobile, full on desktop */}
           {isPremium && (
-            <div className="flex items-center gap-1 rounded-full bg-gradient-to-r from-amber-500 to-yellow-400 px-3 py-1.5 shadow-md shadow-amber-500/20">
-              <Star className="h-3.5 w-3.5 fill-amber-900 text-amber-900" />
-              <span className="text-[10px] font-black uppercase tracking-wider text-amber-900">Premium</span>
+            <div className="flex items-center gap-1 rounded-full bg-gradient-to-r from-amber-500 to-yellow-400 px-2 py-1 shadow-md shadow-amber-500/20 sm:px-3 sm:py-1.5">
+              <Star className="h-3 w-3 fill-amber-900 text-amber-900 sm:h-3.5 sm:w-3.5" />
+              <span className="hidden text-[10px] font-black uppercase tracking-wider text-amber-900 sm:inline">Premium</span>
             </div>
           )}
 
-          {/* Animated FootPoints */}
-          <div className={`flex items-center gap-2 rounded-full border px-4 py-2 shadow-inner ${
+          {/* FootPoints */}
+          <div className={`flex items-center gap-1 rounded-full border px-2.5 py-1.5 shadow-inner sm:gap-2 sm:px-4 sm:py-2 ${
             isPremium
               ? "border-amber-500/30 bg-gradient-to-r from-amber-500/10 to-yellow-500/10 dark:from-amber-500/15 dark:to-yellow-500/10"
               : "border-amber-500/20 bg-gradient-to-r from-amber-500/5 to-amber-600/5 dark:from-amber-500/10 dark:to-amber-600/5"
           }`}>
-            <div className="relative flex h-5 w-5 items-center justify-center">
-              <Coins className="h-4 w-4 text-amber-500 drop-shadow-sm" />
-            </div>
-            <span className="text-sm font-bold tabular-nums text-amber-500 dark:text-amber-400">
+            <Coins className="h-3.5 w-3.5 shrink-0 text-amber-500 drop-shadow-sm sm:h-4 sm:w-4" />
+            <span className="text-xs font-bold tabular-nums text-amber-500 dark:text-amber-400 sm:text-sm">
               {footPoints !== null ? footPoints.toLocaleString("fr-FR") : "..."}
             </span>
-            <span className="hidden text-[10px] font-medium uppercase tracking-wider text-amber-600/60 dark:text-amber-500/60 sm:inline">FP</span>
           </div>
         </div>
       </div>
