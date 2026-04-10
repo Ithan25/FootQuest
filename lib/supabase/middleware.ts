@@ -40,27 +40,23 @@ export async function updateSession(request: NextRequest) {
       },
     }
   );
-
   // Handle OAuth callback: exchange code for session
-  if (request.nextUrl.pathname === "/auth/callback") {
-    const code = request.nextUrl.searchParams.get("code");
-    const next = request.nextUrl.searchParams.get("next") ?? "/hub";
-    if (code) {
-      const { error } = await supabase.auth.exchangeCodeForSession(code);
-      if (!error) {
-        const forwardedHost = request.headers.get("x-forwarded-host");
-        const isLocalEnv = process.env.NODE_ENV === "development";
-        if (isLocalEnv) {
-          return NextResponse.redirect(new URL(next, request.url));
-        } else if (forwardedHost) {
-          return NextResponse.redirect(`https://${forwardedHost}${next}`);
-        } else {
-          return NextResponse.redirect(new URL(next, request.url));
-        }
+  // Supabase may redirect the code to /auth/callback OR /login depending on config
+  const code = request.nextUrl.searchParams.get("code");
+  if (code) {
+    const { error } = await supabase.auth.exchangeCodeForSession(code);
+    if (!error) {
+      const forwardedHost = request.headers.get("x-forwarded-host");
+      const isLocalEnv = process.env.NODE_ENV === "development";
+      if (isLocalEnv) {
+        return NextResponse.redirect(new URL("/hub", request.url));
+      } else if (forwardedHost) {
+        return NextResponse.redirect(`https://${forwardedHost}/hub`);
+      } else {
+        return NextResponse.redirect(new URL("/hub", request.url));
       }
-      console.error("[OAuth callback] Code exchange error:", error.message);
-      return NextResponse.redirect(new URL("/login?error=auth_callback_failed", request.url));
     }
+    console.error("[OAuth callback] Code exchange error:", error.message);
   }
 
   // Refresh the session - important for Server Components
