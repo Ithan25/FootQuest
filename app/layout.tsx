@@ -19,6 +19,10 @@ export const metadata: Metadata = {
   icons: {
     icon: "/images/Logo.svg",
   },
+  // C'est ici que l'on ajoute la balise meta pour AdSense :
+  other: {
+    "google-adsense-account": "ca-pub-9874141990888959",
+  },
 };
 
 export default function RootLayout({
