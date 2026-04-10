@@ -1,8 +1,8 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { User, Star, Coins, Gamepad2, Medal, Trophy, Camera, Loader2, ClipboardList, Circle, LogOut, Crown, Sparkles } from "lucide-react";
-import { uploadProfileImage, togglePremium } from "./actions";
+import { User, Star, Coins, Gamepad2, Medal, Trophy, Camera, Loader2, ClipboardList, Circle, LogOut, Crown, Sparkles, Pencil, Check, X } from "lucide-react";
+import { uploadProfileImage, togglePremium, updatePseudo } from "./actions";
 
 export type ProfileData = {
   id: string;
@@ -22,8 +22,27 @@ export function ProfileClient({ initialProfile }: { initialProfile: ProfileData 
   const [profile, setProfile] = useState<ProfileData>(initialProfile);
   const [uploading, setUploading] = useState<"avatar" | "banner" | null>(null);
   const [toggling, setToggling] = useState(false);
+  const [isEditingPseudo, setIsEditingPseudo] = useState(false);
+  const [pseudoInput, setPseudoInput] = useState(initialProfile.pseudo);
+  const [updatingPseudo, setUpdatingPseudo] = useState(false);
   const avatarInputRef = useRef<HTMLInputElement>(null);
   const bannerInputRef = useRef<HTMLInputElement>(null);
+
+  const handleUpdatePseudo = async () => {
+    if (pseudoInput === profile.pseudo) {
+      setIsEditingPseudo(false);
+      return;
+    }
+    setUpdatingPseudo(true);
+    const result = await updatePseudo(pseudoInput);
+    if (result.error) {
+      alert(result.error);
+    } else {
+      setProfile((prev) => ({ ...prev, pseudo: result.pseudo }));
+      setIsEditingPseudo(false);
+    }
+    setUpdatingPseudo(false);
+  };
 
   const handleUpload = async (file: File, type: "avatar" | "banner") => {
     // Next.js server actions have a 1MB limit by default.
@@ -136,11 +155,49 @@ export function ProfileClient({ initialProfile }: { initialProfile: ProfileData 
             {/* Name + role */}
             <div className="flex-1 pb-1">
               <div className="flex items-center gap-2">
-                <h1 className="text-xl font-black text-slate-900 dark:text-white sm:text-2xl">
-                  {profile.pseudo}
-                </h1>
-                {profile.role === "golden_ball" && (
-                  <span className="flex items-center rounded-full bg-gradient-to-r from-amber-500 to-yellow-400 px-2.5 py-0.5 text-[10px] font-bold text-black">
+                {isEditingPseudo ? (
+                  <div className="flex items-center gap-2">
+                    <input
+                      type="text"
+                      className="rounded-md border border-slate-300 dark:border-white/10 bg-transparent px-2 py-1 text-xl font-black text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500 sm:text-2xl w-32 sm:w-48"
+                      value={pseudoInput}
+                      onChange={(e) => setPseudoInput(e.target.value)}
+                      disabled={updatingPseudo}
+                      autoFocus
+                      onKeyDown={(e) => e.key === "Enter" && handleUpdatePseudo()}
+                    />
+                    <button
+                      onClick={handleUpdatePseudo}
+                      disabled={updatingPseudo}
+                      className="rounded-md bg-emerald-500 p-1 text-white hover:bg-emerald-600 disabled:opacity-50"
+                    >
+                      {updatingPseudo ? <Loader2 className="h-4 w-4 animate-spin" /> : <Check className="h-4 w-4" />}
+                    </button>
+                    <button
+                      onClick={() => {
+                        setIsEditingPseudo(false);
+                        setPseudoInput(profile.pseudo);
+                      }}
+                      disabled={updatingPseudo}
+                      className="rounded-md bg-slate-200 dark:bg-white/10 p-1 text-slate-600 dark:text-white/60 hover:bg-slate-300 dark:hover:bg-white/20 disabled:opacity-50"
+                    >
+                      <X className="h-4 w-4" />
+                    </button>
+                  </div>
+                ) : (
+                  <h1 className="group flex items-center gap-2 text-xl font-black text-slate-900 dark:text-white sm:text-2xl">
+                    {profile.pseudo}
+                    <button
+                      onClick={() => setIsEditingPseudo(true)}
+                      className="opacity-0 transition-opacity group-hover:opacity-100 text-slate-400 hover:text-emerald-500"
+                    >
+                      <Pencil className="h-4 w-4" />
+                    </button>
+                  </h1>
+                )}
+                
+                {profile.role === "golden_ball" && !isEditingPseudo && (
+                  <span className="flex items-center rounded-full bg-gradient-to-r from-amber-500 to-yellow-400 px-2.5 py-0.5 text-[10px] font-bold text-black ml-2">
                     <Star className="mr-1 h-3 w-3 fill-current" /> PREMIUM
                   </span>
                 )}

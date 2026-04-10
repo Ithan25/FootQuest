@@ -164,3 +164,36 @@ export async function togglePremium(): Promise<{
   revalidatePath("/hub");
   return { role: newRole, error: null };
 }
+
+export async function updatePseudo(newPseudo: string): Promise<{
+  pseudo: string;
+  error: string | null;
+}> {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) return { pseudo: newPseudo, error: "Non authentifié" };
+
+  if (newPseudo.length < 3 || newPseudo.length > 20) {
+    return { pseudo: newPseudo, error: "Le pseudo doit contenir entre 3 et 20 caractères." };
+  }
+
+  const { error: updateError } = await supabase
+    .from("utilisateur")
+    .update({ pseudo: newPseudo })
+    .eq("id", user.id);
+
+  if (updateError) {
+    console.error("Update pseudo error:", updateError);
+    if (updateError.message.includes("unique")) {
+      return { pseudo: newPseudo, error: "Ce pseudo est déjà pris." };
+    }
+    return { pseudo: newPseudo, error: updateError.message };
+  }
+
+  revalidatePath("/profile");
+  revalidatePath("/hub");
+  return { pseudo: newPseudo, error: null };
+}
