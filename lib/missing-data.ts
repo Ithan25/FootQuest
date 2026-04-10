@@ -18,6 +18,7 @@ export interface MissingPieceTeamData {
     posY: number;
   }[];
   joueurManquantIndex: number;
+  difficulty?: Difficulty;
 }
 
 import { MISSING_PIECE_EXPANSION_1 } from "./missing-expansion1";
@@ -269,6 +270,7 @@ export function getRandomMissingPieceLevels(count: number, difficulty?: Difficul
   const selected = [...pool].sort(() => Math.random() - 0.5).slice(0, count);
   return selected.map(team => ({
     ...team,
+    difficulty: getTeamDifficulty(team.pays),
     joueurManquantIndex: Math.floor(Math.random() * team.joueurs.length)
   }));
 }

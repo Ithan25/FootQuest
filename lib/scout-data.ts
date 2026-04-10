@@ -278,7 +278,10 @@ export function getRandomScoutTeams(count: number, difficulty?: Difficulty): Sco
       pool = ALL_TEAMS;
     }
   }
-  return [...pool].sort(() => Math.random() - 0.5).slice(0, count);
+  return [...pool].sort(() => Math.random() - 0.5).slice(0, count).map(t => ({
+    ...t,
+    difficulty: getTeamDifficulty(t.pays)
+  }));
 }
 
 /**
