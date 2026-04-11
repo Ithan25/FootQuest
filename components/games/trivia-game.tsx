@@ -208,7 +208,7 @@ export function TriviaGame() {
     const percentage = Math.round((correctCount / QUESTIONS_PER_GAME) * 100);
 
     return (
-      <div className="flex flex-col items-center space-y-6 pt-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+      <div className="mx-auto flex max-w-md flex-col items-center space-y-6 pt-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
         <div className="flex h-24 w-24 items-center justify-center rounded-3xl bg-gradient-to-br from-amber-500 to-orange-500 shadow-xl shadow-amber-500/25">
           {percentage >= 80 ? <Trophy className="h-10 w-10 text-white" /> : percentage >= 50 ? <ThumbsUp className="h-10 w-10 text-white" /> : <Zap className="h-10 w-10 text-white" />}
         </div>
@@ -285,7 +285,7 @@ export function TriviaGame() {
 
   return (
     <div
-      className={`space-y-5 transition-all duration-300 ${
+      className={`mx-auto max-w-md space-y-5 transition-all duration-300 ${
         animatingOut
           ? "translate-x-[-20px] opacity-0"
           : "translate-x-0 opacity-100"

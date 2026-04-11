@@ -217,7 +217,7 @@ export function MissingGame() {
   // ─── RESULT ───
   if (session.phase === "result") {
     return (
-      <div className="flex flex-col items-center space-y-6 pt-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+      <div className="mx-auto flex max-w-md flex-col items-center space-y-6 pt-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
         <div className="flex h-24 w-24 items-center justify-center rounded-3xl bg-gradient-to-br from-purple-500 to-pink-500 shadow-xl shadow-purple-500/25">
           {session.score > 0 ? <Trophy className="h-10 w-10 text-white" /> : <Zap className="h-10 w-10 text-white" />}
         </div>
@@ -268,7 +268,7 @@ export function MissingGame() {
   const team = currentLevel.team;
 
   return (
-    <div className="space-y-4">
+    <div className="mx-auto max-w-md space-y-4">
       {/* Top bar */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
