@@ -17,8 +17,9 @@ export const metadata: Metadata = {
   title: "FootQuest",
   description: "L'application ultime de mini-jeux de football.",
   icons: {
-    icon: "/images/Logo.svg",
-    apple: "/images/icon-pwa.svg",
+    icon: "/images/icon-192.png",
+    shortcut: "/favicon.ico",
+    apple: "/images/apple-icon.png",
   },
   manifest: "/manifest.json",
   appleWebApp: {
