@@ -1,130 +1,209 @@
 /**
  * FootQuest - Additional WC2026 Teams (36 teams)
  * Combined with the 12 in scout-data.ts = 48 total
- *
- * VERIFIED list from FIFA/Wikipedia as of April 2026.
- * Italy, Nigeria, Ghana, Cameroun, Chile, Pérou are NOT qualified.
  */
 import type { ScoutTeamData } from "./scout-data";
 
 const P = { GK: "GK", DEF: "DEF", MID: "MID", FWD: "FWD" } as const;
-const pos = { gk:{posX:50,posY:90}, rb:{posX:85,posY:72}, rcb:{posX:62,posY:75}, lcb:{posX:38,posY:75}, lb:{posX:15,posY:72}, rm:{posX:70,posY:52}, cm:{posX:50,posY:55}, lm:{posX:30,posY:52}, rw:{posX:80,posY:28}, st:{posX:50,posY:22}, lw:{posX:20,posY:28} };
+const pos = {
+  gk: { posX: 50, posY: 90 },
+  rb: { posX: 85, posY: 72 }, rcb: { posX: 62, posY: 75 }, lcb: { posX: 38, posY: 75 }, lb: { posX: 15, posY: 72 },
+  rm: { posX: 70, posY: 52 }, cm: { posX: 50, posY: 55 }, lm: { posX: 30, posY: 52 },
+  rw: { posX: 80, posY: 28 }, st: { posX: 50, posY: 22 }, lw: { posX: 20, posY: 28 },
+  // 4-4-2
+  rm442: { posX: 80, posY: 50 }, rcm442: { posX: 60, posY: 55 }, lcm442: { posX: 40, posY: 55 }, lm442: { posX: 20, posY: 50 }, rs: { posX: 60, posY: 25 }, ls: { posX: 40, posY: 25 },
+  // 4-2-4
+  rcm424: { posX: 65, posY: 55 }, lcm424: { posX: 35, posY: 55 }, rw424: { posX: 85, posY: 25 }, rs424: { posX: 60, posY: 22 }, ls424: { posX: 40, posY: 22 }, lw424: { posX: 15, posY: 25 },
+  // 3-4-3
+  rcb3: { posX: 75, posY: 75 }, cb3: { posX: 50, posY: 78 }, lcb3: { posX: 25, posY: 75 }, rm343: { posX: 85, posY: 52 }, rcm343: { posX: 65, posY: 55 }, lcm343: { posX: 35, posY: 55 }, lm343: { posX: 15, posY: 52 },
+  // 3-3-4
+  rcm334: { posX: 70, posY: 52 }, cm334: { posX: 50, posY: 55 }, lcm334: { posX: 30, posY: 52 }
+};
 
 export const EXTRA_TEAMS: ScoutTeamData[] = [
-  // ═══ UEFA (4 remaining: Croatia, Scotland already in base? No. Need: Croatia, Switzerland, Scotland, Austria, Norway, Bosnia, Sweden, Czech Republic, Turkey) ═══
-  // Already in base: France, Angleterre, Espagne, Portugal, Allemagne, Pays-Bas, Belgique
-  // Need 9 more UEFA: Croatia, Switzerland, Scotland, Austria, Norway, Bosnia, Sweden, Czech Republic, Turkey
+  // ═══ UEFA ═══
+  {
+    pays: "Croatie", drapeau: "🇭🇷", formation: "4-3-3", joueurs: [
+      { nom: "Livaković", club: "Fenerbahçe", poste: P.GK, ...pos.gk }, { nom: "Stanišić", club: "Bayern Munich", poste: P.DEF, ...pos.rb }, { nom: "Šutalo", club: "Ajax Amsterdam", poste: P.DEF, ...pos.rcb }, { nom: "Gvardiol", club: "Manchester City", poste: P.DEF, ...pos.lcb }, { nom: "Sosa", club: "Torino FC", poste: P.DEF, ...pos.lb }, { nom: "Modrić", club: "Real Madrid", poste: P.MID, ...pos.rm }, { nom: "Kovačić", club: "Manchester City", poste: P.MID, ...pos.cm }, { nom: "Brozović", club: "Al-Nassr", poste: P.MID, ...pos.lm }, { nom: "Kramarić", club: "TSG Hoffenheim", poste: P.FWD, ...pos.rw }, { nom: "Budimir", club: "CA Osasuna", poste: P.FWD, ...pos.st }, { nom: "Perišić", club: "Hajduk Split", poste: P.FWD, ...pos.lw }]
+  },
 
-  { pays:"Croatie", drapeau:"🇭🇷", formation:"4-3-3", joueurs:[
-    {nom:"Livaković",club:"Fenerbahçe",poste:P.GK,...pos.gk},{nom:"Stanišić",club:"Bayer Leverkusen",poste:P.DEF,...pos.rb},{nom:"Gvardiol",club:"Manchester City",poste:P.DEF,...pos.rcb},{nom:"Šutalo",club:"Ajax",poste:P.DEF,...pos.lcb},{nom:"Sosa",club:"Torino",poste:P.DEF,...pos.lb},{nom:"Modrić",club:"Real Madrid",poste:P.MID,...pos.rm},{nom:"Brozović",club:"Al-Nassr",poste:P.MID,...pos.cm},{nom:"Kovačić",club:"Manchester City",poste:P.MID,...pos.lm},{nom:"Kramarić",club:"Hoffenheim",poste:P.FWD,...pos.rw},{nom:"Budimir",club:"Osasuna",poste:P.FWD,...pos.st},{nom:"Perišić",club:"Hajduk Split",poste:P.FWD,...pos.lw}]},
+  {
+    pays: "Suisse", drapeau: "🇨🇭", formation: "3-4-3", joueurs: [
+      { nom: "Kobel", club: "Borussia Dortmund", poste: P.GK, ...pos.gk }, { nom: "Akanji", club: "Inter Milan", poste: P.DEF, ...pos.rcb3 }, { nom: "Elvedi", club: "Borussia Mönchengladbach", poste: P.DEF, ...pos.cb3 }, { nom: "Rodríguez", club: "Torino FC", poste: P.DEF, ...pos.lcb3 }, { nom: "Ndoye", club: "Nottingham Forest", poste: P.MID, ...pos.rm343 }, { nom: "Xhaka", club: "Sunderland", poste: P.MID, ...pos.rcm343 }, { nom: "Freuler", club: "Bologna FC", poste: P.MID, ...pos.lcm343 }, { nom: "Aebischer", club: "Pisa", poste: P.MID, ...pos.lm343 }, { nom: "Vargas", club: "Séville FC", poste: P.FWD, ...pos.rw }, { nom: "Embolo", club: "Stade Rennais", poste: P.FWD, ...pos.st }, { nom: "Okafor", club: "Leeds United", poste: P.FWD, ...pos.lw }]
+  },
 
-  { pays:"Suisse", drapeau:"🇨🇭", formation:"4-3-3", joueurs:[
-    {nom:"Sommer",club:"Inter Milan",poste:P.GK,...pos.gk},{nom:"Widmer",club:"Mayence",poste:P.DEF,...pos.rb},{nom:"Akanji",club:"Manchester City",poste:P.DEF,...pos.rcb},{nom:"Elvedi",club:"B. Mönchengladbach",poste:P.DEF,...pos.lcb},{nom:"Rodriguez",club:"Torino",poste:P.DEF,...pos.lb},{nom:"Freuler",club:"Bologna",poste:P.MID,...pos.rm},{nom:"Xhaka",club:"Bayer Leverkusen",poste:P.MID,...pos.cm},{nom:"Aebischer",club:"Bologna",poste:P.MID,...pos.lm},{nom:"Shaqiri",club:"Bâle",poste:P.FWD,...pos.rw},{nom:"Embolo",club:"AS Monaco",poste:P.FWD,...pos.st},{nom:"Ndoye",club:"Bologna",poste:P.FWD,...pos.lw}]},
+  {
+    pays: "Écosse", drapeau: "🏴󠁧󠁢󠁳󠁣󠁴󠁿", formation: "4-3-3", joueurs: [
+      { nom: "Gunn", club: "Norwich City", poste: P.GK, ...pos.gk }, { nom: "Ralston", club: "Celtic FC", poste: P.DEF, ...pos.rb }, { nom: "Hendry", club: "Al-Ettifaq", poste: P.DEF, ...pos.rcb }, { nom: "Hanley", club: "Norwich City", poste: P.DEF, ...pos.lcb }, { nom: "Robertson", club: "Liverpool", poste: P.DEF, ...pos.lb }, { nom: "McTominay", club: "Napoli", poste: P.MID, ...pos.rm }, { nom: "Gilmour", club: "Napoli", poste: P.MID, ...pos.cm }, { nom: "McGinn", club: "Aston Villa", poste: P.MID, ...pos.lm }, { nom: "Christie", club: "AFC Bournemouth", poste: P.FWD, ...pos.rw }, { nom: "Ferguson", club: "Bologna FC", poste: P.FWD, ...pos.st }, { nom: "Adams", club: "Torino FC", poste: P.FWD, ...pos.lw }]
+  },
 
-  { pays:"Écosse", drapeau:"🏴󠁧󠁢󠁳󠁣󠁴󠁿", formation:"4-3-3", joueurs:[
-    {nom:"Gunn",club:"Norwich",poste:P.GK,...pos.gk},{nom:"Ralston",club:"Celtic",poste:P.DEF,...pos.rb},{nom:"Hendry",club:"Al-Ettifaq",poste:P.DEF,...pos.rcb},{nom:"Hanley",club:"Norwich",poste:P.DEF,...pos.lcb},{nom:"Robertson",club:"Liverpool",poste:P.DEF,...pos.lb},{nom:"McGregor",club:"Celtic",poste:P.MID,...pos.rm},{nom:"Gilmour",club:"Napoli",poste:P.MID,...pos.cm},{nom:"McGinn",club:"Aston Villa",poste:P.MID,...pos.lm},{nom:"Adams",club:"Torino",poste:P.FWD,...pos.rw},{nom:"Dykes",club:"QPR",poste:P.FWD,...pos.st},{nom:"Christie",club:"Bournemouth",poste:P.FWD,...pos.lw}]},
+  {
+    pays: "Autriche", drapeau: "🇦🇹", formation: "4-4-2", joueurs: [
+      { nom: "Pentz", club: "Brøndby IF", poste: P.GK, ...pos.gk }, { nom: "Posch", club: "Como 1907", poste: P.DEF, ...pos.rb }, { nom: "Danso", club: "Tottenham Hotspur", poste: P.DEF, ...pos.rcb }, { nom: "Alaba", club: "Real Madrid", poste: P.DEF, ...pos.lcb }, { nom: "Mwene", club: "Mainz 05", poste: P.DEF, ...pos.lb }, { nom: "Seiwald", club: "RB Leipzig", poste: P.MID, ...pos.rm442 }, { nom: "Laimer", club: "Bayern Munich", poste: P.MID, ...pos.rcm442 }, { nom: "Sabitzer", club: "Borussia Dortmund", poste: P.MID, ...pos.lcm442 }, { nom: "Baumgartner", club: "RB Leipzig", poste: P.MID, ...pos.lm442 }, { nom: "Wimmer", club: "VfL Wolfsburg", poste: P.FWD, ...pos.rs }, { nom: "Arnautović", club: "Étoile Rouge de Belgrade", poste: P.FWD, ...pos.ls }]
+  },
 
-  { pays:"Autriche", drapeau:"🇦🇹", formation:"4-3-3", joueurs:[
-    {nom:"Pentz",club:"Bröndby",poste:P.GK,...pos.gk},{nom:"Posch",club:"Bologna",poste:P.DEF,...pos.rb},{nom:"Danso",club:"Lens",poste:P.DEF,...pos.rcb},{nom:"Wöber",club:"Leeds",poste:P.DEF,...pos.lcb},{nom:"Mwene",club:"Mayence",poste:P.DEF,...pos.lb},{nom:"Seiwald",club:"RB Leipzig",poste:P.MID,...pos.rm},{nom:"Laimer",club:"Bayern Munich",poste:P.MID,...pos.cm},{nom:"Sabitzer",club:"Borussia Dortmund",poste:P.MID,...pos.lm},{nom:"Wimmer",club:"Wolfsburg",poste:P.FWD,...pos.rw},{nom:"Arnautović",club:"Inter Milan",poste:P.FWD,...pos.st},{nom:"Baumgartner",club:"RB Leipzig",poste:P.FWD,...pos.lw}]},
+  {
+    pays: "Norvège", drapeau: "🇳🇴", formation: "4-3-3", joueurs: [
+      { nom: "Nyland", club: "Séville FC", poste: P.GK, ...pos.gk }, { nom: "Ryerson", club: "Borussia Dortmund", poste: P.DEF, ...pos.rb }, { nom: "Ajer", club: "Brentford", poste: P.DEF, ...pos.rcb }, { nom: "Østigård", club: "Stade Rennais", poste: P.DEF, ...pos.lcb }, { nom: "Wolfe", club: "AZ Alkmaar", poste: P.DEF, ...pos.lb }, { nom: "Berge", club: "Fulham", poste: P.MID, ...pos.rm }, { nom: "Thorstvedt", club: "Sassuolo", poste: P.MID, ...pos.cm }, { nom: "Ødegaard", club: "Arsenal", poste: P.MID, ...pos.lm }, { nom: "Bobb", club: "Manchester City", poste: P.FWD, ...pos.rw }, { nom: "Haaland", club: "Manchester City", poste: P.FWD, ...pos.st }, { nom: "Sørloth", club: "Atlético Madrid", poste: P.FWD, ...pos.lw }]
+  },
 
-  { pays:"Norvège", drapeau:"🇳🇴", formation:"4-3-3", joueurs:[
-    {nom:"Nyland",club:"Sevilla",poste:P.GK,...pos.gk},{nom:"Ryerson",club:"Borussia Dortmund",poste:P.DEF,...pos.rb},{nom:"Ostigard",club:"Rennes",poste:P.DEF,...pos.rcb},{nom:"Hanche-Olsen",club:"Gent",poste:P.DEF,...pos.lcb},{nom:"Meling",club:"Rennes",poste:P.DEF,...pos.lb},{nom:"Ödegaard",club:"Arsenal",poste:P.MID,...pos.rm},{nom:"Berge",club:"Fulham",poste:P.MID,...pos.cm},{nom:"Thorstvedt",club:"Sassuolo",poste:P.MID,...pos.lm},{nom:"Nusa",club:"RB Leipzig",poste:P.FWD,...pos.rw},{nom:"Haaland",club:"Manchester City",poste:P.FWD,...pos.st},{nom:"Sörloth",club:"Atlético Madrid",poste:P.FWD,...pos.lw}]},
+  {
+    pays: "Bosnie-Herzégovine", drapeau: "🇧🇦", formation: "4-3-3", joueurs: [
+      { nom: "Vasilj", club: "FC St. Pauli", poste: P.GK, ...pos.gk }, { nom: "Dedić", club: "RB Salzburg", poste: P.DEF, ...pos.rb }, { nom: "Kolašinac", club: "Atalanta", poste: P.DEF, ...pos.rcb }, { nom: "Radeljić", club: "HNK Rijeka", poste: P.DEF, ...pos.lcb }, { nom: "Mujakić", club: "Gaziantep", poste: P.DEF, ...pos.lb }, { nom: "Tahirović", club: "Brøndby", poste: P.MID, ...pos.rm }, { nom: "Gigović", club: "Young Boys", poste: P.MID, ...pos.cm }, { nom: "Hadžiahmetović", club: "Hull City", poste: P.MID, ...pos.lm }, { nom: "Bajraktarević", club: "PSV Eindhoven", poste: P.FWD, ...pos.rw }, { nom: "Džeko", club: "Schalke 04", poste: P.FWD, ...pos.st }, { nom: "Demirović", club: "VfB Stuttgart", poste: P.FWD, ...pos.lw }]
+  },
 
-  { pays:"Bosnie-Herzégovine", drapeau:"🇧🇦", formation:"4-3-3", joueurs:[
-    {nom:"Vasilj",club:"St. Pauli",poste:P.GK,...pos.gk},{nom:"Gazibegović",club:"Sturm Graz",poste:P.DEF,...pos.rb},{nom:"Ahmedhodžić",club:"Sheffield United",poste:P.DEF,...pos.rcb},{nom:"Katic",club:"Zurich",poste:P.DEF,...pos.lcb},{nom:"Kolašinac",club:"Atalanta",poste:P.DEF,...pos.lb},{nom:"Pjanić",club:"Sharjah FC",poste:P.MID,...pos.rm},{nom:"Hadžiahmetović",club:"Trabzonspor",poste:P.MID,...pos.cm},{nom:"Hajradinović",club:"Grasshoppers",poste:P.MID,...pos.lm},{nom:"Demirović",club:"VfB Stuttgart",poste:P.FWD,...pos.rw},{nom:"Džeko",club:"Fenerbahçe",poste:P.FWD,...pos.st},{nom:"Kololli",club:"Lugano",poste:P.FWD,...pos.lw}]},
+  {
+    pays: "Suède", drapeau: "🇸🇪", formation: "4-3-3", joueurs: [
+      { nom: "Ellborg", club: "Malmö FF", poste: P.GK, ...pos.gk }, { nom: "Krafth", club: "Newcastle United", poste: P.DEF, ...pos.rb }, { nom: "Hien", club: "Atalanta", poste: P.DEF, ...pos.rcb }, { nom: "Lindelöf", club: "Manchester United", poste: P.DEF, ...pos.lcb }, { nom: "Gudmundsson", club: "LOSC Lille", poste: P.DEF, ...pos.lb }, { nom: "Karlström", club: "Udinese", poste: P.MID, ...pos.rm }, { nom: "Bergvall", club: "Tottenham Hotspur", poste: P.MID, ...pos.cm }, { nom: "Larsson", club: "Eintracht Frankfurt", poste: P.MID, ...pos.lm }, { nom: "Swedberg", club: "Celta Vigo", poste: P.FWD, ...pos.rw }, { nom: "Isak", club: "Liverpool", poste: P.FWD, ...pos.st }, { nom: "Gyökeres", club: "Sporting CP", poste: P.FWD, ...pos.lw }]
+  },
 
-  { pays:"Suède", drapeau:"🇸🇪", formation:"4-3-3", joueurs:[
-    {nom:"Johnsson",club:"Copenhague",poste:P.GK,...pos.gk},{nom:"Krafth",club:"Newcastle",poste:P.DEF,...pos.rb},{nom:"Starfelt",club:"Celta Vigo",poste:P.DEF,...pos.rcb},{nom:"Lindelöf",club:"Manchester United",poste:P.DEF,...pos.lcb},{nom:"Augustinsson",club:"Anderlecht",poste:P.DEF,...pos.lb},{nom:"Kulusevski",club:"Tottenham",poste:P.MID,...pos.rm},{nom:"Svanberg",club:"Wolfsburg",poste:P.MID,...pos.cm},{nom:"Forsberg",club:"New York Red Bulls",poste:P.MID,...pos.lm},{nom:"Elanga",club:"Nottingham Forest",poste:P.FWD,...pos.rw},{nom:"Isak",club:"Newcastle",poste:P.FWD,...pos.st},{nom:"Gyökeres",club:"Sporting CP",poste:P.FWD,...pos.lw}]},
+  {
+    pays: "Tchéquie", drapeau: "🇨🇿", formation: "4-3-3", joueurs: [
+      { nom: "Kovář", club: "Bayer Leverkusen", poste: P.GK, ...pos.gk }, { nom: "Coufal", club: "West Ham United", poste: P.DEF, ...pos.rb }, { nom: "Krejčí", club: "Girona FC", poste: P.DEF, ...pos.rcb }, { nom: "Hranáč", club: "TSG Hoffenheim", poste: P.DEF, ...pos.lcb }, { nom: "Zelený", club: "Slavia Prague", poste: P.DEF, ...pos.lb }, { nom: "Souček", club: "West Ham United", poste: P.MID, ...pos.rm }, { nom: "Bucha", club: "FC Cincinnati", poste: P.MID, ...pos.cm }, { nom: "Černý", club: "VfL Wolfsburg", poste: P.MID, ...pos.lm }, { nom: "Hložek", club: "Bayer Leverkusen", poste: P.FWD, ...pos.rw }, { nom: "Schick", club: "Bayer Leverkusen", poste: P.FWD, ...pos.st }, { nom: "Chytil", club: "Slavia Prague", poste: P.FWD, ...pos.lw }]
+  },
 
-  { pays:"République tchèque", drapeau:"🇨🇿", formation:"4-3-3", joueurs:[
-    {nom:"Staněk",club:"Slavia Prague",poste:P.GK,...pos.gk},{nom:"Coufal",club:"West Ham",poste:P.DEF,...pos.rb},{nom:"Zima",club:"Slavia Prague",poste:P.DEF,...pos.rcb},{nom:"Hranáč",club:"Hoffenheim",poste:P.DEF,...pos.lcb},{nom:"Zelený",club:"Slavia Prague",poste:P.DEF,...pos.lb},{nom:"Souček",club:"West Ham",poste:P.MID,...pos.rm},{nom:"Provod",club:"Slavia Prague",poste:P.MID,...pos.cm},{nom:"Červ",club:"Wolfsburg",poste:P.MID,...pos.lm},{nom:"Hložek",club:"Bayer Leverkusen",poste:P.FWD,...pos.rw},{nom:"Schick",club:"Bayer Leverkusen",poste:P.FWD,...pos.st},{nom:"Barák",club:"Fiorentina",poste:P.FWD,...pos.lw}]},
+  {
+    pays: "Turquie", drapeau: "🇹🇷", formation: "4-3-3", joueurs: [
+      { nom: "Günok", club: "Beşiktaş", poste: P.GK, ...pos.gk }, { nom: "Müldür", club: "AS Roma", poste: P.DEF, ...pos.rb }, { nom: "Demiral", club: "Al-Ahli", poste: P.DEF, ...pos.rcb }, { nom: "Bardakcı", club: "Galatasaray", poste: P.DEF, ...pos.lcb }, { nom: "Kadıoğlu", club: "Brighton & Hove Albion", poste: P.DEF, ...pos.lb }, { nom: "Çalhanoğlu", club: "Inter Milan", poste: P.MID, ...pos.rm }, { nom: "Kökçü", club: "Benfica", poste: P.MID, ...pos.cm }, { nom: "Güler", club: "Real Madrid", poste: P.MID, ...pos.lm }, { nom: "Yıldız", club: "Juventus", poste: P.FWD, ...pos.rw }, { nom: "Aktürkoğlu", club: "Benfica", poste: P.FWD, ...pos.st }, { nom: "Yılmaz", club: "Galatasaray", poste: P.FWD, ...pos.lw }]
+  },
 
-  { pays:"Turquie", drapeau:"🇹🇷", formation:"4-3-3", joueurs:[
-    {nom:"Günok",club:"Beşiktaş",poste:P.GK,...pos.gk},{nom:"Çelik",club:"Atlético Madrid",poste:P.DEF,...pos.rb},{nom:"Demiral",club:"Al-Ahli",poste:P.DEF,...pos.rcb},{nom:"Kabak",club:"Hoffenheim",poste:P.DEF,...pos.lcb},{nom:"Kadıoğlu",club:"Brighton",poste:P.DEF,...pos.lb},{nom:"Çalhanoğlu",club:"Inter Milan",poste:P.MID,...pos.rm},{nom:"Kökçü",club:"Benfica",poste:P.MID,...pos.cm},{nom:"Yazıcı",club:"Lille",poste:P.MID,...pos.lm},{nom:"Ünder",club:"Fenerbahçe",poste:P.FWD,...pos.rw},{nom:"Yılmaz",club:"Galatasaray",poste:P.FWD,...pos.st},{nom:"Aktürkoğlu",club:"Benfica",poste:P.FWD,...pos.lw}]},
+  // ═══ CONMEBOL ═══
+  {
+    pays: "Uruguay", drapeau: "🇺🇾", formation: "4-3-3", joueurs: [
+      { nom: "Mele", club: "CF Monterrey", poste: P.GK, ...pos.gk }, { nom: "Varela", club: "Flamengo", poste: P.DEF, ...pos.rb }, { nom: "Araújo", club: "FC Barcelone", poste: P.DEF, ...pos.rcb }, { nom: "Giménez", club: "Atlético Madrid", poste: P.DEF, ...pos.lcb }, { nom: "Olivera", club: "Napoli", poste: P.DEF, ...pos.lb }, { nom: "Ugarte", club: "Manchester United", poste: P.MID, ...pos.rm }, { nom: "Valverde", club: "Real Madrid", poste: P.MID, ...pos.cm }, { nom: "Bentancur", club: "Tottenham Hotspur", poste: P.MID, ...pos.lm }, { nom: "Pellistri", club: "Panathinaikos", poste: P.FWD, ...pos.rw }, { nom: "Núñez", club: "(Championnat saoudien)", poste: P.FWD, ...pos.st }, { nom: "M. Araújo", club: "Sporting CP", poste: P.FWD, ...pos.lw }]
+  },
 
-  // ═══ CONMEBOL (5 remaining: Argentina, Brazil already in base) ═══
-  { pays:"Uruguay", drapeau:"🇺🇾", formation:"4-3-3", joueurs:[
-    {nom:"Rochet",club:"Inter Milan",poste:P.GK,...pos.gk},{nom:"Nández",club:"Al-Ain",poste:P.DEF,...pos.rb},{nom:"Giménez",club:"Atlético Madrid",poste:P.DEF,...pos.rcb},{nom:"Araújo",club:"FC Barcelone",poste:P.DEF,...pos.lcb},{nom:"Olivera",club:"Napoli",poste:P.DEF,...pos.lb},{nom:"Valverde",club:"Real Madrid",poste:P.MID,...pos.rm},{nom:"Bentancur",club:"Tottenham",poste:P.MID,...pos.cm},{nom:"Ugarte",club:"Manchester United",poste:P.MID,...pos.lm},{nom:"Pellistri",club:"Manchester United",poste:P.FWD,...pos.rw},{nom:"Núñez",club:"Liverpool",poste:P.FWD,...pos.st},{nom:"De Arrascaeta",club:"Flamengo",poste:P.FWD,...pos.lw}]},
+  {
+    pays: "Colombie", drapeau: "🇨🇴", formation: "4-3-3", joueurs: [
+      { nom: "Vargas", club: "Atlas FC", poste: P.GK, ...pos.gk }, { nom: "Muñoz", club: "Crystal Palace", poste: P.DEF, ...pos.rb }, { nom: "Sánchez", club: "Galatasaray", poste: P.DEF, ...pos.rcb }, { nom: "Lucumí", club: "Bologna FC", poste: P.DEF, ...pos.lcb }, { nom: "Mojica", club: "Villarreal CF", poste: P.DEF, ...pos.lb }, { nom: "Lerma", club: "Crystal Palace", poste: P.MID, ...pos.rm }, { nom: "Ríos", club: "Palmeiras", poste: P.MID, ...pos.cm }, { nom: "Arias", club: "Fluminense", poste: P.MID, ...pos.lm }, { nom: "Rodríguez", club: "São Paulo FC", poste: P.FWD, ...pos.rw }, { nom: "Díaz", club: "Liverpool", poste: P.FWD, ...pos.st }, { nom: "Córdoba", club: "FK Krasnodar", poste: P.FWD, ...pos.lw }]
+  },
 
-  { pays:"Colombie", drapeau:"🇨🇴", formation:"4-3-3", joueurs:[
-    {nom:"Vargas",club:"Atlético Nacional",poste:P.GK,...pos.gk},{nom:"Muñoz",club:"Crystal Palace",poste:P.DEF,...pos.rb},{nom:"Sánchez",club:"West Ham",poste:P.DEF,...pos.rcb},{nom:"Lucumí",club:"Bologna",poste:P.DEF,...pos.lcb},{nom:"Mojica",club:"Villarreal",poste:P.DEF,...pos.lb},{nom:"Ríos",club:"Liverpool",poste:P.MID,...pos.rm},{nom:"Lerma",club:"Crystal Palace",poste:P.MID,...pos.cm},{nom:"J. Arias",club:"Flamengo",poste:P.MID,...pos.lm},{nom:"Díaz",club:"Liverpool",poste:P.FWD,...pos.rw},{nom:"Córdoba",club:"Krasnodar",poste:P.FWD,...pos.st},{nom:"Durán",club:"Aston Villa",poste:P.FWD,...pos.lw}]},
+  {
+    pays: "Équateur", drapeau: "🇪🇨", formation: "4-3-3", joueurs: [
+      { nom: "Domínguez", club: "Cerro Porteño", poste: P.GK, ...pos.gk }, { nom: "Preciado", club: "Sparta Prague", poste: P.DEF, ...pos.rb }, { nom: "Pacho", club: "Paris Saint-Germain", poste: P.DEF, ...pos.rcb }, { nom: "Hincapié", club: "Bayer Leverkusen", poste: P.DEF, ...pos.lcb }, { nom: "Estupiñán", club: "Brighton & Hove Albion", poste: P.DEF, ...pos.lb }, { nom: "Caicedo", club: "Chelsea", poste: P.MID, ...pos.rm }, { nom: "Alcívar", club: "Independiente del Valle", poste: P.MID, ...pos.cm }, { nom: "Páez", club: "Chelsea", poste: P.MID, ...pos.lm }, { nom: "Sarmiento", club: "Brighton & Hove Albion", poste: P.FWD, ...pos.rw }, { nom: "Plata", club: "Flamengo", poste: P.FWD, ...pos.st }, { nom: "Valencia", club: "SC Internacional", poste: P.FWD, ...pos.lw }]
+  },
 
-  { pays:"Équateur", drapeau:"🇪🇨", formation:"4-3-3", joueurs:[
-    {nom:"Domínguez",club:"Cerro Porteño",poste:P.GK,...pos.gk},{nom:"Preciado",club:"Sparta Prague",poste:P.DEF,...pos.rb},{nom:"Pacho",club:"PSG",poste:P.DEF,...pos.rcb},{nom:"Hincapié",club:"Bayer Leverkusen",poste:P.DEF,...pos.lcb},{nom:"Estupiñán",club:"Brighton",poste:P.DEF,...pos.lb},{nom:"Caicedo",club:"Chelsea",poste:P.MID,...pos.rm},{nom:"Sarmiento",club:"Brighton",poste:P.MID,...pos.cm},{nom:"Páez",club:"Independiente",poste:P.MID,...pos.lm},{nom:"Plata",club:"Flamengo",poste:P.FWD,...pos.rw},{nom:"Valencia",club:"Internacional",poste:P.FWD,...pos.st},{nom:"Rodríguez",club:"Union SG",poste:P.FWD,...pos.lw}]},
+  {
+    pays: "Paraguay", drapeau: "🇵🇾", formation: "4-3-3", joueurs: [
+      { nom: "Fernández", club: "Cerro Porteño", poste: P.GK, ...pos.gk }, { nom: "Velázquez", club: "Newell's Old Boys", poste: P.DEF, ...pos.rb }, { nom: "Gómez", club: "Palmeiras", poste: P.DEF, ...pos.rcb }, { nom: "Alderete", club: "Getafe CF", poste: P.DEF, ...pos.lcb }, { nom: "Alonso", club: "FK Krasnodar", poste: P.DEF, ...pos.lb }, { nom: "Cubas", club: "Vancouver Whitecaps", poste: P.MID, ...pos.rm }, { nom: "D. Gómez", club: "Brighton & Hove Albion", poste: P.MID, ...pos.cm }, { nom: "Almirón", club: "Newcastle United", poste: P.MID, ...pos.lm }, { nom: "Enciso", club: "RC Strasbourg", poste: P.FWD, ...pos.rw }, { nom: "Sosa", club: "Nottingham Forest", poste: P.FWD, ...pos.st }, { nom: "Sanabria", club: "Torino FC", poste: P.FWD, ...pos.lw }]
+  },
 
-  { pays:"Paraguay", drapeau:"🇵🇾", formation:"4-3-3", joueurs:[
-    {nom:"R. Fernández",club:"Cerro Porteño",poste:P.GK,...pos.gk},{nom:"R. Rojas",club:"Inter Miami",poste:P.DEF,...pos.rb},{nom:"G. Gómez",club:"River Plate",poste:P.DEF,...pos.rcb},{nom:"Balbuena",club:"Dynamo Moscou",poste:P.DEF,...pos.lcb},{nom:"Alderete",club:"Getafe",poste:P.DEF,...pos.lb},{nom:"Cubas",club:"Montpellier",poste:P.MID,...pos.rm},{nom:"Villasanti",club:"Grêmio",poste:P.MID,...pos.cm},{nom:"Almirón",club:"Newcastle",poste:P.MID,...pos.lm},{nom:"Enciso",club:"Brighton",poste:P.FWD,...pos.rw},{nom:"Sanabria",club:"Torino",poste:P.FWD,...pos.st},{nom:"Romero",club:"Corinthians",poste:P.FWD,...pos.lw}]},
+  // ═══ CONCACAF ═══
+  {
+    pays: "Panama", drapeau: "🇵🇦", formation: "4-3-3", joueurs: [
+      { nom: "Mosquera", club: "Maccabi Tel Aviv", poste: P.GK, ...pos.gk }, { nom: "Murillo", club: "RSC Anderlecht", poste: P.DEF, ...pos.rb }, { nom: "Córdoba", club: "Norwich City", poste: P.DEF, ...pos.rcb }, { nom: "Fariña", club: "Independiente", poste: P.DEF, ...pos.lcb }, { nom: "Davis", club: "Dunajská Streda", poste: P.DEF, ...pos.lb }, { nom: "Carrasquilla", club: "Pumas UNAM", poste: P.MID, ...pos.rm }, { nom: "Godoy", club: "San Diego FC", poste: P.MID, ...pos.cm }, { nom: "Ayarza", club: "Cienciano", poste: P.MID, ...pos.lm }, { nom: "Bárcenas", club: "Mazatlán FC", poste: P.FWD, ...pos.rw }, { nom: "Fajardo", club: "Universidad Católica", poste: P.FWD, ...pos.st }, { nom: "Waterman", club: "U. de Concepción", poste: P.FWD, ...pos.lw }]
+  },
 
-  // ═══ CONCACAF (3 remaining: USA, Canada, Mexico already in base) ═══
-  { pays:"Panama", drapeau:"🇵🇦", formation:"4-3-3", joueurs:[
-    {nom:"Mosquera",club:"Independiente Medellín",poste:P.GK,...pos.gk},{nom:"Murillo",club:"Anderlecht",poste:P.DEF,...pos.rb},{nom:"Córdoba A.",club:"Krasnodar",poste:P.DEF,...pos.rcb},{nom:"Farina",club:"Universitario",poste:P.DEF,...pos.lcb},{nom:"Davis",club:"Fuenlabrada",poste:P.DEF,...pos.lb},{nom:"Carrasquilla",club:"Houston Dynamo",poste:P.MID,...pos.rm},{nom:"Godoy",club:"Olimpia",poste:P.MID,...pos.cm},{nom:"Blackburn",club:"Columbus Crew",poste:P.MID,...pos.lm},{nom:"Fajardo",club:"Alajuelense",poste:P.FWD,...pos.rw},{nom:"Bárcenas",club:"Club América",poste:P.FWD,...pos.st},{nom:"Murillo M.",club:"Anderlecht",poste:P.FWD,...pos.lw}]},
+  {
+    pays: "Curaçao", drapeau: "🇨🇼", formation: "4-3-3", joueurs: [
+      { nom: "Room", club: "Miami FC", poste: P.GK, ...pos.gk }, { nom: "Sambo", club: "Sparta Rotterdam", poste: P.DEF, ...pos.rb }, { nom: "Obispo", club: "PSV Eindhoven", poste: P.DEF, ...pos.rcb }, { nom: "Bazoer", club: "Konyaspor", poste: P.DEF, ...pos.lcb }, { nom: "Floranus", club: "PEC Zwolle", poste: P.DEF, ...pos.lb }, { nom: "Roemeratoe", club: "RKC Waalwijk", poste: P.MID, ...pos.rm }, { nom: "L. Bacuna", club: "Iğdır FK", poste: P.MID, ...pos.cm }, { nom: "J. Bacuna", club: "Gaziantep FK", poste: P.MID, ...pos.lm }, { nom: "Antonisse", club: "Kifisia", poste: P.FWD, ...pos.rw }, { nom: "Gorré", club: "Maccabi Haifa", poste: P.FWD, ...pos.st }, { nom: "Locadia", club: "Miami FC", poste: P.FWD, ...pos.lw }]
+  },
 
-  { pays:"Curaçao", drapeau:"🇨🇼", formation:"4-3-3", joueurs:[
-    {nom:"Room",club:"PSV Eindhoven",poste:P.GK,...pos.gk},{nom:"Martina",club:"Feyenoord",poste:P.DEF,...pos.rb},{nom:"Van Anholt",club:"PSV Eindhoven",poste:P.DEF,...pos.rcb},{nom:"St. Jago",club:"Austin FC",poste:P.DEF,...pos.lcb},{nom:"Quansah",club:"Queens Park Rangers",poste:P.DEF,...pos.lb},{nom:"Bacuna",club:"Groningen",poste:P.MID,...pos.rm},{nom:"Méndes",club:"AZ Alkmaar",poste:P.MID,...pos.cm},{nom:"Dos Santos",club:"FC Twente",poste:P.MID,...pos.lm},{nom:"Hooi",club:"Beitar Jerusalem",poste:P.FWD,...pos.rw},{nom:"Hato",club:"Ajax",poste:P.FWD,...pos.st},{nom:"Nepomuceno",club:"Al-Arabi",poste:P.FWD,...pos.lw}]},
+  {
+    pays: "Haïti", drapeau: "🇭🇹", formation: "4-2-4", joueurs: [
+      { nom: "Placide", club: "SC Bastia", poste: P.GK, ...pos.gk }, { nom: "Arcus", club: "Angers SCO", poste: P.DEF, ...pos.rb }, { nom: "Adé", club: "LDU Quito", poste: P.DEF, ...pos.rcb }, { nom: "Delcroix", club: "Burnley", poste: P.DEF, ...pos.lcb }, { nom: "Lacroix", club: "Colorado Rapids", poste: P.DEF, ...pos.lb }, { nom: "Bellegarde", club: "Wolverhampton", poste: P.MID, ...pos.rcm424 }, { nom: "Pierre", club: "US Avranches", poste: P.MID, ...pos.lcm424 }, { nom: "Deedson", club: "OB Odense", poste: P.FWD, ...pos.rw424 }, { nom: "Casimir", club: "RC Strasbourg", poste: P.FWD, ...pos.rs424 }, { nom: "Providence", club: "TSV Hartberg", poste: P.FWD, ...pos.ls424 }, { nom: "Isidor", club: "Sunderland", poste: P.FWD, ...pos.lw424 }]
+  },
 
-  { pays:"Haïti", drapeau:"🇭🇹", formation:"4-3-3", joueurs:[
-    {nom:"Duval",club:"Inter Miami",poste:P.GK,...pos.gk},{nom:"Jérôme",club:"Austria Vienne",poste:P.DEF,...pos.rb},{nom:"Pierrot",club:"Louisville City",poste:P.DEF,...pos.rcb},{nom:"André",club:"Caen",poste:P.DEF,...pos.lcb},{nom:"Bossé",club:"Grenoble",poste:P.DEF,...pos.lb},{nom:"Alcénat",club:"Nîmes",poste:P.MID,...pos.rm},{nom:"Gédéon",club:"Le Havre",poste:P.MID,...pos.cm},{nom:"Lotiès",club:"Guingamp",poste:P.MID,...pos.lm},{nom:"Bonhomme",club:"USL Championship",poste:P.FWD,...pos.rw},{nom:"Bassong",club:"Nashville SC",poste:P.FWD,...pos.st},{nom:"Milord",club:"Fort Lauderdale",poste:P.FWD,...pos.lw}]},
+  {
+    pays: "Mexique", drapeau: "🇲🇽", formation: "4-3-3", joueurs: [
+      { nom: "Malagón", club: "Club América", poste: P.GK, ...pos.gk }, { nom: "Sánchez", club: "PAOK", poste: P.DEF, ...pos.rb }, { nom: "Montes", club: "Lokomotiv Moscou", poste: P.DEF, ...pos.rcb }, { nom: "Vásquez", club: "Genoa", poste: P.DEF, ...pos.lcb }, { nom: "Gallardo", club: "Toluca", poste: P.DEF, ...pos.lb }, { nom: "Álvarez", club: "West Ham United", poste: P.MID, ...pos.rm }, { nom: "Fidalgo", club: "Real Betis", poste: P.MID, ...pos.cm }, { nom: "Lira", club: "Cruz Azul", poste: P.MID, ...pos.lm }, { nom: "Quiñones", club: "Al-Qadsiah", poste: P.FWD, ...pos.rw }, { nom: "Jiménez", club: "Fulham", poste: P.FWD, ...pos.st }, { nom: "Vega", club: "Toluca", poste: P.FWD, ...pos.lw }]
+  },
 
-  { pays:"Mexique", drapeau:"🇲🇽", formation:"4-3-3", joueurs:[
-    {nom:"Ochoa",club:"Salernitana",poste:P.GK,...pos.gk},{nom:"J. Sánchez",club:"Ajax",poste:P.DEF,...pos.rb},{nom:"Montes",club:"Benfica",poste:P.DEF,...pos.rcb},{nom:"Vásquez",club:"Genoa",poste:P.DEF,...pos.lcb},{nom:"Gallardo",club:"Toluca",poste:P.DEF,...pos.lb},{nom:"Álvarez",club:"West Ham",poste:P.MID,...pos.rm},{nom:"Romo",club:"Monterrey",poste:P.MID,...pos.cm},{nom:"Pineda",club:"AEK Athens",poste:P.MID,...pos.lm},{nom:"Lozano",club:"San Diego FC",poste:P.FWD,...pos.rw},{nom:"Giménez",club:"Feyenoord",poste:P.FWD,...pos.st},{nom:"Vega",club:"Toluca",poste:P.FWD,...pos.lw}]},
+  {
+    pays: "Canada", drapeau: "🇨🇦", formation: "4-3-3", joueurs: [
+      { nom: "Crépeau", club: "Portland Timbers", poste: P.GK, ...pos.gk }, { nom: "Laryea", club: "Toronto FC", poste: P.DEF, ...pos.rb }, { nom: "Cornelius", club: "Rangers", poste: P.DEF, ...pos.rcb }, { nom: "Miller", club: "Portland Timbers", poste: P.DEF, ...pos.lcb }, { nom: "Buchanan", club: "Villarreal CF", poste: P.DEF, ...pos.lb }, { nom: "Eustáquio", club: "Los Angeles FC", poste: P.MID, ...pos.rm }, { nom: "Koné", club: "Sassuolo", poste: P.MID, ...pos.cm }, { nom: "Osorio", club: "Toronto FC", poste: P.MID, ...pos.lm }, { nom: "Shaffelburg", club: "Los Angeles FC", poste: P.FWD, ...pos.rw }, { nom: "David", club: "Juventus", poste: P.FWD, ...pos.st }, { nom: "Larin", club: "Feyenoord", poste: P.FWD, ...pos.lw }]
+  },
 
-  { pays:"Canada", drapeau:"🇨🇦", formation:"4-3-3", joueurs:[
-    {nom:"Crépeau",club:"Portland",poste:P.GK,...pos.gk},{nom:"Johnston",club:"Celtic",poste:P.DEF,...pos.rb},{nom:"Bombito",club:"Colorado",poste:P.DEF,...pos.rcb},{nom:"Cornelius",club:"Malmö",poste:P.DEF,...pos.lcb},{nom:"Davies",club:"Bayern Munich",poste:P.DEF,...pos.lb},{nom:"Eustáquio",club:"Porto",poste:P.MID,...pos.rm},{nom:"Koné",club:"Watford",poste:P.MID,...pos.cm},{nom:"Buchanan",club:"Inter Milan",poste:P.MID,...pos.lm},{nom:"David",club:"Lille",poste:P.FWD,...pos.rw},{nom:"Larin",club:"Vallecano",poste:P.FWD,...pos.st},{nom:"Shaffelburg",club:"Nashville",poste:P.FWD,...pos.lw}]},
+  // ═══ CAF - Afrique ═══
+  {
+    pays: "Sénégal", drapeau: "🇸🇳", formation: "4-3-3", joueurs: [
+      { nom: "Mendy", club: "Al-Ahli", poste: P.GK, ...pos.gk }, { nom: "Diatta", club: "AS Monaco", poste: P.DEF, ...pos.rb }, { nom: "Koulibaly", club: "Al-Hilal", poste: P.DEF, ...pos.rcb }, { nom: "Niakhaté", club: "Olympique Lyonnais", poste: P.DEF, ...pos.lcb }, { nom: "Diouf", club: "West Ham United", poste: P.DEF, ...pos.lb }, { nom: "I. Gueye", club: "Everton", poste: P.MID, ...pos.rm }, { nom: "Sarr", club: "Tottenham Hotspur", poste: P.MID, ...pos.cm }, { nom: "Camara", club: "AS Monaco", poste: P.MID, ...pos.lm }, { nom: "I. Sarr", club: "Crystal Palace", poste: P.FWD, ...pos.rw }, { nom: "Jackson", club: "Bayern Munich", poste: P.FWD, ...pos.st }, { nom: "Mané", club: "Al-Nassr", poste: P.FWD, ...pos.lw }]
+  },
 
-  // ═══ CAF - Afrique (9 remaining: Morocco already in base) ═══
-  { pays:"Sénégal", drapeau:"🇸🇳", formation:"4-3-3", joueurs:[
-    {nom:"E. Mendy",club:"Al-Ahli",poste:P.GK,...pos.gk},{nom:"Sabaly",club:"Real Betis",poste:P.DEF,...pos.rb},{nom:"Koulibaly",club:"Al-Hilal",poste:P.DEF,...pos.rcb},{nom:"Diallo",club:"Al-Ahli",poste:P.DEF,...pos.lcb},{nom:"Jakobs",club:"AS Monaco",poste:P.DEF,...pos.lb},{nom:"P. Gueye",club:"Villarreal",poste:P.MID,...pos.rm},{nom:"N. Mendy",club:"Leicester",poste:P.MID,...pos.cm},{nom:"Diatta",club:"AS Monaco",poste:P.MID,...pos.lm},{nom:"Sarr",club:"Crystal Palace",poste:P.FWD,...pos.rw},{nom:"Jackson",club:"Chelsea",poste:P.FWD,...pos.st},{nom:"Dia",club:"Lazio",poste:P.FWD,...pos.lw}]},
+  {
+    pays: "Égypte", drapeau: "🇪🇬", formation: "4-3-3", joueurs: [
+      { nom: "El-Shenawy", club: "Al Ahly", poste: P.GK, ...pos.gk }, { nom: "Ashour", club: "Al Ahly", poste: P.DEF, ...pos.rb }, { nom: "Hegazi", club: "Al-Ittihad", poste: P.DEF, ...pos.rcb }, { nom: "Abdelmonem", club: "Beşiktaş", poste: P.DEF, ...pos.lcb }, { nom: "Fatouh", club: "Zamalek", poste: P.DEF, ...pos.lb }, { nom: "Elneny", club: "Al Jazira", poste: P.MID, ...pos.rm }, { nom: "Fathi", club: "Al Ahly", poste: P.MID, ...pos.cm }, { nom: "Trezeguet", club: "Trabzonspor", poste: P.MID, ...pos.lm }, { nom: "Salah", club: "Liverpool", poste: P.FWD, ...pos.rw }, { nom: "Marmoush", club: "Eintracht Frankfurt", poste: P.FWD, ...pos.st }, { nom: "Adel", club: "Pyramids FC", poste: P.FWD, ...pos.lw }]
+  },
 
-  { pays:"Égypte", drapeau:"🇪🇬", formation:"4-3-3", joueurs:[
-    {nom:"El-Shenawy",club:"Al Ahly",poste:P.GK,...pos.gk},{nom:"Ashour",club:"Al Ahly",poste:P.DEF,...pos.rb},{nom:"Hegazi",club:"Al-Ittihad",poste:P.DEF,...pos.rcb},{nom:"Abdelmonem",club:"Besiktas",poste:P.DEF,...pos.lcb},{nom:"Fatouh",club:"Zamalek",poste:P.DEF,...pos.lb},{nom:"Elneny",club:"Al Jazira",poste:P.MID,...pos.rm},{nom:"Fathi",club:"Al Ahly",poste:P.MID,...pos.cm},{nom:"Trezeguet",club:"Trabzonspor",poste:P.MID,...pos.lm},{nom:"M. Salah",club:"Liverpool",poste:P.FWD,...pos.rw},{nom:"Marmoush",club:"Manchester City",poste:P.FWD,...pos.st},{nom:"Adel",club:"Pyramids FC",poste:P.FWD,...pos.lw}]},
+  {
+    pays: "Algérie", drapeau: "🇩🇿", formation: "4-3-3", joueurs: [
+      { nom: "Mandréa", club: "RC Lens", poste: P.GK, ...pos.gk }, { nom: "Atal", club: "Al-Sadd", poste: P.DEF, ...pos.rb }, { nom: "Mandi", club: "Villarreal CF", poste: P.DEF, ...pos.rcb }, { nom: "Tougai", club: "Espérance de Tunis", poste: P.DEF, ...pos.lcb }, { nom: "Aït-Nouri", club: "Wolverhampton", poste: P.DEF, ...pos.lb }, { nom: "Bennacer", club: "AC Milan", poste: P.MID, ...pos.rm }, { nom: "Aouar", club: "Al-Ittihad", poste: P.MID, ...pos.cm }, { nom: "Chaïbi", club: "Eintracht Frankfurt", poste: P.MID, ...pos.lm }, { nom: "Mahrez", club: "Al-Ahli", poste: P.FWD, ...pos.rw }, { nom: "Gouiri", club: "Stade Rennais", poste: P.FWD, ...pos.st }, { nom: "Amoura", club: "VfL Wolfsburg", poste: P.FWD, ...pos.lw }]
+  },
 
-  { pays:"Algérie", drapeau:"🇩🇿", formation:"4-3-3", joueurs:[
-    {nom:"Mandréa",club:"Lens",poste:P.GK,...pos.gk},{nom:"Atal",club:"Nice",poste:P.DEF,...pos.rb},{nom:"Mandi",club:"Villarreal",poste:P.DEF,...pos.rcb},{nom:"Bedrane",club:"Espérance Tunis",poste:P.DEF,...pos.lcb},{nom:"Bensebaini",club:"Borussia Dortmund",poste:P.DEF,...pos.lb},{nom:"Bennacer",club:"AC Milan",poste:P.MID,...pos.rm},{nom:"Zerrouki",club:"Feyenoord",poste:P.MID,...pos.cm},{nom:"Aouar",club:"Al-Ittihad",poste:P.MID,...pos.lm},{nom:"Mahrez",club:"Al-Ahli",poste:P.FWD,...pos.rw},{nom:"Bounedjah",club:"Al-Sadd",poste:P.FWD,...pos.st},{nom:"Amine Gouiri",club:"Rennes",poste:P.FWD,...pos.lw}]},
+  {
+    pays: "Tunisie", drapeau: "🇹🇳", formation: "4-3-3", joueurs: [
+      { nom: "Dahmen", club: "Montpellier HSC", poste: P.GK, ...pos.gk }, { nom: "Dräger", club: "FC Bâle", poste: P.DEF, ...pos.rb }, { nom: "Meriah", club: "Espérance de Tunis", poste: P.DEF, ...pos.rcb }, { nom: "Talbi", club: "FC Lorient", poste: P.DEF, ...pos.lcb }, { nom: "Abdi", club: "SM Caen", poste: P.DEF, ...pos.lb }, { nom: "Skhiri", club: "Eintracht Frankfurt", poste: P.MID, ...pos.rm }, { nom: "Laïdouni", club: "Union Berlin", poste: P.MID, ...pos.cm }, { nom: "Mejbri", club: "Burnley", poste: P.MID, ...pos.lm }, { nom: "Ayari", club: "Paris Saint-Germain", poste: P.FWD, ...pos.rw }, { nom: "Gharbi", club: "FC Augsburg", poste: P.FWD, ...pos.st }, { nom: "Msakni", club: "Al-Arabi", poste: P.FWD, ...pos.lw }]
+  },
 
-  { pays:"Tunisie", drapeau:"🇹🇳", formation:"4-3-3", joueurs:[
-    {nom:"Dahmen",club:"Montpellier",poste:P.GK,...pos.gk},{nom:"Drager",club:"Bâle",poste:P.DEF,...pos.rb},{nom:"Bronn",club:"Salernitana",poste:P.DEF,...pos.rcb},{nom:"Meriah",club:"Espérance Tunis",poste:P.DEF,...pos.lcb},{nom:"Abdi",club:"Caen",poste:P.DEF,...pos.lb},{nom:"Laidouni",club:"Union Berlin",poste:P.MID,...pos.rm},{nom:"Skhiri",club:"Francfort",poste:P.MID,...pos.cm},{nom:"Mejbri",club:"Burnley",poste:P.MID,...pos.lm},{nom:"Msakni",club:"Al-Arabi",poste:P.FWD,...pos.rw},{nom:"Khenissi",club:"Étoile du Sahel",poste:P.FWD,...pos.st},{nom:"Jaziri",club:"Zamalek",poste:P.FWD,...pos.lw}]},
+  {
+    pays: "Afrique du Sud", drapeau: "🇿🇦", formation: "4-3-3", joueurs: [
+      { nom: "Williams", club: "Mamelodi Sundowns", poste: P.GK, ...pos.gk }, { nom: "Mudau", club: "Mamelodi Sundowns", poste: P.DEF, ...pos.rb }, { nom: "Sibisi", club: "Orlando Pirates", poste: P.DEF, ...pos.rcb }, { nom: "Longwayne", club: "(Championnat local)", poste: P.DEF, ...pos.lcb }, { nom: "Modiba", club: "Mamelodi Sundowns", poste: P.DEF, ...pos.lb }, { nom: "Mokoena", club: "Mamelodi Sundowns", poste: P.MID, ...pos.rm }, { nom: "Mbatha", club: "Orlando Pirates", poste: P.MID, ...pos.cm }, { nom: "Zwane", club: "Mamelodi Sundowns", poste: P.MID, ...pos.lm }, { nom: "Tau", club: "(Championnat vietnamien)", poste: P.FWD, ...pos.rw }, { nom: "Foster", club: "Burnley", poste: P.FWD, ...pos.st }, { nom: "Appollis", club: "Orlando Pirates", poste: P.FWD, ...pos.lw }]
+  },
 
-  { pays:"Afrique du Sud", drapeau:"🇿🇦", formation:"4-3-3", joueurs:[
-    {nom:"Williams",club:"Mamelodi Sundowns",poste:P.GK,...pos.gk},{nom:"Mudau",club:"Mamelodi Sundowns",poste:P.DEF,...pos.rb},{nom:"De Reuck",club:"Mamelodi Sundowns",poste:P.DEF,...pos.rcb},{nom:"Kekana",club:"Mamelodi Sundowns",poste:P.DEF,...pos.lcb},{nom:"Mashego",club:"Cape Town City",poste:P.DEF,...pos.lb},{nom:"Mokoena",club:"Mamelodi Sundowns",poste:P.MID,...pos.rm},{nom:"Tau",club:"Al Ahly",poste:P.MID,...pos.cm},{nom:"Mokwena",club:"Mamelodi Sundowns",poste:P.MID,...pos.lm},{nom:"Zwane",club:"Mamelodi Sundowns",poste:P.FWD,...pos.rw},{nom:"Shalulile",club:"Mamelodi Sundowns",poste:P.FWD,...pos.st},{nom:"Foster",club:"Burnley",poste:P.FWD,...pos.lw}]},
+  {
+    pays: "Côte d'Ivoire", drapeau: "🇨🇮", formation: "4-3-3", joueurs: [
+      { nom: "Fofana", club: "Çaykur Rizespor", poste: P.GK, ...pos.gk }, { nom: "Singo", club: "AS Monaco", poste: P.DEF, ...pos.rb }, { nom: "Kossounou", club: "Atalanta", poste: P.DEF, ...pos.rcb }, { nom: "Ndicka", club: "AS Roma", poste: P.DEF, ...pos.lcb }, { nom: "Konan", club: "Al-Nassr", poste: P.DEF, ...pos.lb }, { nom: "Kessié", club: "Al-Ahli", poste: P.MID, ...pos.rm }, { nom: "S. Fofana", club: "Al-Ettifaq", poste: P.MID, ...pos.cm }, { nom: "Sangaré", club: "Nottingham Forest", poste: P.MID, ...pos.lm }, { nom: "Diallo", club: "Manchester United", poste: P.FWD, ...pos.rw }, { nom: "Adingra", club: "AS Monaco", poste: P.FWD, ...pos.st }, { nom: "Guessand", club: "Aston Villa", poste: P.FWD, ...pos.lw }]
+  },
 
-  { pays:"Côte d'Ivoire", drapeau:"🇨🇮", formation:"4-3-3", joueurs:[
-    {nom:"Y. Fofana",club:"Lens",poste:P.GK,...pos.gk},{nom:"Aurier",club:"Galatasaray",poste:P.DEF,...pos.rb},{nom:"Deli",club:"Hatayspor",poste:P.DEF,...pos.rcb},{nom:"Badiashile",club:"Chelsea",poste:P.DEF,...pos.lcb},{nom:"Boly",club:"Nantes",poste:P.DEF,...pos.lb},{nom:"Seri",club:"Hull City",poste:P.MID,...pos.rm},{nom:"Kessié",club:"Al-Ahli",poste:P.MID,...pos.cm},{nom:"Pepe",club:"Villarreal",poste:P.MID,...pos.lm},{nom:"Gradel",club:"Sivasspor",poste:P.FWD,...pos.rw},{nom:"Haller",club:"Borussia Dortmund",poste:P.FWD,...pos.st},{nom:"Boga",club:"Nice",poste:P.FWD,...pos.lw}]},
+  {
+    pays: "Cap-Vert", drapeau: "🇨🇻", formation: "4-3-3", joueurs: [
+      { nom: "Vozinha", club: "GD Chaves", poste: P.GK, ...pos.gk }, { nom: "Stopira", club: "SC Torreense", poste: P.DEF, ...pos.rb }, { nom: "Borges", club: "Al Bataeh", poste: P.DEF, ...pos.rcb }, { nom: "Costa", club: "Toulouse FC", poste: P.DEF, ...pos.lcb }, { nom: "Jojo", club: "FC Vizela", poste: P.DEF, ...pos.lb }, { nom: "Pina", club: "FK Krasnodar", poste: P.MID, ...pos.rm }, { nom: "Monteiro", club: "PEC Zwolle", poste: P.MID, ...pos.cm }, { nom: "Duarte", club: "Puskás Akadémia", poste: P.MID, ...pos.lm }, { nom: "Mendes", club: "Iğdır FK", poste: P.FWD, ...pos.rw }, { nom: "Rodrigues", club: "Apollon Limassol", poste: P.FWD, ...pos.st }, { nom: "Bebé", club: "Rayo Vallecano", poste: P.FWD, ...pos.lw }]
+  },
 
-  { pays:"Cap-Vert", drapeau:"🇨🇻", formation:"4-3-3", joueurs:[
-    {nom:"Vozinha",club:"Gil Vicente",poste:P.GK,...pos.gk},{nom:"Stopira",club:"Académica",poste:P.DEF,...pos.rb},{nom:"Borges",club:"Arouca",poste:P.DEF,...pos.rcb},{nom:"Diogo",club:"Le Havre",poste:P.DEF,...pos.lcb},{nom:"Tavares",club:"Moreirense",poste:P.DEF,...pos.lb},{nom:"Kenny",club:"Desportivo Aves",poste:P.MID,...pos.rm},{nom:"Dias",club:"Estoril",poste:P.MID,...pos.cm},{nom:"Nuno Santos",club:"Boavista",poste:P.MID,...pos.lm},{nom:"Garry Rodrigues",club:"Olympiakos",poste:P.FWD,...pos.rw},{nom:"Beltrame",club:"Académica",poste:P.FWD,...pos.st},{nom:"Hélio",club:"Nacional",poste:P.FWD,...pos.lw}]},
+  {
+    pays: "Ghana", drapeau: "🇬🇭", formation: "4-3-3", joueurs: [
+      { nom: "Ati-Zigi", club: "FC St. Gallen", poste: P.GK, ...pos.gk }, { nom: "Lamptey", club: "Brighton & Hove Albion", poste: P.DEF, ...pos.rb }, { nom: "Salisu", club: "AS Monaco", poste: P.DEF, ...pos.rcb }, { nom: "Amartey", club: "Beşiktaş", poste: P.DEF, ...pos.lcb }, { nom: "Mensah", club: "AJ Auxerre", poste: P.DEF, ...pos.lb }, { nom: "Partey", club: "Arsenal", poste: P.MID, ...pos.rm }, { nom: "Kudus", club: "Tottenham Hotspur", poste: P.MID, ...pos.cm }, { nom: "Abdul Samed", club: "RC Lens", poste: P.MID, ...pos.lm }, { nom: "Semenyo", club: "Manchester City", poste: P.FWD, ...pos.rw }, { nom: "Ayew", club: "Leicester City", poste: P.FWD, ...pos.st }, { nom: "Williams", club: "Athletic Bilbao", poste: P.FWD, ...pos.lw }]
+  },
 
-  { pays:"Ghana", drapeau:"🇬🇭", formation:"4-3-3", joueurs:[
-    {nom:"Zigi",club:"St. Gallen",poste:P.GK,...pos.gk},{nom:"Lamptey",club:"Brighton",poste:P.DEF,...pos.rb},{nom:"Salisu",club:"AS Monaco",poste:P.DEF,...pos.rcb},{nom:"Amartey",club:"Leicester",poste:P.DEF,...pos.lcb},{nom:"Mensah",club:"Auxerre",poste:P.DEF,...pos.lb},{nom:"Partey",club:"Arsenal",poste:P.MID,...pos.rm},{nom:"Kudus",club:"West Ham",poste:P.MID,...pos.cm},{nom:"Samed",club:"Lens",poste:P.MID,...pos.lm},{nom:"Gyasi",club:"Cagliari",poste:P.FWD,...pos.rw},{nom:"Inaki Williams",club:"Athletic Bilbao",poste:P.FWD,...pos.st},{nom:"Ayew",club:"Le Havre",poste:P.FWD,...pos.lw}]},
+  {
+    pays: "RD Congo", drapeau: "🇨🇩", formation: "4-3-3", joueurs: [
+      { nom: "Mpasi", club: "Le Havre AC", poste: P.GK, ...pos.gk }, { nom: "Kalulu", club: "FC Lorient", poste: P.DEF, ...pos.rb }, { nom: "Mbemba", club: "LOSC Lille", poste: P.DEF, ...pos.rcb }, { nom: "Tuanzebe", club: "Burnley", poste: P.DEF, ...pos.lcb }, { nom: "Wan-Bissaka", club: "West Ham United", poste: P.DEF, ...pos.lb }, { nom: "Moutoussamy", club: "Atromitos", poste: P.MID, ...pos.rm }, { nom: "Pickel", club: "Espanyol Barcelone", poste: P.MID, ...pos.cm }, { nom: "Kakuta", club: "Amiens SC", poste: P.MID, ...pos.lm }, { nom: "Elia", club: "Alanyaspor", poste: P.FWD, ...pos.rw }, { nom: "Wissa", club: "Brentford", poste: P.FWD, ...pos.st }, { nom: "Bakambu", club: "Real Betis", poste: P.FWD, ...pos.lw }]
+  },
 
-  { pays:"RD Congo", drapeau:"🇨🇩", formation:"4-3-3", joueurs:[
-    {nom:"Kiassumbua",club:"STVV",poste:P.GK,...pos.gk},{nom:"Mbemba",club:"OM",poste:P.DEF,...pos.rb},{nom:"Luyindama",club:"Galatasaray",poste:P.DEF,...pos.rcb},{nom:"Masuaku",club:"Beşiktaş",poste:P.DEF,...pos.lcb},{nom:"Ngoma",club:"TP Mazembe",poste:P.DEF,...pos.lb},{nom:"Kakuta",club:"Lens",poste:P.MID,...pos.rm},{nom:"Moutoussamy",club:"Nantes",poste:P.MID,...pos.cm},{nom:"Wissa",club:"Brentford",poste:P.MID,...pos.lm},{nom:"Bakambu",club:"Olympiakos",poste:P.FWD,...pos.rw},{nom:"Batshuayi",club:"Galatasaray",poste:P.FWD,...pos.st},{nom:"Mpoku",club:"Al-Wahda",poste:P.FWD,...pos.lw}]},
+  // ═══ AFC - Asie ═══
+  {
+    pays: "Iran", drapeau: "🇮🇷", formation: "4-3-3", joueurs: [
+      { nom: "Beiranvand", club: "Persepolis", poste: P.GK, ...pos.gk }, { nom: "Moharrami", club: "Dinamo Zagreb", poste: P.DEF, ...pos.rb }, { nom: "Hosseini", club: "Kayserispor", poste: P.DEF, ...pos.rcb }, { nom: "Kanaani", club: "FC Copenhague", poste: P.DEF, ...pos.lcb }, { nom: "Mohammadi", club: "AEK Athènes", poste: P.DEF, ...pos.lb }, { nom: "Ezatolahi", club: "Vejle BK", poste: P.MID, ...pos.rm }, { nom: "Ghoddos", club: "Brentford", poste: P.MID, ...pos.cm }, { nom: "Jahanbakhsh", club: "Feyenoord", poste: P.MID, ...pos.lm }, { nom: "Taremi", club: "Inter Milan", poste: P.FWD, ...pos.rw }, { nom: "Azmoun", club: "AS Roma", poste: P.FWD, ...pos.st }, { nom: "Ghayedi", club: "Ittihad Kalba", poste: P.FWD, ...pos.lw }]
+  },
 
-  // ═══ AFC - Asie (7 remaining: Japan already in base) ═══
-  { pays:"Iran", drapeau:"🇮🇷", formation:"4-3-3", joueurs:[
-    {nom:"Beiranvand",club:"Persépolis",poste:P.GK,...pos.gk},{nom:"Moharrami",club:"Dinamo Zagreb",poste:P.DEF,...pos.rb},{nom:"Hosseini",club:"Kayserispor",poste:P.DEF,...pos.rcb},{nom:"Kanaani",club:"Copenhague",poste:P.DEF,...pos.lcb},{nom:"Mohammadi",club:"AEK Athens",poste:P.DEF,...pos.lb},{nom:"Noorollahi",club:"Persépolis",poste:P.MID,...pos.rm},{nom:"Ezatolahi",club:"Vejle",poste:P.MID,...pos.cm},{nom:"Jahanbakhsh",club:"Feyenoord",poste:P.MID,...pos.lm},{nom:"Azmoun",club:"AS Roma",poste:P.FWD,...pos.rw},{nom:"Taremi",club:"Inter Milan",poste:P.FWD,...pos.st},{nom:"Ghoddos",club:"Brentford",poste:P.FWD,...pos.lw}]},
+  {
+    pays: "Corée du Sud", drapeau: "🇰🇷", formation: "4-4-2", joueurs: [
+      { nom: "Jo", club: "Ulsan HD", poste: P.GK, ...pos.gk }, { nom: "Seol", club: "Étoile Rouge de Belgrade", poste: P.DEF, ...pos.rb }, { nom: "Kim M.", club: "Bayern Munich", poste: P.DEF, ...pos.rcb }, { nom: "Cho", club: "Sharjah", poste: P.DEF, ...pos.lcb }, { nom: "Kim M. H.", club: "Daejeon Hana Citizen", poste: P.DEF, ...pos.lb }, { nom: "Paik", club: "Birmingham City", poste: P.MID, ...pos.rm442 }, { nom: "Hwang", club: "Wolverhampton Wanderers", poste: P.MID, ...pos.rcm442 }, { nom: "Lee K.", club: "Paris Saint-Germain", poste: P.MID, ...pos.lcm442 }, { nom: "Lee J.", club: "Mainz 05", poste: P.MID, ...pos.lm442 }, { nom: "Son", club: "Los Angeles FC", poste: P.FWD, ...pos.rs }, { nom: "Cho G.", club: "FC Midtjylland", poste: P.FWD, ...pos.ls }]
+  },
 
-  { pays:"Corée du Sud", drapeau:"🇰🇷", formation:"4-3-3", joueurs:[
-    {nom:"Kim S.",club:"Wolverhampton",poste:P.GK,...pos.gk},{nom:"Kim M.",club:"Fenerbahçe",poste:P.DEF,...pos.rb},{nom:"Kim J.",club:"Bayern Munich",poste:P.DEF,...pos.rcb},{nom:"Kim Y.",club:"Napoli",poste:P.DEF,...pos.lcb},{nom:"Hong",club:"Gamba Osaka",poste:P.DEF,...pos.lb},{nom:"Lee J.",club:"PSG",poste:P.MID,...pos.rm},{nom:"Hwang I.",club:"Red Bull Salzbourg",poste:P.MID,...pos.cm},{nom:"Lee K.",club:"PSG",poste:P.MID,...pos.lm},{nom:"Hwang H.",club:"Wolverhampton",poste:P.FWD,...pos.rw},{nom:"Son H.",club:"Tottenham",poste:P.FWD,...pos.st},{nom:"Cho G.",club:"Wolverhampton",poste:P.FWD,...pos.lw}]},
+  {
+    pays: "Australie", drapeau: "🇦🇺", formation: "4-3-3", joueurs: [
+      { nom: "Ryan", club: "Levante UD", poste: P.GK, ...pos.gk }, { nom: "Geria", club: "Albirex Niigata", poste: P.DEF, ...pos.rb }, { nom: "Souttar", club: "Sheffield United", poste: P.DEF, ...pos.rcb }, { nom: "Rowles", club: "D.C. United", poste: P.DEF, ...pos.lcb }, { nom: "Bos", club: "Feyenoord", poste: P.DEF, ...pos.lb }, { nom: "O'Neill", club: "New York City FC", poste: P.MID, ...pos.rm }, { nom: "Irvine", club: "FC St. Pauli", poste: P.MID, ...pos.cm }, { nom: "Metcalfe", club: "FC St. Pauli", poste: P.MID, ...pos.lm }, { nom: "Boyle", club: "Hibernian", poste: P.FWD, ...pos.rw }, { nom: "Irankunda", club: "Watford", poste: P.FWD, ...pos.st }, { nom: "Yengi", club: "Aberdeen", poste: P.FWD, ...pos.lw }]
+  },
 
-  { pays:"Australie", drapeau:"🇦🇺", formation:"4-3-3", joueurs:[
-    {nom:"Ryan",club:"AS Roma",poste:P.GK,...pos.gk},{nom:"Atkinson",club:"Aston Villa",poste:P.DEF,...pos.rb},{nom:"Souttar",club:"Sheffield United",poste:P.DEF,...pos.rcb},{nom:"Rowles",club:"Hearts",poste:P.DEF,...pos.lcb},{nom:"Behich",club:"Dundee United",poste:P.DEF,...pos.lb},{nom:"Mooy",club:"Shanghai Port",poste:P.MID,...pos.rm},{nom:"Irvine",club:"St Pauli",poste:P.MID,...pos.cm},{nom:"McGree",club:"Middlesbrough",poste:P.MID,...pos.lm},{nom:"Borrello",club:"Macarthur FC",poste:P.FWD,...pos.rw},{nom:"Duke",club:"Yokohama Marinos",poste:P.FWD,...pos.st},{nom:"Leckie",club:"Melbourne City",poste:P.FWD,...pos.lw}]},
+  {
+    pays: "Arabie Saoudite", drapeau: "🇸🇦", formation: "4-3-3", joueurs: [
+      { nom: "Al-Owais", club: "Al-Hilal", poste: P.GK, ...pos.gk }, { nom: "Abdulhamid", club: "AS Roma", poste: P.DEF, ...pos.rb }, { nom: "Al-Amri", club: "Al-Ahli", poste: P.DEF, ...pos.rcb }, { nom: "Al-Bulayhi", club: "Al-Hilal", poste: P.DEF, ...pos.lcb }, { nom: "Kadesh", club: "Al-Ittihad", poste: P.DEF, ...pos.lb }, { nom: "Kanno", club: "Al-Hilal", poste: P.MID, ...pos.rm }, { nom: "Al-Malki", club: "Al-Hilal", poste: P.MID, ...pos.cm }, { nom: "Al-Dawsari", club: "Al-Hilal", poste: P.MID, ...pos.lm }, { nom: "Al-Shehri", club: "Al-Hilal", poste: P.FWD, ...pos.rw }, { nom: "Al-Buraikan", club: "Al-Ahli", poste: P.FWD, ...pos.st }, { nom: "Ghareeb", club: "Al-Ittihad", poste: P.FWD, ...pos.lw }]
+  },
 
-  { pays:"Arabie Saoudite", drapeau:"🇸🇦", formation:"4-3-3", joueurs:[
-    {nom:"Al-Owais",club:"Al-Hilal",poste:P.GK,...pos.gk},{nom:"Abdulhamid",club:"Villarreal",poste:P.DEF,...pos.rb},{nom:"Al-Amri",club:"Al-Ahli",poste:P.DEF,...pos.rcb},{nom:"Al-Bulayhi",club:"Al-Hilal",poste:P.DEF,...pos.lcb},{nom:"Boushal",club:"Al-Shabab",poste:P.DEF,...pos.lb},{nom:"Kanno",club:"Al-Hilal",poste:P.MID,...pos.rm},{nom:"Al-Malki",club:"Al-Hilal",poste:P.MID,...pos.cm},{nom:"Al-Dawsari",club:"Al-Hilal",poste:P.MID,...pos.lm},{nom:"Al-Shehri",club:"Al-Hilal",poste:P.FWD,...pos.rw},{nom:"Al-Buraikan",club:"Al-Hilal",poste:P.FWD,...pos.st},{nom:"Bahebri",club:"Al-Ittihad",poste:P.FWD,...pos.lw}]},
+  {
+    pays: "Ouzbékistan", drapeau: "🇺🇿", formation: "4-3-3", joueurs: [
+      { nom: "Yusupov", club: "Navbahor", poste: P.GK, ...pos.gk }, { nom: "Alijonov", club: "Pakhtakor", poste: P.DEF, ...pos.rb }, { nom: "Khusanov", club: "Manchester City", poste: P.DEF, ...pos.rcb }, { nom: "Ashurmatov", club: "Esteghlal", poste: P.DEF, ...pos.lcb }, { nom: "Sayfiev", club: "Neftchi", poste: P.DEF, ...pos.lb }, { nom: "Shukurov", club: "Baniyas", poste: P.MID, ...pos.rm }, { nom: "Hamrobekov", club: "Tractor", poste: P.MID, ...pos.cm }, { nom: "Urunov", club: "Persepolis", poste: P.MID, ...pos.lm }, { nom: "Fayzullaev", club: "CSKA Moscou", poste: P.FWD, ...pos.rw }, { nom: "Masharipov", club: "Navbahor", poste: P.FWD, ...pos.st }, { nom: "Shomurodov", club: "Istanbul Başakşehir", poste: P.FWD, ...pos.lw }]
+  },
 
-  { pays:"Ouzbékistan", drapeau:"🇺🇿", formation:"4-3-3", joueurs:[
-    {nom:"Nesterov",club:"Pakhtakor",poste:P.GK,...pos.gk},{nom:"Yaxshiboev",club:"AGMK",poste:P.DEF,...pos.rb},{nom:"Komilov",club:"Pakhtakor",poste:P.DEF,...pos.rcb},{nom:"Aliqulov",club:"Bunyodkor",poste:P.DEF,...pos.lcb},{nom:"Kholmatov",club:"Nasaf",poste:P.DEF,...pos.lb},{nom:"Fayzullaev",club:"Lens",poste:P.MID,...pos.rm},{nom:"Tukhtasinov",club:"Pakhtakor",poste:P.MID,...pos.cm},{nom:"Siddikov",club:"Bunyodkor",poste:P.MID,...pos.lm},{nom:"Shomurodov",club:"AS Roma",poste:P.FWD,...pos.rw},{nom:"Jaloliddinov",club:"Pakhtakor",poste:P.FWD,...pos.st},{nom:"Urunov",club:"Lokomotiv Tashkent",poste:P.FWD,...pos.lw}]},
+  {
+    pays: "Jordanie", drapeau: "🇯🇴", formation: "4-3-3", joueurs: [
+      { nom: "Abu Laila", club: "Al-Jabalain", poste: P.GK, ...pos.gk }, { nom: "Haddad", club: "Al-Faisaly", poste: P.DEF, ...pos.rb }, { nom: "Nasib", club: "Al-Hussein", poste: P.DEF, ...pos.rcb }, { nom: "Al-Arab", club: "Al-Shorta", poste: P.DEF, ...pos.lcb }, { nom: "Abu Hashish", club: "Al-Karma", poste: P.DEF, ...pos.lb }, { nom: "Al-Rawabdeh", club: "Selangor", poste: P.MID, ...pos.rm }, { nom: "Al-Rashdan", club: "Qatar SC", poste: P.MID, ...pos.cm }, { nom: "Sa'deh", club: "Al-Karma", poste: P.MID, ...pos.lm }, { nom: "Al-Taamari", club: "Stade Rennais", poste: P.FWD, ...pos.rw }, { nom: "Al-Mardi", club: "Al-Hussein", poste: P.FWD, ...pos.st }, { nom: "Al-Naimat", club: "Al-Ahli (Doha)", poste: P.FWD, ...pos.lw }]
+  },
 
-  { pays:"Jordanie", drapeau:"🇯🇴", formation:"4-3-3", joueurs:[
-    {nom:"Shafi",club:"Al-Wehdat",poste:P.GK,...pos.gk},{nom:"Haddad",club:"Al-Faisaly",poste:P.DEF,...pos.rb},{nom:"Salman",club:"Al-Raed",poste:P.DEF,...pos.rcb},{nom:"Al-Tamari",club:"Montpellier",poste:P.DEF,...pos.lcb},{nom:"Zahran",club:"Al-Ahli",poste:P.DEF,...pos.lb},{nom:"Al-Dardour",club:"Al-Faisaly",poste:P.MID,...pos.rm},{nom:"Bani Ateyah",club:"Al-Wehdat",poste:P.MID,...pos.cm},{nom:"Rawshdeh",club:"Al-Wehdat",poste:P.MID,...pos.lm},{nom:"Al-Taamari",club:"Montpellier",poste:P.FWD,...pos.rw},{nom:"Hammad",club:"Al-Faisaly",poste:P.FWD,...pos.st},{nom:"Abu Hammad",club:"Al-Salt",poste:P.FWD,...pos.lw}]},
+  {
+    pays: "Qatar", drapeau: "🇶🇦", formation: "4-3-3", joueurs: [
+      { nom: "Barsham", club: "Al-Sadd", poste: P.GK, ...pos.gk }, { nom: "Pedro Miguel", club: "Al-Sadd", poste: P.DEF, ...pos.rb }, { nom: "Khoukhi", club: "Al-Duhail", poste: P.DEF, ...pos.rcb }, { nom: "Mendes", club: "Al-Wakrah", poste: P.DEF, ...pos.lcb }, { nom: "Ahmed", club: "Al-Sadd", poste: P.DEF, ...pos.lb }, { nom: "Hatem", club: "Al-Rayyan", poste: P.MID, ...pos.rm }, { nom: "Fatehi", club: "Al-Arabi", poste: P.MID, ...pos.cm }, { nom: "Al-Haydos", club: "Al-Sadd", poste: P.MID, ...pos.lm }, { nom: "Afif", club: "Al-Sadd", poste: P.FWD, ...pos.rw }, { nom: "Ali", club: "Al-Duhail", poste: P.FWD, ...pos.st }, { nom: "Abdurisag", club: "Al-Duhail", poste: P.FWD, ...pos.lw }]
+  },
 
-  { pays:"Qatar", drapeau:"🇶🇦", formation:"4-3-3", joueurs:[
-    {nom:"Barsham",club:"Al-Sadd",poste:P.GK,...pos.gk},{nom:"Pedro Miguel",club:"Al-Sadd",poste:P.DEF,...pos.rb},{nom:"Al-Rawi",club:"Al-Rayyan",poste:P.DEF,...pos.rcb},{nom:"Hassan",club:"Al-Gharafa",poste:P.DEF,...pos.lcb},{nom:"Ahmed",club:"Al-Sadd",poste:P.DEF,...pos.lb},{nom:"Boudiaf",club:"Al-Duhail",poste:P.MID,...pos.rm},{nom:"Al-Haydos",club:"Al-Sadd",poste:P.MID,...pos.cm},{nom:"Madibo",club:"Al-Duhail",poste:P.MID,...pos.lm},{nom:"Afif",club:"Al-Sadd",poste:P.FWD,...pos.rw},{nom:"Ali",club:"Al-Duhail",poste:P.FWD,...pos.st},{nom:"Muntari",club:"Al-Duhail",poste:P.FWD,...pos.lw}]},
+  {
+    pays: "Irak", drapeau: "🇮🇶", formation: "3-3-4", joueurs: [
+      { nom: "Al Ammari", club: "Al-Quwa Al-Jawiya", poste: P.GK, ...pos.gk }, { nom: "Nadhim", club: "Al-Quwa Al-Jawiya", poste: P.DEF, ...pos.rcb3 }, { nom: "Tahseen", club: "Al-Shorta", poste: P.DEF, ...pos.cb3 }, { nom: "Adnan", club: "Umeå FC", poste: P.DEF, ...pos.lcb3 }, { nom: "Attwan", club: "Al-Shorta", poste: P.MID, ...pos.rcm334 }, { nom: "Iqbal", club: "FC Utrecht", poste: P.MID, ...pos.cm334 }, { nom: "Amyn", club: "(Club chypriote)", poste: P.MID, ...pos.lcm334 }, { nom: "Jasim", club: "Como 1907", poste: P.FWD, ...pos.rw424 }, { nom: "Ali", club: "Al-Arabi", poste: P.FWD, ...pos.rs424 }, { nom: "Al Hamadi", club: "Luton Town", poste: P.FWD, ...pos.ls424 }, { nom: "Hussein", club: "Persepolis", poste: P.FWD, ...pos.lw424 }]
+  },
 
-  { pays:"Irak", drapeau:"🇮🇶", formation:"4-3-3", joueurs:[
-    {nom:"Al-Talib",club:"Al-Shorta",poste:P.GK,...pos.gk},{nom:"Al-Hamadani",club:"Al-Quwa Al-Jawiya",poste:P.DEF,...pos.rb},{nom:"Ibrahim",club:"Malmö",poste:P.DEF,...pos.rcb},{nom:"Adnan",club:"Ume\u00e5",poste:P.DEF,...pos.lcb},{nom:"Ali Faez",club:"Al-Zawraa",poste:P.DEF,...pos.lb},{nom:"Attwan",club:"Al-Quwa Al-Jawiya",poste:P.MID,...pos.rm},{nom:"Tahseen",club:"Al-Shorta",poste:P.MID,...pos.cm},{nom:"Aymen Hussein",club:"Persépolis",poste:P.MID,...pos.lm},{nom:"Mohanad Ali",club:"Al-Arabi",poste:P.FWD,...pos.rw},{nom:"Al-Mandhar",club:"Al-Zawraa",poste:P.FWD,...pos.st},{nom:"Amjad Attwan",club:"Al-Shorta",poste:P.FWD,...pos.lw}]},
-
-  // ═══ OFC - Océanie (1 team) ═══
-  { pays:"Nouvelle-Zélande", drapeau:"🇳🇿", formation:"4-3-3", joueurs:[
-    {nom:"Sail",club:"Orlando City",poste:P.GK,...pos.gk},{nom:"Payne",club:"Adelaide United",poste:P.DEF,...pos.rb},{nom:"Tuiloma",club:"Vancouver Whitecaps",poste:P.DEF,...pos.rcb},{nom:"Boxall",club:"Nashville SC",poste:P.DEF,...pos.lcb},{nom:"Cacace",club:"Empoli",poste:P.DEF,...pos.lb},{nom:"Bell",club:"Viking FK",poste:P.MID,...pos.rm},{nom:"Stamenic",club:"Rapid Vienne",poste:P.MID,...pos.cm},{nom:"Singh",club:"PSV Eindhoven",poste:P.MID,...pos.lm},{nom:"Waine",club:"San Diego FC",poste:P.FWD,...pos.rw},{nom:"Wood",club:"Burnley",poste:P.FWD,...pos.st},{nom:"Thomas",club:"Auckland FC",poste:P.FWD,...pos.lw}]},
+  // ═══ OFC - Océanie ═══
+  {
+    pays: "Nouvelle-Zélande", drapeau: "🇳🇿", formation: "4-3-3", joueurs: [
+      { nom: "Sail", club: "Orlando City", poste: P.GK, ...pos.gk }, { nom: "Payne", club: "Adelaide United", poste: P.DEF, ...pos.rb }, { nom: "Boxall", club: "Nashville SC", poste: P.DEF, ...pos.rcb }, { nom: "Surman", club: "Portland Timbers", poste: P.DEF, ...pos.lcb }, { nom: "Cacace", club: "Empoli", poste: P.DEF, ...pos.lb }, { nom: "Bell", club: "Viking FK", poste: P.MID, ...pos.rm }, { nom: "Stamenić", club: "Rapid Vienne", poste: P.MID, ...pos.cm }, { nom: "Singh", club: "PSV Eindhoven", poste: P.MID, ...pos.lm }, { nom: "Waine", club: "San Diego FC", poste: P.FWD, ...pos.rw }, { nom: "Wood", club: "Burnley", poste: P.FWD, ...pos.st }, { nom: "Thomas", club: "Auckland FC", poste: P.FWD, ...pos.lw }]
+  },
 ];
