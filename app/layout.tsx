@@ -18,6 +18,13 @@ export const metadata: Metadata = {
   description: "L'application ultime de mini-jeux de football.",
   icons: {
     icon: "/images/Logo.svg",
+    apple: "/images/icon-pwa.svg",
+  },
+  manifest: "/manifest.json",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "FootQuest",
   },
   // C'est ici que l'on ajoute la balise meta pour AdSense :
   other: {
