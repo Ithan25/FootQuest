@@ -18,7 +18,7 @@ export default function ScoutMasterPage() {
           Scout Master
         </h1>
         <p className="mt-1 text-sm text-muted-foreground">
-          Devine le club à partir des nationalités de ses joueurs
+          Devine la léquipe nationale à partir des clubs de ses joueurs
         </p>
       </section>
 

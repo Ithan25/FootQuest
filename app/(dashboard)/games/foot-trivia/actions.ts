@@ -28,16 +28,16 @@ export interface TriviaQuestionWithAnswers {
  */
 export async function getRandomQuestions(
   count: number = 10,
-  difficulty: Difficulty = "facile"
+  difficulty?: Difficulty | "all"
 ): Promise<TriviaQuestionWithAnswers[]> {
   let pool = TRIVIA_QUESTIONS;
   
   if (difficulty === "facile") {
     pool = TRIVIA_QUESTIONS.filter((q) => q.difficulte === "facile");
   } else if (difficulty === "moyen") {
-    pool = TRIVIA_QUESTIONS.filter((q) => q.difficulte === "facile" || q.difficulte === "moyen");
-  } else {
-    pool = TRIVIA_QUESTIONS.filter((q) => q.difficulte === "moyen" || q.difficulte === "difficile");
+    pool = TRIVIA_QUESTIONS.filter((q) => q.difficulte === "moyen");
+  } else if (difficulty === "difficile") {
+    pool = TRIVIA_QUESTIONS.filter((q) => q.difficulte === "difficile");
   }
   
   const shuffled = [...pool]

@@ -73,7 +73,7 @@ export function TriviaGame() {
     const dur = diff ? TRIVIA_CONFIG[diff].timer : TRIVIA_TIMER_SECONDS;
     setTimerDuration(dur);
     try {
-      const q = await getRandomQuestions(QUESTIONS_PER_GAME, diff ?? "facile");
+      const q = await getRandomQuestions(QUESTIONS_PER_GAME, diff || "all");
       setQuestions(q);
       setCurrentIndex(0);
       setSelectedAnswer(null);
@@ -113,10 +113,11 @@ export function TriviaGame() {
       setStreak(newStreak);
       setCorrectCount((prev) => prev + 1);
 
-      let points = POINTS_CONFIG.foot_trivia.basePoints;
-      points += POINTS_CONFIG.foot_trivia.bonusPerCorrect;
-      if (newStreak >= 5) {
-        points += POINTS_CONFIG.foot_trivia.streakBonus;
+      const basePts = currentQuestion.points || 10;
+      let points = basePts;
+      if (newStreak >= 3) {
+        const streakMultiplier = (newStreak - 2) * 0.2;
+        points += Math.round(basePts * streakMultiplier);
       }
       const mult = difficulty ? DIFFICULTY_MULTIPLIER[difficulty] : 1;
       session.addScore(Math.round(points * mult));
@@ -192,7 +193,7 @@ export function TriviaGame() {
             </li>
             <li className="flex items-start gap-2">
               <span className="text-amber-500">•</span>
-              Bonus de streak à 5 bonnes réponses d&apos;affilée ! <Flame className="inline h-4 w-4 text-orange-500 ml-1" />
+              Bonus progressif (streak) dès 3 bonnes réponses d&apos;affilée ! <Flame className="inline h-4 w-4 text-orange-500 ml-1" />
             </li>
           </ul>
         </div>
@@ -448,7 +449,21 @@ export function TriviaGame() {
           }`}
         >
           {selectedAnswer && currentQuestion.reponses.find((r) => r.id === selectedAnswer)?.est_correcte
-            ? <span className="flex justify-center items-center gap-1.5"><CheckCircle2 className="h-4 w-4" /> Bonne réponse ! +{POINTS_CONFIG.foot_trivia.basePoints + POINTS_CONFIG.foot_trivia.bonusPerCorrect} {streak >= 5 && <span className="flex items-center ml-1">+{POINTS_CONFIG.foot_trivia.streakBonus} streak bonus <Flame className="h-3.5 w-3.5 ml-1" /></span>}</span>
+            ? (() => {
+                const basePtsForUI = currentQuestion.points || 10;
+                const multUI = difficulty ? DIFFICULTY_MULTIPLIER[difficulty] : 1;
+                const streakBonusUI = streak >= 3 ? Math.round(basePtsForUI * ((streak - 2) * 0.2)) : 0;
+                return (
+                  <span className="flex justify-center items-center gap-1.5">
+                    <CheckCircle2 className="h-4 w-4" /> Bonne réponse ! +{Math.round(basePtsForUI * multUI)}
+                    {streak >= 3 && (
+                      <span className="flex items-center ml-1">
+                        +{Math.round(streakBonusUI * multUI)} streak bonus <Flame className="h-3.5 w-3.5 ml-1" />
+                      </span>
+                    )}
+                  </span>
+                );
+              })()
             : <span className="flex justify-center items-center gap-1.5"><XCircle className="h-4 w-4" /> Mauvaise réponse ! C'était : {correctAnswer?.reponse}</span>}
         </div>
       )}
