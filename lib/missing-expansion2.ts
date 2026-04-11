@@ -125,7 +125,7 @@ export const MISSING_PIECE_EXPANSION_2: MissingPieceTeamData[] = [
       { nom: "Charlton", prenom: "Jack", poste: "DEF", numero: 5, posX: 62, posY: 75 },
       { nom: "Moore", prenom: "Bobby", poste: "DEF", numero: 6, posX: 38, posY: 75 },
       { nom: "Wilson", prenom: "Ray", poste: "DEF", numero: 3, posX: 15, posY: 72 },
-      { nom: "Stiles", prenom: "Nobby", poste: "MID", numero: 4, posX: 50, posY: 62 },
+      { nom: "Stiles", prenom: "Nobby", poste: "MID", numero: 4, posX: 50, posY: 65 },
       { nom: "Ball", prenom: "Alan", poste: "MID", numero: 7, posX: 80, posY: 45 },
       { nom: "Charlton", prenom: "Bobby", poste: "MID", numero: 9, posX: 50, posY: 40 },
       { nom: "Peters", prenom: "Martin", poste: "MID", numero: 16, posX: 20, posY: 45 },
