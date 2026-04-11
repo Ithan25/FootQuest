@@ -105,7 +105,11 @@ export default async function LeaderboardPage() {
         {second && (
           <div className="flex w-[30%] max-w-[140px] flex-col items-center">
             <PodiumAvatar player={second} rank={2} size="md" color="slate" />
-            <div className="relative mt-2 flex w-full flex-col items-center justify-start rounded-t-2xl bg-gradient-to-t from-slate-200 to-slate-100 dark:from-slate-800 dark:to-slate-700/50 px-2 py-3 shadow-lg sm:mt-3 sm:p-4 h-[100px] sm:h-[130px] border-t-4 border-slate-300 dark:border-slate-500">
+            <div className="relative mt-2 flex w-full flex-col items-center justify-start rounded-t-2xl bg-gradient-to-t from-slate-400/20 to-slate-400/5 dark:from-slate-700/60 dark:to-slate-800/20 px-2 py-3 shadow-lg sm:mt-3 sm:p-4 h-[100px] sm:h-[130px] border-t-4 border-slate-300 dark:border-slate-500">
+              {/* Neon Base Effect */}
+              <div className="absolute inset-x-0 bottom-0 h-1 bg-slate-400/40 blur-sm" />
+              <div className="absolute inset-x-2 bottom-0 h-[2px] bg-slate-300 shadow-[0_0_10px_rgba(148,163,184,0.5)]" />
+              
               <span className="text-lg font-bold text-slate-700 dark:text-slate-300 sm:text-xl">2</span>
               <span className="mt-0.5 text-xs font-bold truncate w-full text-center text-slate-800 dark:text-white sm:text-sm sm:mt-1">{second.pseudo}</span>
               <span className="text-[10px] font-semibold text-amber-600 dark:text-amber-400 mt-0.5 sm:text-xs sm:mt-1">{second.foot_points} FP</span>
@@ -116,11 +120,15 @@ export default async function LeaderboardPage() {
         {/* 1ST PLACE */}
         {first && (
           <div className="z-10 flex w-[34%] max-w-[160px] flex-col items-center">
-            <Crown className="mb-1 h-6 w-6 animate-bounce text-amber-400 drop-shadow-md sm:mb-2 sm:h-8 sm:w-8" />
+            <Crown className="mb-1 h-6 w-6 animate-bounce text-amber-400 drop-shadow-[0_0_8px_rgba(251,191,36,0.8)] sm:mb-2 sm:h-8 sm:w-8" />
             <PodiumAvatar player={first} rank={1} size="lg" color="amber" />
-            <div className="relative mt-2 flex w-full flex-col items-center justify-start rounded-t-2xl bg-gradient-to-t from-amber-200/40 to-amber-100 dark:from-amber-900/40 dark:to-amber-800/20 px-2 py-3 shadow-xl sm:mt-3 sm:p-4 h-[130px] sm:h-[170px] border-t-4 border-amber-400 shadow-amber-500/20">
-              <span className="text-2xl font-black text-amber-600 dark:text-amber-400 drop-shadow-sm sm:text-3xl">1</span>
-              <span className="mt-0.5 text-sm font-black truncate w-full text-center text-slate-900 dark:text-white sm:text-lg sm:mt-1">{first.pseudo}</span>
+            <div className="relative mt-2 flex w-full flex-col items-center justify-start rounded-t-2xl bg-gradient-to-t from-amber-500/20 to-amber-500/5 dark:from-amber-900/60 dark:to-amber-800/10 px-2 py-3 shadow-2xl sm:mt-3 sm:p-4 h-[130px] sm:h-[170px] border-t-4 border-amber-400">
+              {/* Neon Base Effect */}
+              <div className="absolute inset-x-0 bottom-0 h-1 bg-amber-400/60 blur-sm" />
+              <div className="absolute inset-x-2 bottom-0 h-[2px] bg-amber-300 shadow-[0_0_15px_rgba(251,191,36,0.8)]" />
+              
+              <span className="text-2xl font-black text-amber-600 dark:text-amber-400 drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)] sm:text-3xl">1</span>
+              <span className="mt-0.5 text-sm font-black truncate w-full text-center text-slate-900 dark:text-white drop-shadow-sm sm:text-lg sm:mt-1">{first.pseudo}</span>
               <span className="text-xs font-bold text-amber-600 dark:text-amber-400 mt-0.5 sm:text-sm sm:mt-1">{first.foot_points} FP</span>
             </div>
           </div>
@@ -130,7 +138,11 @@ export default async function LeaderboardPage() {
         {third && (
           <div className="flex w-[30%] max-w-[140px] flex-col items-center">
             <PodiumAvatar player={third} rank={3} size="md" color="orange" />
-            <div className="relative mt-2 flex w-full flex-col items-center justify-start rounded-t-2xl bg-gradient-to-t from-orange-200/50 to-orange-100/50 dark:from-orange-950/40 dark:to-orange-900/20 px-2 py-3 shadow-lg sm:mt-3 sm:p-4 h-[90px] sm:h-[110px] border-t-4 border-orange-400/70 dark:border-orange-700">
+            <div className="relative mt-2 flex w-full flex-col items-center justify-start rounded-t-2xl bg-gradient-to-t from-orange-500/20 to-orange-500/5 dark:from-orange-950/60 dark:to-orange-900/20 px-2 py-3 shadow-lg sm:mt-3 sm:p-4 h-[90px] sm:h-[110px] border-t-4 border-orange-400/70 dark:border-orange-700">
+              {/* Neon Base Effect */}
+              <div className="absolute inset-x-0 bottom-0 h-1 bg-orange-500/40 blur-sm" />
+              <div className="absolute inset-x-2 bottom-0 h-[2px] bg-orange-400 shadow-[0_0_10px_rgba(249,115,22,0.5)]" />
+              
               <span className="text-lg font-bold text-orange-700 dark:text-orange-500 sm:text-xl">3</span>
               <span className="mt-0.5 text-xs font-bold truncate w-full text-center text-slate-800 dark:text-white sm:text-sm sm:mt-1">{third.pseudo}</span>
               <span className="text-[10px] font-semibold text-amber-600 dark:text-amber-400 mt-0.5 sm:text-xs sm:mt-1">{third.foot_points} FP</span>
