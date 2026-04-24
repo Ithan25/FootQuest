@@ -1,4 +1,4 @@
-import { Geist, Geist_Mono, Roboto } from "next/font/google"
+import { Montserrat, Inter, Geist_Mono } from "next/font/google"
 import { Metadata } from "next"
 import Script from "next/script"
 
@@ -6,7 +6,16 @@ import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { cn } from "@/lib/utils";
 
-const roboto = Roboto({ subsets: ['latin'], variable: '--font-sans' })
+const montserrat = Montserrat({
+  subsets: ['latin'],
+  variable: '--font-heading',
+  weight: ['700', '800', '900'],
+})
+
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-sans',
+})
 
 const fontMono = Geist_Mono({
   subsets: ["latin"],
@@ -40,9 +49,9 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="fr" // Je me suis permis de passer la langue en "fr" puisque votre description est en français
+      lang="fr"
       suppressHydrationWarning
-      className={cn("antialiased", fontMono.variable, "font-sans", roboto.variable)}
+      className={cn("antialiased", fontMono.variable, inter.variable, montserrat.variable, "font-sans")}
     >
       <head>
         {/* On place le script AdSense en dur ici */}

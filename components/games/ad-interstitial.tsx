@@ -68,7 +68,7 @@ export function AdInterstitial({ onClose }: AdInterstitialProps) {
         </div>
 
         {/* Ad content */}
-        <div className="overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 shadow-2xl">
+        <div className="overflow-hidden rounded-lg border border-zinc-800 bg-gradient-to-br from-zinc-900 via-zinc-800 to-zinc-900 shadow-2xl">
           {hasAdSense ? (
             /* Real Google AdSense ad slot */
             <div ref={adRef} className="min-h-[250px] flex items-center justify-center p-2">

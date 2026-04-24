@@ -161,10 +161,10 @@ export function TriviaGame() {
       <div className="mx-auto flex max-w-md flex-col items-center space-y-6 pt-8">
         {/* Game icon */}
         <div className="relative">
-          <div className="flex h-28 w-28 items-center justify-center rounded-3xl bg-gradient-to-br from-amber-500 to-orange-500 shadow-xl shadow-amber-500/25">
+          <div className="flex h-28 w-28 items-center justify-center rounded-2xl bg-gradient-to-br from-[#FFE600] to-amber-600 shadow-xl shadow-[#FFE600]/25">
             <Image src="/images/FootTrivia.svg" width={48} height={48} className="drop-shadow-md" alt="Foot Trivia logo" />
           </div>
-          <div className="absolute -right-2 -top-2 flex h-8 w-8 items-center justify-center rounded-full bg-emerald-500 text-xs font-bold text-white shadow-lg">
+          <div className="absolute -right-2 -top-2 flex h-8 w-8 items-center justify-center rounded-full bg-[#00FF87] text-xs font-bold text-zinc-950 shadow-lg">
             {QUESTIONS_PER_GAME}
           </div>
         </div>
@@ -178,21 +178,21 @@ export function TriviaGame() {
         </div>
 
         {/* Rules */}
-        <div className="w-full space-y-2 rounded-2xl border border-border/40 bg-card/60 p-4 backdrop-blur-sm">
+        <div className="w-full space-y-2 rounded-lg border border-zinc-800 bg-zinc-900 p-4">
           <h3 className="text-sm font-semibold text-muted-foreground">
             Règles du jeu
           </h3>
           <ul className="space-y-1.5 text-sm text-muted-foreground">
             <li className="flex items-start gap-2">
-              <span className="text-amber-500">•</span>
+              <span className="text-[#FFE600]">•</span>
               Réponds à {QUESTIONS_PER_GAME} questions de culture foot
             </li>
             <li className="flex items-start gap-2">
-              <span className="text-amber-500">•</span>
+              <span className="text-[#FFE600]">•</span>
               {TRIVIA_TIMER_SECONDS} secondes par question
             </li>
             <li className="flex items-start gap-2">
-              <span className="text-amber-500">•</span>
+              <span className="text-[#FFE600]">•</span>
               Bonus progressif (streak) dès 3 bonnes réponses d&apos;affilée ! <Flame className="inline h-4 w-4 text-orange-500 ml-1" />
             </li>
           </ul>
@@ -209,7 +209,7 @@ export function TriviaGame() {
 
     return (
       <div className="mx-auto flex max-w-md flex-col items-center space-y-6 pt-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
-        <div className="flex h-24 w-24 items-center justify-center rounded-3xl bg-gradient-to-br from-amber-500 to-orange-500 shadow-xl shadow-amber-500/25">
+        <div className="flex h-24 w-24 items-center justify-center rounded-2xl bg-gradient-to-br from-[#FFE600] to-amber-600 shadow-xl shadow-[#FFE600]/25">
           {percentage >= 80 ? <Trophy className="h-10 w-10 text-white" /> : percentage >= 50 ? <ThumbsUp className="h-10 w-10 text-white" /> : <Zap className="h-10 w-10 text-white" />}
         </div>
 
@@ -222,11 +222,11 @@ export function TriviaGame() {
 
         {/* Stats */}
         <div className="grid w-full grid-cols-3 gap-3">
-          <StatBox label="Score" value={`${percentage}%`} icon={<Target className="h-6 w-6 text-amber-400" />} />
+          <StatBox label="Score" value={`${percentage}%`} icon={<Target className="h-6 w-6 text-[#FFE600]" />} />
           <StatBox
             label="Points"
             value={`+${session.pointsEarned}`}
-            icon={<Medal className="h-6 w-6 text-orange-400" />}
+            icon={<Medal className="h-6 w-6 text-[#FF007F]" />}
           />
           <StatBox
             label="Temps"
@@ -239,7 +239,7 @@ export function TriviaGame() {
         <div className="w-full space-y-2">
           <div className="h-3 w-full overflow-hidden rounded-full bg-muted">
             <div
-              className="h-full rounded-full bg-gradient-to-r from-amber-500 to-orange-500 transition-all duration-1000 ease-out"
+              className="h-full rounded-full bg-gradient-to-r from-[#FFE600] to-amber-500 transition-all duration-1000 ease-out"
               style={{ width: `${percentage}%` }}
             />
           </div>
@@ -248,13 +248,13 @@ export function TriviaGame() {
         <div className="flex w-full gap-3">
           <button
             onClick={() => session.resetGame()}
-            className="flex-1 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 px-6 py-3 font-bold text-white shadow-lg shadow-amber-500/25 transition-all hover:-translate-y-0.5 hover:shadow-xl"
+            className="flex-1 rounded-lg bg-[#FFE600] px-6 py-3 font-bold text-zinc-950 shadow-lg shadow-[#FFE600]/25 transition-all hover:-translate-y-0.5 hover:shadow-xl"
           >
             <span className="flex items-center justify-center gap-2"><RefreshCw className="h-5 w-5" /> Rejouer</span>
           </button>
           <a
             href="/hub"
-            className="flex items-center justify-center gap-2 rounded-xl border border-border/40 bg-card/60 px-6 py-3 font-semibold transition-all hover:-translate-y-0.5 backdrop-blur-sm"
+            className="flex items-center justify-center gap-2 rounded-lg border border-zinc-800 bg-zinc-900 px-6 py-3 font-semibold text-white transition-all hover:-translate-y-0.5"
           >
             <Home className="h-5 w-5" /> Hub
           </a>
@@ -357,7 +357,7 @@ export function TriviaGame() {
 
       {/* Category + Difficulty */}
       <div className="flex items-center gap-2">
-        <span className="rounded-full bg-amber-500/15 px-3 py-1 text-xs font-semibold text-amber-500">
+        <span className="rounded-full bg-[#FFE600]/15 px-3 py-1 text-xs font-semibold text-[#FFE600]">
           {currentQuestion.categorie}
         </span>
         <span
@@ -381,7 +381,7 @@ export function TriviaGame() {
       </div>
 
       {/* Question */}
-      <div className="rounded-2xl border border-border/40 bg-card/60 p-5 backdrop-blur-sm">
+      <div className="rounded-lg border border-zinc-800 bg-zinc-900 p-5">
         <h3 className="text-base font-bold leading-relaxed">
           {currentQuestion.question}
         </h3>
@@ -395,7 +395,7 @@ export function TriviaGame() {
           const letter = String.fromCharCode(65 + index); // A, B, C, D
 
           let answerStyle =
-            "border-border/40 bg-card/60 hover:-translate-y-0.5 hover:shadow-md";
+            "border-zinc-800 bg-zinc-900 hover:-translate-y-0.5 hover:shadow-md";
 
           if (isRevealed) {
             if (isCorrect) {
@@ -405,7 +405,7 @@ export function TriviaGame() {
               answerStyle =
                 "border-red-500/50 bg-red-500/15 shadow-red-500/10 shadow-lg";
             } else {
-              answerStyle = "border-border/20 bg-card/30 opacity-50";
+              answerStyle = "border-zinc-800/50 bg-zinc-900/30 opacity-50";
             }
           }
 
@@ -414,7 +414,7 @@ export function TriviaGame() {
               key={answer.id}
               onClick={() => handleSelectAnswer(answer.id)}
               disabled={isRevealed}
-              className={`flex w-full items-center gap-3 rounded-xl border p-4 text-left transition-all backdrop-blur-sm ${answerStyle}`}
+              className={`flex w-full items-center gap-3 rounded-lg border p-4 text-left transition-all ${answerStyle}`}
             >
               <span
                 className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-sm font-bold ${
@@ -422,7 +422,7 @@ export function TriviaGame() {
                     ? "bg-emerald-500 text-white"
                     : isRevealed && isSelected && !isCorrect
                       ? "bg-red-500 text-white"
-                      : "bg-muted text-muted-foreground"
+                      : "bg-zinc-800 text-zinc-400"
                 }`}
               >
                 {isRevealed && isCorrect
@@ -440,7 +440,7 @@ export function TriviaGame() {
       {/* Feedback after answer */}
       {isRevealed && (
         <div
-          className={`rounded-xl p-3 text-center text-sm font-semibold animate-in fade-in slide-in-from-bottom-2 duration-300 ${
+          className={`rounded-lg p-3 text-center text-sm font-semibold animate-in fade-in slide-in-from-bottom-2 duration-300 ${
             selectedAnswer &&
             currentQuestion.reponses.find((r) => r.id === selectedAnswer)
               ?.est_correcte
@@ -469,9 +469,9 @@ export function TriviaGame() {
       )}
 
       {/* Score display */}
-      <div className="flex items-center justify-between rounded-xl border border-border/40 bg-card/60 px-4 py-2.5 backdrop-blur-sm">
+      <div className="flex items-center justify-between rounded-lg border border-zinc-800 bg-zinc-900 px-4 py-2.5">
         <span className="text-xs text-muted-foreground">Score actuel</span>
-        <span className="flex items-center gap-1.5 font-bold text-amber-500">
+        <span className="flex items-center gap-1.5 font-bold text-[#FFE600]">
           <Medal className="h-4 w-4" /> {session.pointsEarned} pts
         </span>
       </div>
@@ -489,7 +489,7 @@ function StatBox({
   icon: React.ReactNode;
 }) {
   return (
-    <div className="flex flex-col items-center rounded-xl border border-border/40 bg-card/60 p-3 backdrop-blur-sm">
+    <div className="flex flex-col items-center rounded-lg border border-zinc-800 bg-zinc-900 p-3">
       <div className="flex justify-center">{icon}</div>
       <span className="mt-1 text-lg font-bold">{value}</span>
       <span className="text-[11px] text-muted-foreground">{label}</span>

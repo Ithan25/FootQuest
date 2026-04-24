@@ -21,16 +21,16 @@ export default function ShopPage() {
   return (
     <div className="space-y-8">
       <section>
-        <h1 className="flex items-center gap-2 text-2xl font-bold tracking-tight">
-          <Gift className="h-6 w-6 text-purple-500" /> Boutique
+        <h1 className="flex items-center gap-2 text-2xl font-bold tracking-tight text-white">
+          <Gift className="h-6 w-6 text-[#FF007F]" /> Boutique
         </h1>
-        <p className="mt-1 text-sm text-muted-foreground">
+        <p className="mt-1 text-sm text-zinc-500">
           Échange tes FootPoints contre des récompenses
         </p>
       </section>
 
       {/* Premium Card */}
-      <section className="relative overflow-hidden rounded-2xl border border-amber-500/30 bg-gradient-to-br from-amber-950/80 via-amber-900/60 to-yellow-950/80 dark:from-amber-950/50 dark:via-amber-900/30 dark:to-yellow-950/50 shadow-xl shadow-amber-500/10">
+      <section className="relative overflow-hidden rounded-lg border border-amber-500/30 bg-gradient-to-br from-amber-950/50 via-zinc-900 to-yellow-950/30 shadow-xl shadow-amber-500/10">
         {/* Decorative elements */}
         <div className="absolute -right-8 -top-8 h-32 w-32 rounded-full bg-amber-500/10 blur-2xl" />
         <div className="absolute -bottom-12 -left-12 h-40 w-40 rounded-full bg-yellow-500/10 blur-3xl" />
@@ -39,7 +39,7 @@ export default function ShopPage() {
           {/* Header */}
           <div className="flex items-start justify-between">
             <div className="flex items-center gap-3">
-              <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-amber-500 to-yellow-400 shadow-lg shadow-amber-500/30">
+              <div className="flex h-14 w-14 items-center justify-center rounded-lg bg-gradient-to-br from-amber-500 to-yellow-400 shadow-lg shadow-amber-500/30">
                 <Crown className="h-7 w-7 text-amber-900" />
               </div>
               <div>
@@ -48,7 +48,7 @@ export default function ShopPage() {
               </div>
             </div>
             {isPremium && (
-              <span className="flex items-center gap-1 rounded-full bg-emerald-500/20 px-3 py-1 text-xs font-bold text-emerald-400">
+              <span className="flex items-center gap-1 rounded-lg bg-[#00FF87]/20 px-3 py-1 text-xs font-bold text-[#00FF87]">
                 <Star className="h-3 w-3 fill-current" /> Actif
               </span>
             )}
@@ -57,17 +57,17 @@ export default function ShopPage() {
           {/* Benefits */}
           <div className="mt-6 grid gap-3 sm:grid-cols-3">
             <BenefitCard
-              icon={<Ban className="h-5 w-5 text-amber-400" />}
+              icon={<Ban className="h-5 w-5 text-[#FFE600]" />}
               title="Zéro publicité"
               description="Joue sans aucune interruption publicitaire"
             />
             <BenefitCard
-              icon={<Zap className="h-5 w-5 text-amber-400" />}
+              icon={<Zap className="h-5 w-5 text-[#FFE600]" />}
               title="Parties illimitées"
               description="Plus de limite quotidienne de parties"
             />
             <BenefitCard
-              icon={<Sparkles className="h-5 w-5 text-amber-400" />}
+              icon={<Sparkles className="h-5 w-5 text-[#FFE600]" />}
               title="Badge exclusif"
               description="Affiche ton statut Golden Ball partout"
             />
@@ -86,7 +86,7 @@ export default function ShopPage() {
             <button
               onClick={handleToggle}
               disabled={toggling}
-              className={`w-full rounded-xl px-8 py-3.5 text-base font-black transition-all hover:-translate-y-0.5 disabled:opacity-50 sm:w-auto ${
+              className={`w-full rounded-lg px-8 py-3.5 text-base font-black transition-all hover:-translate-y-0.5 disabled:opacity-50 sm:w-auto ${
                 isPremium
                   ? "border border-red-500/30 bg-red-500/15 text-red-400 hover:bg-red-500/25"
                   : "bg-gradient-to-r from-amber-500 to-yellow-400 text-amber-900 shadow-lg shadow-amber-500/30 hover:shadow-xl"
@@ -110,13 +110,13 @@ export default function ShopPage() {
 
       {/* Rewards section */}
       <section className="space-y-4">
-        <h2 className="flex items-center gap-2 text-lg font-bold tracking-tight">
-          <ShoppingCart className="h-5 w-5 text-purple-500" /> Récompenses
+        <h2 className="flex items-center gap-2 text-lg font-bold tracking-tight text-white">
+          <ShoppingCart className="h-5 w-5 text-[#FF007F]" /> Récompenses
         </h2>
-        <div className="flex flex-col items-center justify-center rounded-2xl border border-border/40 bg-card/60 p-12 text-center backdrop-blur-sm">
-          <ShoppingCart className="h-12 w-12 text-purple-500" />
-          <h3 className="mt-4 text-lg font-bold">Bientôt disponible</h3>
-          <p className="mt-1 text-sm text-muted-foreground">
+        <div className="flex flex-col items-center justify-center rounded-lg border border-zinc-800 bg-zinc-900 p-12 text-center">
+          <ShoppingCart className="h-12 w-12 text-[#FF007F]" />
+          <h3 className="mt-4 text-lg font-bold text-white">Bientôt disponible</h3>
+          <p className="mt-1 text-sm text-zinc-500">
             Les récompenses de nos partenaires arrivent bientôt.
           </p>
         </div>
@@ -135,7 +135,7 @@ function BenefitCard({
   description: string;
 }) {
   return (
-    <div className="rounded-xl border border-amber-500/10 bg-amber-500/5 p-4">
+    <div className="rounded-lg border border-amber-500/10 bg-amber-500/5 p-4">
       <div className="flex items-center gap-2.5">
         {icon}
         <span className="text-sm font-bold text-white">{title}</span>

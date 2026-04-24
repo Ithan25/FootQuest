@@ -10,8 +10,9 @@ const games = [
       "Devine la sélection nationale à partir des clubs de ses joueurs.",
     imageSrc: "/images/ScoutMaster.svg",
     href: "/games/scout-master",
-    gradient: "bg-gradient-to-br from-blue-600 to-indigo-700",
-    shadowColor: "shadow-blue-600/25",
+    gradient: "bg-gradient-to-br from-[#00FF87] to-emerald-700",
+    shadowColor: "shadow-[#00FF87]/25",
+    hoverColor: "green" as const,
   },
   {
     title: "The Missing Piece",
@@ -19,8 +20,9 @@ const games = [
       "Une compo nationale, un joueur manquant. Retrouve la pièce !",
     imageSrc: "/images/TheMissingPiece.svg",
     href: "/games/missing-piece",
-    gradient: "bg-gradient-to-br from-purple-600 to-fuchsia-600",
-    shadowColor: "shadow-purple-500/25",
+    gradient: "bg-gradient-to-br from-[#FF007F] to-fuchsia-700",
+    shadowColor: "shadow-[#FF007F]/25",
+    hoverColor: "magenta" as const,
   },
   {
     title: "Foot Trivia",
@@ -28,8 +30,9 @@ const games = [
       "Quiz Coupe du Monde avec timer ! Teste ta culture foot.",
     imageSrc: "/images/FootTrivia.svg",
     href: "/games/foot-trivia",
-    gradient: "bg-gradient-to-br from-amber-500 to-orange-600",
-    shadowColor: "shadow-amber-500/25",
+    gradient: "bg-gradient-to-br from-[#FFE600] to-amber-600",
+    shadowColor: "shadow-[#FFE600]/25",
+    hoverColor: "yellow" as const,
   },
 ];
 
@@ -113,35 +116,35 @@ export default async function HubPage() {
       {/* Welcome + Stats */}
       <section className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
         <div className="min-w-0">
-          <h1 className="flex flex-wrap items-center gap-1 text-2xl font-black tracking-tight text-slate-900 dark:text-white sm:text-4xl">
+          <h1 className="flex flex-wrap items-center gap-1 text-2xl font-black tracking-tight text-white sm:text-4xl">
             Salut, <span className={`bg-clip-text text-transparent ${
               user.role === "golden_ball"
                 ? "bg-gradient-to-r from-amber-500 to-yellow-400"
-                : "bg-gradient-to-r from-emerald-500 to-emerald-400 dark:from-emerald-400 dark:to-emerald-300"
+                : "bg-gradient-to-r from-[#00FF87] to-emerald-300"
             }`}>{user.pseudo}</span>
             {user.role === "golden_ball" && (
               <span className="flex items-center gap-1 rounded-full bg-gradient-to-r from-amber-500 to-yellow-400 px-2.5 py-0.5 text-[10px] font-bold text-amber-900 shadow-sm">
                 <Star className="h-3 w-3 fill-current" /> Golden Ball
               </span>
             )}
-            <Hand className="h-7 w-7 text-amber-400 drop-shadow-sm sm:h-8 sm:w-8" />
+            <Hand className="h-7 w-7 text-[#FFE600] drop-shadow-sm sm:h-8 sm:w-8" />
           </h1>
-          <p className="mt-1.5 text-sm text-slate-500 dark:text-white/40">
+          <p className="mt-1.5 text-sm text-zinc-500">
             Prêt pour un nouveau défi ? • Coupe du Monde 2026
           </p>
         </div>
 
         {/* Compact stats row */}
         <div className="flex gap-2 sm:gap-3">
-          <StatPill icon={<Coins className="h-4 w-4 text-amber-500" />} value={user.footPoints.toLocaleString("fr-FR")} label="FP" color="text-amber-400" />
-          <StatPill icon={<Gamepad2 className="h-4 w-4 text-emerald-500" />} value={`${user.partiesJoueesAujourdHui}/${maxGames}`} label="Parties" color="text-emerald-400" />
-          <StatPill icon={<Trophy className="h-4 w-4 text-blue-500" />} value="—" label="Rang" color="text-blue-400" />
+          <StatPill icon={<Coins className="h-4 w-4 text-[#FFE600]" />} value={user.footPoints.toLocaleString("fr-FR")} label="FP" color="text-[#FFE600]" />
+          <StatPill icon={<Gamepad2 className="h-4 w-4 text-[#00FF87]" />} value={`${user.partiesJoueesAujourdHui}/${maxGames}`} label="Parties" color="text-[#00FF87]" />
+          <StatPill icon={<Trophy className="h-4 w-4 text-[#FF007F]" />} value="—" label="Rang" color="text-[#FF007F]" />
         </div>
       </section>
 
       {/* Daily limit warning */}
       {user.role === "basic" && user.partiesJoueesAujourdHui >= 8 && (
-        <div className="rounded-xl border border-amber-500/20 bg-amber-500/5 px-5 py-3 text-sm text-amber-400">
+        <div className="rounded-lg border border-[#FFE600]/20 bg-[#FFE600]/5 px-5 py-3 text-sm text-[#FFE600]">
           <span className="font-bold flex items-center gap-1.5"><AlertTriangle className="h-4 w-4 inline" /> Attention !</span> Il te reste{" "}
           {10 - user.partiesJoueesAujourdHui} partie(s) aujourd&apos;hui.
         </div>
@@ -150,10 +153,10 @@ export default async function HubPage() {
       {/* Games section */}
       <section className="space-y-5">
         <div className="flex items-center justify-between">
-          <h2 className="flex items-center gap-2 text-xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-2xl">
-            <Gamepad2 className="h-6 w-6 text-emerald-500" /> Mini-Jeux
+          <h2 className="flex items-center gap-2 text-xl font-bold tracking-tight text-white sm:text-2xl">
+            <Gamepad2 className="h-6 w-6 text-[#00FF87]" /> Mini-Jeux
           </h2>
-          <span className="rounded-full border border-slate-200 dark:border-white/10 bg-slate-100 dark:bg-white/5 px-3 py-1 text-[11px] font-medium text-slate-500 dark:text-white/40">
+          <span className="rounded-lg border border-zinc-800 bg-zinc-900 px-3 py-1 text-[11px] font-medium text-zinc-500">
             CDM 2026 • 48 équipes
           </span>
         </div>
@@ -167,17 +170,17 @@ export default async function HubPage() {
 
       {/* Quick actions */}
       <section className="space-y-4">
-        <h2 className="flex items-center gap-2 text-lg font-bold tracking-tight text-slate-900 dark:text-white"><Zap className="h-5 w-5 text-amber-500" /> Accès rapide</h2>
+        <h2 className="flex items-center gap-2 text-lg font-bold tracking-tight text-white"><Zap className="h-5 w-5 text-[#FFE600]" /> Accès rapide</h2>
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-          <QuickAction href="/leaderboard" icon={<Trophy className="h-5 w-5 text-amber-500" />} label="Classement" />
-          <QuickAction href="/shop" icon={<Gift className="h-5 w-5 text-purple-500" />} label="Boutique" />
+          <QuickAction href="/leaderboard" icon={<Trophy className="h-5 w-5 text-[#FFE600]" />} label="Classement" />
+          <QuickAction href="/shop" icon={<Gift className="h-5 w-5 text-[#FF007F]" />} label="Boutique" />
         </div>
       </section>
 
       {/* Recent history */}
       {user.recentGames.length > 0 && (
         <section className="space-y-4">
-          <h2 className="text-lg font-bold tracking-tight text-slate-900 dark:text-white">📅 Historique récent</h2>
+          <h2 className="text-lg font-bold tracking-tight text-white">📅 Historique récent</h2>
           <div className="grid gap-3 sm:grid-cols-3">
             {user.recentGames.map((game, i) => (
               <RecentGameCard key={i} {...game} />
@@ -208,17 +211,17 @@ function RecentGameCard({
   });
 
   return (
-    <div className="flex items-center justify-between rounded-xl border border-slate-200 dark:border-white/[0.06] bg-white shadow-sm dark:shadow-none dark:bg-white/[0.03] px-4 py-3 transition-colors hover:border-slate-300 dark:hover:border-white/10 hover:bg-slate-50 dark:hover:bg-white/[0.06]">
+    <div className="flex items-center justify-between rounded-lg border border-zinc-800 bg-zinc-900 px-4 py-3 transition-colors hover:border-zinc-700 hover:bg-zinc-800/50">
       <div className="flex items-center gap-3">
-        <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-slate-100 dark:bg-white/5 text-lg">
+        <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-zinc-800 text-lg text-zinc-400">
           {gameIcon}
         </div>
         <div>
-          <p className="text-sm font-bold text-slate-900 dark:text-white">{gameName}</p>
-          <p className="text-[11px] text-slate-500 dark:text-white/40">{timeInfo}</p>
+          <p className="text-sm font-bold text-white">{gameName}</p>
+          <p className="text-[11px] text-zinc-500">{timeInfo}</p>
         </div>
       </div>
-      <div className="flex items-center gap-1.5 font-bold text-amber-500 dark:text-amber-400">
+      <div className="flex items-center gap-1.5 font-bold text-[#FFE600]">
         <span>+{points_gagnes}</span>
         <Coins className="h-3.5 w-3.5" />
       </div>
@@ -238,11 +241,11 @@ function StatPill({
   color: string;
 }) {
   return (
-    <div className="flex items-center gap-1.5 rounded-xl border border-slate-200 dark:border-white/[0.06] bg-white shadow-sm dark:shadow-none dark:bg-white/[0.03] px-3 py-2 sm:gap-2 sm:px-4 sm:py-2.5">
+    <div className="flex items-center gap-1.5 rounded-lg border border-zinc-800 bg-zinc-900 px-3 py-2 sm:gap-2 sm:px-4 sm:py-2.5">
       <div className="flex items-center justify-center">{icon}</div>
       <div className="flex flex-col leading-none">
-        <span className={`text-xs font-bold tabular-nums sm:text-sm ${color.replace('text-', 'text-emerald-600 dark:text-')}`}>{value}</span>
-        <span className="mt-0.5 text-[9px] font-medium uppercase tracking-wider text-slate-400 dark:text-white/30 sm:text-[10px]">{label}</span>
+        <span className={`text-xs font-bold tabular-nums sm:text-sm ${color}`}>{value}</span>
+        <span className="mt-0.5 text-[9px] font-medium uppercase tracking-wider text-zinc-500 sm:text-[10px]">{label}</span>
       </div>
     </div>
   );
@@ -260,10 +263,10 @@ function QuickAction({
   return (
     <a
       href={href}
-      className="group flex items-center gap-3 rounded-xl border border-slate-200 dark:border-white/[0.06] bg-white shadow-sm dark:shadow-none dark:bg-white/[0.03] px-4 py-3.5 transition-all hover:-translate-y-0.5 hover:border-slate-300 dark:hover:border-white/10 hover:bg-slate-50 dark:hover:bg-white/[0.06] hover:shadow-md dark:hover:shadow-lg"
+      className="group flex items-center gap-3 rounded-lg border border-zinc-800 bg-zinc-900 px-4 py-3.5 transition-all hover:-translate-y-0.5 hover:border-[#00FF87]/40 hover:shadow-[0_0_15px_rgba(0,255,135,0.1)]"
     >
       <div className="flex items-center justify-center">{icon}</div>
-      <span className="text-sm font-semibold text-slate-600 dark:text-white/70 transition-colors group-hover:text-slate-900 dark:group-hover:text-white">{label}</span>
+      <span className="text-sm font-semibold text-zinc-400 transition-colors group-hover:text-white">{label}</span>
     </a>
   );
 }

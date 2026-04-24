@@ -7,21 +7,24 @@ import { DIFFICULTY_MULTIPLIER } from "@/lib/constants";
 interface DifficultySelectorProps {
   onSelect: (difficulty: Difficulty | "all") => void;
   loading?: boolean;
-  accentColor?: "blue" | "amber" | "purple";
+  accentColor?: "green" | "amber" | "magenta";
 }
 
 const ACCENT_CLASSES = {
-  blue: {
-    allBg: "from-blue-600 to-indigo-700",
-    allShadow: "shadow-blue-600/25 hover:shadow-blue-600/40",
+  green: {
+    allBg: "from-[#00FF87] to-emerald-600",
+    allShadow: "shadow-[#00FF87]/25 hover:shadow-[#00FF87]/40",
+    allText: "text-zinc-950",
   },
   amber: {
-    allBg: "from-amber-500 to-orange-500",
-    allShadow: "shadow-amber-500/25 hover:shadow-amber-500/40",
+    allBg: "from-[#FFE600] to-amber-500",
+    allShadow: "shadow-[#FFE600]/25 hover:shadow-[#FFE600]/40",
+    allText: "text-zinc-950",
   },
-  purple: {
-    allBg: "from-purple-500 to-pink-500",
-    allShadow: "shadow-purple-500/25 hover:shadow-purple-500/40",
+  magenta: {
+    allBg: "from-[#FF007F] to-fuchsia-600",
+    allShadow: "shadow-[#FF007F]/25 hover:shadow-[#FF007F]/40",
+    allText: "text-white",
   },
 };
 
@@ -52,7 +55,7 @@ const LEVELS = [
   },
 ];
 
-export function DifficultySelector({ onSelect, loading = false, accentColor = "blue" }: DifficultySelectorProps) {
+export function DifficultySelector({ onSelect, loading = false, accentColor = "green" }: DifficultySelectorProps) {
   const accent = ACCENT_CLASSES[accentColor];
 
   return (
@@ -61,11 +64,11 @@ export function DifficultySelector({ onSelect, loading = false, accentColor = "b
       <button
         onClick={() => onSelect("all")}
         disabled={loading}
-        className={`flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r px-6 py-3.5 text-base font-bold text-white shadow-lg transition-all hover:-translate-y-0.5 hover:shadow-xl active:scale-[0.98] disabled:opacity-50 ${accent.allBg} ${accent.allShadow}`}
+        className={`flex w-full items-center justify-center gap-2 rounded-lg bg-gradient-to-r px-6 py-3.5 text-base font-bold shadow-lg transition-all hover:-translate-y-0.5 hover:shadow-xl active:scale-[0.98] disabled:opacity-50 ${accent.allBg} ${accent.allShadow} ${accent.allText}`}
       >
         {loading ? (
           <>
-            <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
+            <span className="h-4 w-4 animate-spin rounded-full border-2 border-current/30 border-t-current" />
             Chargement...
           </>
         ) : (
@@ -85,7 +88,7 @@ export function DifficultySelector({ onSelect, loading = false, accentColor = "b
               key={level.key}
               onClick={() => onSelect(level.key)}
               disabled={loading}
-              className={`group flex flex-col items-center gap-1 rounded-xl bg-gradient-to-b p-3 shadow-md ring-1 transition-all hover:-translate-y-1 hover:shadow-lg active:scale-95 disabled:opacity-50 ${level.gradient} ${level.shadow} ${level.ring}`}
+              className={`group flex flex-col items-center gap-1 rounded-lg bg-gradient-to-b p-3 shadow-md ring-1 transition-all hover:-translate-y-1 hover:shadow-lg active:scale-95 disabled:opacity-50 ${level.gradient} ${level.shadow} ${level.ring}`}
             >
               <Icon className="h-5 w-5 text-white drop-shadow" />
               <span className="text-xs font-bold text-white">{level.label}</span>

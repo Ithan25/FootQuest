@@ -9,16 +9,16 @@ export default function DashboardLayout({
 }) {
   return (
     <PremiumProvider>
-      <div className="relative min-h-svh bg-slate-50 text-slate-900 dark:bg-[#080c15] dark:text-white transition-colors duration-700 ease-in-out">
-        {/* Gaming background */}
+      <div className="relative min-h-svh bg-[#09090b] text-zinc-50">
+        {/* Gaming background — subtle neon gradients */}
         <div className="pointer-events-none fixed inset-0 -z-10">
-          {/* Light gradient */}
-          <div className="absolute inset-0 bg-gradient-to-b from-emerald-500/5 via-transparent to-indigo-500/10 transition-opacity duration-700 ease-in-out dark:opacity-0" />
-          {/* Dark gradient */}
-          <div className="absolute inset-0 opacity-0 bg-gradient-to-b from-emerald-950/30 via-transparent to-indigo-950/20 transition-opacity duration-700 ease-in-out dark:opacity-100" />
+          {/* Neon green glow — top-left */}
+          <div className="absolute -left-40 -top-40 h-[500px] w-[500px] rounded-full bg-[#00FF87]/[0.04] blur-[120px]" />
+          {/* Magenta glow — bottom-right */}
+          <div className="absolute -bottom-40 -right-40 h-[500px] w-[500px] rounded-full bg-[#FF007F]/[0.03] blur-[120px]" />
           
           {/* Subtle grid pattern */}
-          <div className="absolute inset-0 opacity-[0.05] dark:opacity-[0.02] transition-opacity duration-700 ease-in-out" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, currentColor 1px, transparent 1px)', backgroundSize: '32px 32px' }} />
+          <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(255,255,255,0.3) 1px, transparent 1px)', backgroundSize: '32px 32px' }} />
         </div>
 
         <DashboardHeader />

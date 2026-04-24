@@ -174,10 +174,10 @@ export function MissingGame() {
     return (
       <div className="mx-auto flex max-w-md flex-col items-center space-y-6 pt-8">
         <div className="relative">
-          <div className="flex h-28 w-28 items-center justify-center rounded-3xl bg-gradient-to-br from-purple-500 to-pink-500 shadow-xl shadow-purple-500/25">
+          <div className="flex h-28 w-28 items-center justify-center rounded-2xl bg-gradient-to-br from-[#FF007F] to-fuchsia-700 shadow-xl shadow-[#FF007F]/25">
             <Image src="/images/TheMissingPiece.svg" width={48} height={48} className="drop-shadow-md" alt="The Missing Piece logo" />
           </div>
-          <div className="absolute -right-2 -top-2 flex h-8 w-8 items-center justify-center rounded-full bg-emerald-500 text-xs font-bold text-white shadow-lg">
+          <div className="absolute -right-2 -top-2 flex h-8 w-8 items-center justify-center rounded-full bg-[#00FF87] text-xs font-bold text-zinc-950 shadow-lg">
             {LEVELS_PER_GAME}
           </div>
         </div>
@@ -189,27 +189,27 @@ export function MissingGame() {
           </p>
         </div>
 
-        <div className="w-full space-y-2 rounded-2xl border border-border/40 bg-card/60 p-4 backdrop-blur-sm">
+        <div className="w-full space-y-2 rounded-lg border border-zinc-800 bg-zinc-900 p-4">
           <h3 className="text-sm font-semibold text-muted-foreground">
             Comment jouer ?
           </h3>
           <ul className="space-y-1.5 text-sm text-muted-foreground">
             <li className="flex items-start gap-2">
-              <span className="text-purple-500">•</span>
+              <span className="text-[#FF007F]">•</span>
               Une composition d&apos;équipe est affichée sur le terrain <Users className="inline h-4 w-4 ml-1" />
             </li>
             <li className="flex items-start gap-2">
-              <span className="text-purple-500">•</span>
+              <span className="text-[#FF007F]">•</span>
               Un joueur est manquant — retrouve la pièce manquante ! <Puzzle className="inline h-4 w-4 ml-1" />
             </li>
             <li className="flex items-start gap-2">
-              <span className="text-purple-500">•</span>
+              <span className="text-[#FF007F]">•</span>
               Réponds vite pour gagner plus de points ! <Timer className="inline h-4 w-4 ml-1" />
             </li>
           </ul>
         </div>
 
-        <DifficultySelector onSelect={handleDifficultySelect} loading={loading} accentColor="purple" />
+        <DifficultySelector onSelect={handleDifficultySelect} loading={loading} accentColor="magenta" />
       </div>
     );
   }
@@ -218,7 +218,7 @@ export function MissingGame() {
   if (session.phase === "result") {
     return (
       <div className="mx-auto flex max-w-md flex-col items-center space-y-6 pt-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
-        <div className="flex h-24 w-24 items-center justify-center rounded-3xl bg-gradient-to-br from-purple-500 to-pink-500 shadow-xl shadow-purple-500/25">
+        <div className="flex h-24 w-24 items-center justify-center rounded-2xl bg-gradient-to-br from-[#FF007F] to-fuchsia-700 shadow-xl shadow-[#FF007F]/25">
           {session.score > 0 ? <Trophy className="h-10 w-10 text-white" /> : <Zap className="h-10 w-10 text-white" />}
         </div>
 
@@ -230,12 +230,12 @@ export function MissingGame() {
           <StatBox
             label="Niveaux"
             value={`${session.currentLevel}/${LEVELS_PER_GAME}`}
-            icon={<Target className="h-6 w-6 text-purple-400" />}
+            icon={<Target className="h-6 w-6 text-[#FF007F]" />}
           />
           <StatBox
             label="Points"
             value={`+${session.pointsEarned}`}
-            icon={<Medal className="h-6 w-6 text-amber-400" />}
+            icon={<Medal className="h-6 w-6 text-[#FFE600]" />}
           />
           <StatBox
             label="Temps"
@@ -247,13 +247,13 @@ export function MissingGame() {
         <div className="flex w-full gap-3">
           <button
             onClick={() => session.resetGame()}
-            className="flex-1 rounded-xl bg-gradient-to-r from-purple-500 to-pink-500 px-6 py-3 font-bold text-white shadow-lg shadow-purple-500/25 transition-all hover:-translate-y-0.5 hover:shadow-xl"
+            className="flex-1 rounded-lg bg-[#FF007F] px-6 py-3 font-bold text-white shadow-lg shadow-[#FF007F]/25 transition-all hover:-translate-y-0.5 hover:shadow-xl"
           >
             <span className="flex items-center justify-center gap-2"><RefreshCw className="h-5 w-5" /> Rejouer</span>
           </button>
           <a
             href="/hub"
-            className="flex items-center justify-center gap-2 rounded-xl border border-border/40 bg-card/60 px-6 py-3 font-semibold transition-all hover:-translate-y-0.5 backdrop-blur-sm"
+            className="flex items-center justify-center gap-2 rounded-lg border border-zinc-800 bg-zinc-900 px-6 py-3 font-semibold text-white transition-all hover:-translate-y-0.5"
           >
             <Home className="h-5 w-5" /> Hub
           </a>
@@ -275,7 +275,7 @@ export function MissingGame() {
           <span className="text-sm font-semibold text-muted-foreground">
             Niveau {currentLevelIndex + 1}/{levels.length}
           </span>
-          <span className="rounded-full bg-purple-500/15 px-2 py-0.5 text-xs font-semibold text-purple-500">
+          <span className="rounded-full bg-[#FF007F]/15 px-2 py-0.5 text-xs font-semibold text-[#FF007F]">
             {team.formation}
           </span>
           {(team as any).difficulty && (
@@ -302,7 +302,7 @@ export function MissingGame() {
               strokeDashoffset={`${2 * Math.PI * 20 * (1 - timer.progress)}`}
               className={`${
                 timer.progress > 0.5
-                  ? "stroke-purple-500"
+                  ? "stroke-[#FF007F]"
                   : timer.progress > 0.2
                     ? "stroke-amber-500"
                     : "stroke-red-500"
@@ -312,7 +312,7 @@ export function MissingGame() {
           <span
             className={`absolute text-sm font-bold ${
               timer.progress > 0.5
-                ? "text-purple-500"
+                ? "text-[#FF007F]"
                 : timer.progress > 0.2
                   ? "text-amber-500"
                   : "text-red-500"
@@ -330,7 +330,7 @@ export function MissingGame() {
       </div>
 
       {/* Football pitch */}
-      <div className="relative mx-auto aspect-[3/4] w-full max-w-sm overflow-hidden rounded-2xl border-2 border-emerald-700/50 bg-gradient-to-b from-emerald-700 to-emerald-800 shadow-xl">
+      <div className="relative mx-auto aspect-[3/4] w-full max-w-sm overflow-hidden rounded-lg border-2 border-emerald-700/50 bg-gradient-to-b from-emerald-900 to-zinc-950 shadow-xl">
         {/* Pitch lines */}
         <div className="absolute inset-0">
           {/* Center circle */}
@@ -396,7 +396,7 @@ export function MissingGame() {
       {isCorrect === null && (
         <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
           <span>Poste du joueur manquant :</span>
-          <span className="rounded-full bg-purple-500/15 px-3 py-1 text-xs font-bold text-purple-500">
+          <span className="rounded-full bg-[#FF007F]/15 px-3 py-1 text-xs font-bold text-[#FF007F]">
             {missingPlayer.poste === "GK"
               ? "Gardien"
               : missingPlayer.poste === "DEF"
@@ -405,7 +405,7 @@ export function MissingGame() {
                   ? "Milieu"
                   : "Attaquant"}
           </span>
-          <span className="rounded-full bg-muted px-3 py-1 text-xs font-bold text-muted-foreground">
+          <span className="rounded-full bg-zinc-800 px-3 py-1 text-xs font-bold text-muted-foreground">
             #{missingPlayer.numero}
           </span>
         </div>
@@ -424,22 +424,22 @@ export function MissingGame() {
             }}
             onFocus={() => setShowSuggestions(true)}
             placeholder="Quel joueur ? Tape ton guess..."
-            className="w-full rounded-xl border border-border/40 bg-card/60 px-4 py-3 text-sm backdrop-blur-sm transition-all focus:border-purple-500/50 focus:outline-none focus:ring-2 focus:ring-purple-500/20"
+            className="w-full rounded-lg border border-zinc-800 bg-zinc-900 px-4 py-3 text-sm text-white transition-all focus:border-[#FF007F]/50 focus:outline-none focus:ring-2 focus:ring-[#FF007F]/20"
           />
           <button
             onClick={handleSkip}
-            className="shrink-0 rounded-xl bg-slate-200 dark:bg-white/10 px-4 text-sm font-semibold text-slate-600 dark:text-white/60 transition-colors hover:bg-slate-300 dark:hover:bg-white/20"
+            className="shrink-0 rounded-lg bg-zinc-800 px-4 text-sm font-semibold text-zinc-400 transition-colors hover:bg-zinc-700"
           >
             Passer
           </button>
 
           {showSuggestions && filteredSuggestions.length > 0 && (
-            <div className="absolute left-0 right-0 top-full z-10 mt-1 max-h-48 overflow-y-auto rounded-xl border border-border/40 bg-card shadow-xl backdrop-blur-sm">
+            <div className="absolute left-0 right-0 top-full z-10 mt-1 max-h-48 overflow-y-auto rounded-lg border border-zinc-800 bg-zinc-900 shadow-xl">
               {filteredSuggestions.map((name) => (
                 <button
                   key={name}
                   onClick={() => handleGuess(name)}
-                  className="w-full px-4 py-2.5 text-left text-sm transition-colors hover:bg-muted/50 first:rounded-t-xl last:rounded-b-xl"
+                  className="w-full px-4 py-2.5 text-left text-sm text-white transition-colors hover:bg-zinc-800 first:rounded-t-lg last:rounded-b-lg"
                 >
                   {name}
                 </button>
@@ -452,7 +452,7 @@ export function MissingGame() {
       {/* Result feedback */}
       {isCorrect !== null && (
         <div
-          className={`rounded-xl p-4 text-center animate-in fade-in slide-in-from-bottom-2 duration-300 ${
+          className={`rounded-lg p-4 text-center animate-in fade-in slide-in-from-bottom-2 duration-300 ${
             isCorrect
               ? "bg-emerald-500/15 text-emerald-500"
               : "bg-red-500/15 text-red-500"
@@ -467,9 +467,9 @@ export function MissingGame() {
       )}
 
       {/* Score */}
-      <div className="flex items-center justify-between rounded-xl border border-border/40 bg-card/60 px-4 py-2.5 backdrop-blur-sm">
+      <div className="flex items-center justify-between rounded-lg border border-zinc-800 bg-zinc-900 px-4 py-2.5">
         <span className="text-xs text-muted-foreground">Score actuel</span>
-        <span className="flex items-center gap-1.5 font-bold text-purple-500">
+        <span className="flex items-center gap-1.5 font-bold text-[#FF007F]">
           <Medal className="h-4 w-4" /> {session.pointsEarned} pts
         </span>
       </div>
@@ -487,7 +487,7 @@ function StatBox({
   icon: React.ReactNode;
 }) {
   return (
-    <div className="flex flex-col items-center rounded-xl border border-border/40 bg-card/60 p-3 backdrop-blur-sm">
+    <div className="flex flex-col items-center rounded-lg border border-zinc-800 bg-zinc-900 p-3">
       <div className="flex justify-center">{icon}</div>
       <span className="mt-1 text-lg font-bold">{value}</span>
       <span className="text-[11px] text-muted-foreground">{label}</span>

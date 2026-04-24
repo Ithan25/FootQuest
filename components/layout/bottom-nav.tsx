@@ -38,18 +38,18 @@ export function BottomNav() {
   const { isPremium } = usePremiumContext();
 
   const activeColor = isPremium
-    ? "text-amber-500 dark:text-amber-400"
-    : "text-emerald-500 dark:text-emerald-400";
+    ? "text-amber-400"
+    : "text-[#00FF87]";
 
   const glowColor = isPremium
-    ? "bg-amber-500 dark:bg-amber-400 shadow-[0_0_8px_rgba(245,158,11,0.3)] dark:shadow-[0_0_8px_rgba(251,191,36,0.6)]"
-    : "bg-emerald-500 dark:bg-emerald-400 shadow-[0_0_8px_rgba(16,185,129,0.3)] dark:shadow-[0_0_8px_rgba(52,211,153,0.6)]";
+    ? "bg-amber-400 shadow-[0_0_8px_rgba(251,191,36,0.6)]"
+    : "bg-[#00FF87] shadow-[0_0_8px_rgba(0,255,135,0.6)]";
 
   return (
-    <nav className={`fixed bottom-0 left-0 right-0 z-50 border-t backdrop-blur-xl transition-colors duration-700 ease-in-out ${
+    <nav className={`fixed bottom-0 left-0 right-0 z-50 border-t backdrop-blur-xl ${
       isPremium
-        ? "border-amber-500/10 bg-slate-50/95 dark:bg-[#080c15]/95"
-        : "border-slate-200 dark:border-white/[0.06] bg-slate-50/95 dark:bg-[#080c15]/95"
+        ? "border-amber-500/10 bg-[#09090b]/95"
+        : "border-zinc-800/80 bg-[#09090b]/95"
     }`}>
       <div className="mx-auto flex max-w-5xl items-center justify-around py-1">
         {navItems.map((item) => {
@@ -62,10 +62,10 @@ export function BottomNav() {
               key={item.href}
               href={item.href}
               className={cn(
-                "relative flex flex-col items-center gap-1 rounded-2xl px-5 py-2 text-[11px] font-semibold transition-colors duration-700 ease-in-out",
+                "relative flex flex-col items-center gap-1 rounded-2xl px-5 py-2 text-[11px] font-semibold transition-colors",
                 isActive
                   ? activeColor
-                  : "text-slate-400 hover:text-slate-800 dark:text-white/40 dark:hover:text-white/70"
+                  : "text-zinc-500 hover:text-zinc-300"
               )}
             >
               {/* Active glow */}

@@ -180,10 +180,10 @@ export function ScoutGame() {
     return (
       <div className="mx-auto flex max-w-md flex-col items-center space-y-6 pt-8">
         <div className="relative">
-          <div className="flex h-28 w-28 items-center justify-center rounded-3xl bg-gradient-to-br from-blue-600 to-indigo-700 shadow-xl shadow-blue-600/25">
+          <div className="flex h-28 w-28 items-center justify-center rounded-2xl bg-gradient-to-br from-[#00FF87] to-emerald-700 shadow-xl shadow-[#00FF87]/25">
             <Image src="/images/ScoutMaster.svg" width={48} height={48} className="drop-shadow-md" alt="Scout Master logo" />
           </div>
-          <div className="absolute -right-2 -top-2 flex h-8 w-8 items-center justify-center rounded-full bg-emerald-500 text-xs font-bold text-white shadow-lg">
+          <div className="absolute -right-2 -top-2 flex h-8 w-8 items-center justify-center rounded-full bg-[#FF007F] text-xs font-bold text-white shadow-lg">
             {LEVELS_PER_GAME}
           </div>
         </div>
@@ -198,13 +198,13 @@ export function ScoutGame() {
           </p>
         </div>
 
-        <div className="w-full space-y-2 rounded-2xl border border-border/40 bg-card/60 p-4 backdrop-blur-sm">
+        <div className="w-full space-y-2 rounded-lg border border-zinc-800 bg-zinc-900 p-4">
           <h3 className="text-sm font-semibold text-muted-foreground">
             Comment jouer ?
           </h3>
           <ul className="space-y-1.5 text-sm text-muted-foreground">
             <li className="flex items-start gap-2">
-              <span className="text-blue-500">•</span>
+              <span className="text-[#00FF87]">•</span>
               Les clubs des joueurs sont affichés sur le terrain <Shield className="inline h-4 w-4 ml-1" />
             </li>
             <li className="flex items-start gap-2">
@@ -218,7 +218,7 @@ export function ScoutGame() {
           </ul>
         </div>
 
-        <DifficultySelector onSelect={handleDifficultySelect} loading={loading} accentColor="blue" />
+        <DifficultySelector onSelect={handleDifficultySelect} loading={loading} accentColor="green" />
       </div>
     );
   }
@@ -227,7 +227,7 @@ export function ScoutGame() {
   if (session.phase === "result") {
     return (
       <div className="mx-auto flex max-w-md flex-col items-center space-y-6 pt-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
-        <div className="flex h-24 w-24 items-center justify-center rounded-3xl bg-gradient-to-br from-blue-600 to-indigo-700 shadow-xl shadow-blue-600/25">
+        <div className="flex h-24 w-24 items-center justify-center rounded-2xl bg-gradient-to-br from-[#00FF87] to-emerald-700 shadow-xl shadow-[#00FF87]/25">
           {session.score > 0 ? <Trophy className="h-10 w-10 text-white" /> : <Zap className="h-10 w-10 text-white" />}
         </div>
 
@@ -236,21 +236,21 @@ export function ScoutGame() {
         </div>
 
         <div className="grid w-full grid-cols-3 gap-3">
-          <StatBox label="Niveaux" value={`${session.currentLevel}/${LEVELS_PER_GAME}`} icon={<Target className="h-6 w-6 text-blue-400" />} />
-          <StatBox label="Points" value={`+${session.pointsEarned}`} icon={<Medal className="h-6 w-6 text-amber-400" />} />
+          <StatBox label="Niveaux" value={`${session.currentLevel}/${LEVELS_PER_GAME}`} icon={<Target className="h-6 w-6 text-[#00FF87]" />} />
+          <StatBox label="Points" value={`+${session.pointsEarned}`} icon={<Medal className="h-6 w-6 text-[#FFE600]" />} />
           <StatBox label="Temps" value={`${session.durationSeconds}s`} icon={<Timer className="h-6 w-6 text-emerald-400" />} />
         </div>
 
         <div className="flex w-full gap-3">
           <button
             onClick={() => session.resetGame()}
-            className="flex-1 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-700 px-6 py-3 font-bold text-white shadow-lg shadow-blue-600/25 transition-all hover:-translate-y-0.5 hover:shadow-xl"
+            className="flex-1 rounded-lg bg-[#00FF87] px-6 py-3 font-bold text-zinc-950 shadow-lg shadow-[#00FF87]/25 transition-all hover:-translate-y-0.5 hover:shadow-xl"
           >
             <span className="flex items-center justify-center gap-2"><RefreshCw className="h-5 w-5" /> Rejouer</span>
           </button>
           <a
             href="/hub"
-            className="flex items-center justify-center gap-2 rounded-xl border border-border/40 bg-card/60 px-6 py-3 font-semibold transition-all hover:-translate-y-0.5 backdrop-blur-sm"
+            className="flex items-center justify-center gap-2 rounded-lg border border-zinc-800 bg-zinc-900 px-6 py-3 font-semibold text-white transition-all hover:-translate-y-0.5"
           >
             <Home className="h-5 w-5" /> Hub
           </a>
@@ -273,7 +273,7 @@ export function ScoutGame() {
           <span className="text-sm font-semibold text-muted-foreground">
             Niveau {currentLevelIndex + 1}/{levels.length}
           </span>
-          <span className="rounded-full bg-blue-500/15 px-3 py-1 text-xs font-semibold text-blue-500">
+          <span className="rounded-full bg-[#00FF87]/15 px-3 py-1 text-xs font-semibold text-[#00FF87]">
             {team.formation}
           </span>
           {(team as any).difficulty && (
@@ -303,7 +303,7 @@ export function ScoutGame() {
               strokeDashoffset={`${2 * Math.PI * 20 * (1 - timer.progress)}`}
               className={`${
                 timer.progress > 0.5
-                  ? "stroke-blue-500"
+                  ? "stroke-[#00FF87]"
                   : timer.progress > 0.2
                     ? "stroke-amber-500"
                     : "stroke-red-500"
@@ -312,7 +312,7 @@ export function ScoutGame() {
           </svg>
           <span className={`absolute text-sm font-bold ${
             timer.progress > 0.5
-              ? "text-blue-500"
+              ? "text-[#00FF87]"
               : timer.progress > 0.2
                 ? "text-amber-500"
                 : "text-red-500"
@@ -323,7 +323,7 @@ export function ScoutGame() {
       </div>
 
       {/* Football pitch with club badges */}
-      <div className="relative mx-auto aspect-[3/4] w-full max-w-sm overflow-hidden rounded-2xl border-2 border-indigo-600/50 bg-gradient-to-b from-indigo-900 to-indigo-950 shadow-2xl">
+      <div className="relative mx-auto aspect-[3/4] w-full max-w-sm overflow-hidden rounded-lg border-2 border-emerald-700/50 bg-gradient-to-b from-emerald-950 to-zinc-950 shadow-2xl">
         {/* Pitch lines */}
         <div className="absolute inset-0">
           <div className="absolute left-1/2 top-1/2 h-24 w-24 -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/10" />
@@ -365,7 +365,7 @@ export function ScoutGame() {
                 }`}
                 style={{ maxWidth: '78px' }}
               >
-                <span className="text-[8px] font-bold leading-[1.1] tracking-tighter text-indigo-950 sm:text-[9px] break-words">
+                <span className="text-[8px] font-bold leading-[1.1] tracking-tighter text-zinc-950 sm:text-[9px] break-words">
                   {isVisible || isRevealed ? joueur.club : "?"}
                 </span>
               </div>
@@ -380,14 +380,13 @@ export function ScoutGame() {
         })}
 
         {/* Mystery overlay when not all revealed */}
-        {/* Removed because it overlaps with the goalkeeper and is redundant with the search input placeholder */}
       </div>
 
       {/* Reveal more button */}
       {isCorrect === null && revealedCount < totalClues && (
         <button
           onClick={handleRevealMore}
-          className="w-full justify-center flex items-center gap-2 rounded-xl border border-blue-500/30 bg-blue-500/10 px-4 py-2.5 text-sm font-semibold text-blue-400 transition-all hover:bg-blue-500/20"
+          className="w-full justify-center flex items-center gap-2 rounded-lg border border-[#00FF87]/30 bg-[#00FF87]/10 px-4 py-2.5 text-sm font-semibold text-[#00FF87] transition-all hover:bg-[#00FF87]/20"
         >
           <Search className="h-4 w-4" /> Révéler plus de clubs ({revealedCount}/{totalClues})
         </button>
@@ -406,22 +405,22 @@ export function ScoutGame() {
             }}
             onFocus={() => setShowSuggestions(true)}
             placeholder="Quelle sélection ? Tape le pays..."
-            className="w-full rounded-xl border border-border/40 bg-card/60 px-4 py-3 text-sm backdrop-blur-sm transition-all focus:border-blue-500/50 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
+            className="w-full rounded-lg border border-zinc-800 bg-zinc-900 px-4 py-3 text-sm text-white transition-all focus:border-[#00FF87]/50 focus:outline-none focus:ring-2 focus:ring-[#00FF87]/20"
           />
           <button
             onClick={handleSkip}
-            className="shrink-0 rounded-xl bg-slate-200 dark:bg-white/10 px-4 text-sm font-semibold text-slate-600 dark:text-white/60 transition-colors hover:bg-slate-300 dark:hover:bg-white/20"
+            className="shrink-0 rounded-lg bg-zinc-800 px-4 text-sm font-semibold text-zinc-400 transition-colors hover:bg-zinc-700"
           >
             Passer
           </button>
 
           {showSuggestions && filteredSuggestions.length > 0 && (
-            <div className="absolute left-0 right-0 top-full z-10 mt-1 max-h-48 overflow-y-auto rounded-xl border border-border/40 bg-card shadow-xl backdrop-blur-sm">
+            <div className="absolute left-0 right-0 top-full z-10 mt-1 max-h-48 overflow-y-auto rounded-lg border border-zinc-800 bg-zinc-900 shadow-xl">
               {filteredSuggestions.map((name) => (
                 <button
                   key={name}
                   onClick={() => handleGuess(name)}
-                  className="flex w-full items-center gap-2 px-4 py-2.5 text-left text-sm transition-colors hover:bg-muted/50 first:rounded-t-xl last:rounded-b-xl"
+                  className="flex w-full items-center gap-2 px-4 py-2.5 text-left text-sm text-white transition-colors hover:bg-zinc-800 first:rounded-t-lg last:rounded-b-lg"
                 >
                   <Flag country={name} size="sm" />
                   {name}
@@ -435,7 +434,7 @@ export function ScoutGame() {
       {/* Result feedback */}
       {isCorrect !== null && (
         <div
-          className={`rounded-xl p-4 text-center animate-in fade-in slide-in-from-bottom-2 duration-300 ${
+          className={`rounded-lg p-4 text-center animate-in fade-in slide-in-from-bottom-2 duration-300 ${
             isCorrect
               ? "bg-emerald-500/15 text-emerald-500"
               : "bg-red-500/15 text-red-500"
@@ -451,9 +450,9 @@ export function ScoutGame() {
       )}
 
       {/* Score */}
-      <div className="flex items-center justify-between rounded-xl border border-border/40 bg-card/60 px-4 py-2.5 backdrop-blur-sm">
+      <div className="flex items-center justify-between rounded-lg border border-zinc-800 bg-zinc-900 px-4 py-2.5">
         <span className="text-xs text-muted-foreground">Score actuel</span>
-        <span className="flex items-center gap-1.5 font-bold text-blue-500">
+        <span className="flex items-center gap-1.5 font-bold text-[#00FF87]">
           <Medal className="h-4 w-4" /> {session.pointsEarned} pts
         </span>
       </div>
@@ -471,7 +470,7 @@ function StatBox({
   icon: React.ReactNode;
 }) {
   return (
-    <div className="flex flex-col items-center rounded-xl border border-border/40 bg-card/60 p-3 backdrop-blur-sm">
+    <div className="flex flex-col items-center rounded-lg border border-zinc-800 bg-zinc-900 p-3">
       <div className="flex justify-center">{icon}</div>
       <span className="mt-1 text-lg font-bold">{value}</span>
       <span className="text-[11px] text-muted-foreground">{label}</span>
