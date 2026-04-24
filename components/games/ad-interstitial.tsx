@@ -51,19 +51,31 @@ export function AdInterstitial({ onClose }: AdInterstitialProps) {
 
       {/* Ad container */}
       <div className="relative z-10 mx-4 w-full max-w-sm animate-in fade-in zoom-in-95 duration-500">
-        {/* Skip / Countdown button */}
-        <div className="mb-3 flex justify-end">
+        {/* Header : "Publicité" label + Permanent Close Button */}
+        <div className="mb-3 flex items-center justify-between">
+          <span className="rounded bg-black/40 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-white/50 backdrop-blur-sm">
+            Publicité
+          </span>
           {canSkip ? (
             <button
               onClick={onClose}
               className="flex items-center gap-1.5 rounded-full bg-white/15 px-4 py-2 text-xs font-semibold text-white backdrop-blur-sm transition-all hover:bg-white/25"
             >
-              Passer la pub <X className="h-3.5 w-3.5" />
+              Passer <X className="h-3.5 w-3.5" />
             </button>
           ) : (
-            <span className="flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-xs font-medium text-white/60 backdrop-blur-sm">
-              Passer dans {countdown}s
-            </span>
+            <div className="flex items-center gap-2">
+              <span className="text-xs font-medium text-white/60">
+                Passer dans {countdown}s
+              </span>
+              <button
+                onClick={onClose}
+                className="flex h-8 w-8 items-center justify-center rounded-full bg-white/10 text-white/60 transition-colors hover:bg-white/20 hover:text-white"
+                title="Fermer la publicité"
+              >
+                <X className="h-4 w-4" />
+              </button>
+            </div>
           )}
         </div>
 

@@ -164,7 +164,7 @@ export default function LoginForm() {
         </form>
       </CardContent>
 
-      <CardFooter className="justify-center">
+      <CardFooter className="flex flex-col justify-center gap-4">
         <p className="text-sm text-zinc-400">
           Pas encore de compte ?{" "}
           <Link
@@ -174,6 +174,12 @@ export default function LoginForm() {
             Créer un compte
           </Link>
         </p>
+        
+        <div className="flex gap-4 text-xs text-zinc-500">
+          <Link href="/cgu" className="hover:text-zinc-300 hover:underline">CGU</Link>
+          <Link href="/politique-confidentialite" className="hover:text-zinc-300 hover:underline">Confidentialité</Link>
+          <Link href="/mentions-legales" className="hover:text-zinc-300 hover:underline">Légal</Link>
+        </div>
       </CardFooter>
     </Card>
   );

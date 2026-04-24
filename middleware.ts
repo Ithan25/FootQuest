@@ -12,8 +12,9 @@ export const config = {
      * - _next/static (static files)
      * - _next/image (image optimization files)
      * - favicon.ico (favicon file)
-     * - public assets
+     * - manifest.json (PWA manifest)
+     * - ads.txt (AdSense)
      */
-    "/((?!_next/static|_next/image|favicon.ico|manifest.json|ads.txt|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
+    "/((?!_next/static|_next/image|favicon.ico|manifest.json|ads.txt|cgu|mentions-legales|politique-confidentialite|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
   ],
 };

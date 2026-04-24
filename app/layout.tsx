@@ -1,10 +1,11 @@
 import { Montserrat, Inter, Geist_Mono } from "next/font/google"
 import { Metadata } from "next"
-import Script from "next/script"
 
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { cn } from "@/lib/utils";
+import { CookieConsent } from "@/components/cookie-consent";
+import { AdSenseScript } from "@/components/adsense-script";
 
 const montserrat = Montserrat({
   subsets: ['latin'],
@@ -53,17 +54,12 @@ export default function RootLayout({
       suppressHydrationWarning
       className={cn("antialiased", fontMono.variable, inter.variable, montserrat.variable, "font-sans")}
     >
-      <head>
-        {/* On place le script AdSense en dur ici */}
-        <Script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9874141990888959"
-          crossOrigin="anonymous"
-          strategy="afterInteractive"
-        />
-      </head>
       <body>
-        <ThemeProvider>{children}</ThemeProvider>
+        <ThemeProvider>
+          {children}
+          <CookieConsent />
+          <AdSenseScript />
+        </ThemeProvider>
       </body>
     </html>
   )
