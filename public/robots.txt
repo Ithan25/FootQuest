@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+Disallow: /hub
+Disallow: /games/
+Disallow: /leaderboard
+Disallow: /shop
+Disallow: /profile
+Disallow: /login
+Disallow: /signup
+Disallow: /auth/
+
+Sitemap: https://footquest.fr/sitemap.xml

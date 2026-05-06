@@ -15,6 +15,6 @@ export const config = {
      * - manifest.json (PWA manifest)
      * - ads.txt (AdSense)
      */
-    "/((?!_next/static|_next/image|favicon.ico|manifest.json|ads.txt|cgu|mentions-legales|politique-confidentialite|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
+    "/((?!_next/static|_next/image|favicon.ico|manifest.json|ads.txt|robots.txt|sitemap.xml|google31ad35b3c46d6e07.html|cgu|mentions-legales|politique-confidentialite|a-propos|contact|guide|blog|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
   ],
 };

@@ -24,8 +24,11 @@ const fontMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-  title: "FootQuest",
-  description: "L'application ultime de mini-jeux de football.",
+  title: {
+    default: "FootQuest — Mini-jeux de Football | Coupe du Monde 2026",
+    template: "%s | FootQuest",
+  },
+  description: "Plateforme gratuite de mini-jeux de football : Scout Master, The Missing Piece et Foot Trivia. Teste tes connaissances sur les 48 sélections de la Coupe du Monde 2026 !",
   icons: {
     icon: "/images/icon-192.png",
     shortcut: "/favicon.ico",
@@ -36,6 +39,16 @@ export const metadata: Metadata = {
     capable: true,
     statusBarStyle: "default",
     title: "FootQuest",
+  },
+  metadataBase: new URL("https://footquest.fr"),
+  openGraph: {
+    type: "website",
+    locale: "fr_FR",
+    siteName: "FootQuest",
+  },
+  robots: {
+    index: true,
+    follow: true,
   },
   // C'est ici que l'on ajoute la balise meta pour AdSense :
   other: {
