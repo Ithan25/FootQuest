@@ -59,16 +59,16 @@ export default function PointsSystemPage() {
             <div className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-5">
               <div className="flex items-center gap-2 text-[#FF007F]">
                 <Gamepad2 className="h-5 w-5" />
-                <h3 className="font-bold">Rapidité (Foot Trivia)</h3>
+                <h3 className="font-bold">Streak (Foot Trivia)</h3>
               </div>
-              <p className="mt-2 text-sm text-zinc-400">Dans le quiz Foot Trivia, répondre rapidement te donne un bonus de temps. Plus tu réponds vite, plus tu gagnes de points supplémentaires.</p>
+              <p className="mt-2 text-sm text-zinc-400">Dans Foot Trivia, enchaîner 3 bonnes réponses ou plus d&apos;affilée active un <strong className="text-white">bonus de streak</strong> qui augmente progressivement tes points. Plus ta série est longue, plus le bonus est élevé.</p>
             </div>
             <div className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-5">
               <div className="flex items-center gap-2 text-white">
                 <Trophy className="h-5 w-5 text-amber-500" />
-                <h3 className="font-bold">Régularité</h3>
+                <h3 className="font-bold">Indices (Scout Master)</h3>
               </div>
-              <p className="mt-2 text-sm text-zinc-400">Jouer régulièrement chaque jour te permet d&apos;accumuler un capital de FootPoints significatif. La constance est la clé du classement.</p>
+              <p className="mt-2 text-sm text-zinc-400">Dans Scout Master, moins tu révèles de clubs pour trouver la bonne réponse, plus tu gagnes de points. Un bonus supplémentaire est accordé si tu réponds dans les premières secondes.</p>
             </div>
           </div>
         </section>

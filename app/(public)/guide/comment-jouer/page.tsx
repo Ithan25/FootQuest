@@ -51,31 +51,31 @@ export default function HowToPlayPage() {
 
             <h3 className="text-lg font-bold text-white">📋 Règles du jeu</h3>
             <ul className="ml-4 list-inside list-disc space-y-2 text-zinc-400">
-              <li>Le jeu affiche les clubs (pas les noms des joueurs) d&apos;une sélection nationale.</li>
-              <li>Tu disposes de <strong className="text-white">plusieurs propositions</strong> parmi lesquelles tu dois choisir la bonne équipe.</li>
-              <li>Si tu te trompes, tu peux réessayer — mais chaque erreur réduit le nombre de points gagnés.</li>
-              <li>Tu peux utiliser la fonction <strong className="text-white">Skip</strong> pour passer à une autre question.</li>
-              <li>Chaque bonne réponse rapporte des FootPoints en fonction de la difficulté et de ta rapidité.</li>
+              <li>Le jeu affiche les clubs (pas les noms des joueurs) d&apos;une sélection nationale sur un terrain.</li>
+              <li>Tu dois <strong className="text-white">taper le nom du pays</strong> dans un champ de recherche — une autocomplétion te propose des suggestions au fur et à mesure de ta saisie.</li>
+              <li>Tu peux demander à <strong className="text-white">révéler plus de clubs</strong> si tu es bloqué, mais moins tu utilises d&apos;indices, plus tu gagnes de points.</li>
+              <li>Tu peux aussi utiliser la fonction <strong className="text-white">Passer</strong> pour sauter une question difficile.</li>
+              <li>Un <strong className="text-white">timer</strong> décompte le temps — un bonus de points est accordé si tu réponds rapidement.</li>
             </ul>
 
             <h3 className="text-lg font-bold text-white">⚙️ Niveaux de difficulté</h3>
             <div className="grid gap-3 sm:grid-cols-3">
               <div className="rounded-lg border border-[#00FF87]/20 bg-[#00FF87]/5 p-4">
                 <span className="text-sm font-bold text-[#00FF87]">Facile</span>
-                <p className="mt-1 text-xs text-zinc-400">7 clubs affichés + 3 choix de réponse. Idéal pour découvrir le jeu.</p>
+                <p className="mt-1 text-xs text-zinc-400">5 clubs affichés dès le départ, 90 secondes pour répondre. Idéal pour découvrir le jeu.</p>
               </div>
               <div className="rounded-lg border border-[#FFE600]/20 bg-[#FFE600]/5 p-4">
                 <span className="text-sm font-bold text-[#FFE600]">Moyen</span>
-                <p className="mt-1 text-xs text-zinc-400">5 clubs affichés + 4 choix. Les sélections sont plus variées.</p>
+                <p className="mt-1 text-xs text-zinc-400">3 clubs affichés, 60 secondes. Points multipliés par 1,5.</p>
               </div>
               <div className="rounded-lg border border-[#FF007F]/20 bg-[#FF007F]/5 p-4">
                 <span className="text-sm font-bold text-[#FF007F]">Difficile</span>
-                <p className="mt-1 text-xs text-zinc-400">3 clubs seulement + 6 choix. Seuls les vrais experts réussissent !</p>
+                <p className="mt-1 text-xs text-zinc-400">1 seul club affiché, 30 secondes. Points multipliés par 2 !</p>
               </div>
             </div>
 
             <h3 className="text-lg font-bold text-white">💡 Astuces</h3>
-            <p>Observe les ligues : si tu vois plusieurs clubs de Premier League, cela pourrait indiquer l&apos;Angleterre, mais aussi le Nigeria ou le Ghana dont les joueurs évoluent souvent en Angleterre. Regarde les clubs du championnat local : un joueur dans un club saoudien, turc ou japonais peut être un indice fort pour identifier la sélection. La diversité des ligues est souvent un indicateur clé.</p>
+            <p>Observe les ligues : si tu vois plusieurs clubs de Premier League, cela pourrait indiquer l&apos;Angleterre, mais aussi le Nigeria ou le Ghana dont les joueurs évoluent souvent en Angleterre. Regarde les clubs du championnat local : un joueur dans un club saoudien, turc ou japonais peut être un indice fort. N&apos;hésite pas à demander plus d&apos;indices si tu es bloqué, même si cela réduit tes points — mieux vaut une bonne réponse avec plus d&apos;indices qu&apos;un Skip !</p>
           </div>
         </section>
 
@@ -97,14 +97,14 @@ export default function HowToPlayPage() {
             <h3 className="text-lg font-bold text-white">📋 Règles du jeu</h3>
             <ul className="ml-4 list-inside list-disc space-y-2 text-zinc-400">
               <li>La composition correspond au onze type habituel de la sélection (données les plus récentes).</li>
-              <li>Le joueur manquant peut être à n&apos;importe quel poste : gardien, défenseur, milieu ou attaquant.</li>
-              <li>Tu dois choisir parmi <strong className="text-white">4 à 6 propositions</strong> de joueurs.</li>
-              <li>Une seule réponse est correcte. Chaque erreur diminue tes points potentiels.</li>
-              <li>La fonction Skip te permet de passer sans pénalité.</li>
+              <li>Le joueur manquant peut être à n&apos;importe quel poste : gardien, défenseur, milieu ou attaquant. Son <strong className="text-white">poste et son numéro</strong> sont affichés comme indices.</li>
+              <li>Tu dois <strong className="text-white">taper le nom du joueur</strong> dans un champ de recherche — une autocomplétion te propose des suggestions dès 2 lettres saisies.</li>
+              <li>Un <strong className="text-white">timer</strong> décompte le temps. Un bonus de points est accordé si tu réponds rapidement.</li>
+              <li>La fonction Passer te permet de passer à la question suivante si tu es bloqué.</li>
             </ul>
 
             <h3 className="text-lg font-bold text-white">💡 Astuces</h3>
-            <p>Commence par observer la formation tactique. Si tu vois un 4-3-3 avec seulement 2 milieux affichés, le joueur manquant est probablement un milieu. Regarde aussi les clubs des autres joueurs : si un club important de la sélection n&apos;est pas représenté, le joueur manquant y joue probablement. Par exemple, si la France est affichée sans aucun joueur du Real Madrid, un joueur madrilène est sûrement la réponse.</p>
+            <p>Le poste et le numéro du joueur manquant sont affichés — utilise-les ! Si c&apos;est un numéro 9, c&apos;est probablement l&apos;avant-centre titulaire. Regarde aussi les noms des autres joueurs affichés : ils te donnent le contexte de l&apos;équipe et te permettent de deviner qui manque. Par exemple, si tu vois l&apos;équipe de France sans Mbappé, c&apos;est sûrement lui la pièce manquante.</p>
           </div>
         </section>
 

@@ -68,7 +68,7 @@ export default function AboutPage() {
             </li>
             <li>
               <strong className="text-white">The Missing Piece</strong> — Une composition nationale, un joueur
-              manquant. Retrouve la pièce manquante du puzzle tactique parmi plusieurs propositions.
+              manquant. Retrouve la pièce manquante du puzzle tactique en tapant le nom du joueur.
             </li>
             <li>
               <strong className="text-white">Foot Trivia</strong> — Le quiz de culture footballistique par excellence.
