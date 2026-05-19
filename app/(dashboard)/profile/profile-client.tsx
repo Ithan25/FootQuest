@@ -80,7 +80,7 @@ export function ProfileClient({ initialProfile }: { initialProfile: ProfileData 
       <section className="relative overflow-hidden rounded-lg border border-zinc-800 bg-zinc-900">
         {/* Banner */}
         <div
-          className="group relative h-32 cursor-pointer overflow-hidden bg-gradient-to-r from-[#00FF87] via-emerald-600 to-teal-600 sm:h-40"
+          className="group relative h-32 cursor-pointer overflow-hidden bg-gradient-to-r from-[#3B1F8E] via-[#E2001A] to-[#00A651] sm:h-40"
           onClick={() => bannerInputRef.current?.click()}
         >
           {profile.bannerUrl && (
@@ -123,7 +123,7 @@ export function ProfileClient({ initialProfile }: { initialProfile: ProfileData 
               className="group relative shrink-0 cursor-pointer"
               onClick={() => avatarInputRef.current?.click()}
             >
-              <div className="flex h-24 w-24 items-center justify-center overflow-hidden rounded-lg border-4 border-[#09090b] bg-gradient-to-br from-[#00FF87] to-emerald-600 shadow-xl sm:h-28 sm:w-28">
+              <div className="flex h-24 w-24 items-center justify-center overflow-hidden rounded-lg border-4 border-[#0A0A0F] bg-[#3B1F8E] shadow-xl sm:h-28 sm:w-28">
                 {profile.avatarUrl ? (
                   <img
                     src={profile.avatarUrl}
@@ -131,7 +131,7 @@ export function ProfileClient({ initialProfile }: { initialProfile: ProfileData 
                     className="h-full w-full object-cover"
                   />
                 ) : (
-                  <User className="h-12 w-12 text-zinc-950" />
+                  <User className="h-12 w-12 text-white" />
                 )}
               </div>
               {/* Hover overlay */}
@@ -174,15 +174,15 @@ export function ProfileClient({ initialProfile }: { initialProfile: ProfileData 
 
       {/* Stats */}
       <section className="grid grid-cols-2 gap-4 sm:grid-cols-4">
-        <StatCard icon={<Coins className="h-6 w-6 text-[#FFE600] mx-auto" />} label="FootPoints" value={profile.footPoints.toLocaleString("fr-FR")} color="text-[#FFE600]" />
-        <StatCard icon={<Gamepad2 className="h-6 w-6 text-[#00FF87] mx-auto" />} label="Parties jouées" value={String(profile.totalGames)} color="text-[#00FF87]" />
-        <StatCard icon={<Medal className="h-6 w-6 text-[#FF007F] mx-auto" />} label="Points" value={profile.totalPoints.toLocaleString("fr-FR")} color="text-[#FF007F]" />
-        <StatCard icon={<Trophy className="h-6 w-6 text-sky-400 mx-auto" />} label="Best score" value={String(profile.bestScore)} color="text-sky-400" />
+        <StatCard icon={<Coins className="h-6 w-6 text-[#C5E86C] mx-auto" />} label="FootPoints" value={profile.footPoints.toLocaleString("fr-FR")} color="text-[#C5E86C]" />
+        <StatCard icon={<Gamepad2 className="h-6 w-6 text-[#00A651] mx-auto" />} label="Parties jouées" value={String(profile.totalGames)} color="text-[#00A651]" />
+        <StatCard icon={<Medal className="h-6 w-6 text-[#E2001A] mx-auto" />} label="Points" value={profile.totalPoints.toLocaleString("fr-FR")} color="text-[#E2001A]" />
+        <StatCard icon={<Trophy className="h-6 w-6 text-white mx-auto" />} label="Best score" value={String(profile.bestScore)} color="text-white" />
       </section>
 
       {/* Account info */}
       <section className="space-y-4">
-        <h2 className="flex items-center gap-2 text-lg font-bold text-white"><ClipboardList className="h-5 w-5 text-[#FF007F]" /> Informations</h2>
+        <h2 className="flex items-center gap-2 text-lg font-bold text-white"><ClipboardList className="h-5 w-5 text-[#E2001A]" /> Informations</h2>
         <div className="rounded-lg border border-zinc-800 bg-zinc-900 divide-y divide-zinc-800">
           <InfoRow 
             label="Pseudo" 
@@ -191,7 +191,7 @@ export function ProfileClient({ initialProfile }: { initialProfile: ProfileData 
                 <div className="flex items-center gap-1.5">
                   <input
                     type="text"
-                    className="rounded-md border border-zinc-700 bg-zinc-800 px-2 py-0.5 text-sm font-semibold text-white focus:outline-none focus:ring-2 focus:ring-[#00FF87] w-32"
+                    className="rounded-md border border-zinc-700 bg-zinc-800 px-2 py-0.5 text-sm font-semibold text-white focus:outline-none focus:ring-2 focus:ring-[#3B1F8E] w-32"
                     value={pseudoInput}
                     onChange={(e) => setPseudoInput(e.target.value)}
                     disabled={updatingPseudo}
@@ -201,7 +201,7 @@ export function ProfileClient({ initialProfile }: { initialProfile: ProfileData 
                   <button
                     onClick={handleUpdatePseudo}
                     disabled={updatingPseudo}
-                    className="rounded-md bg-[#00FF87] p-1 text-zinc-950 hover:bg-[#00FF87]/80 disabled:opacity-50"
+                    className="rounded-md bg-white p-1 text-zinc-950 hover:bg-white/80 disabled:opacity-50"
                   >
                     {updatingPseudo ? <Loader2 className="h-3 w-3 animate-spin" /> : <Check className="h-3 w-3" />}
                   </button>
@@ -220,7 +220,7 @@ export function ProfileClient({ initialProfile }: { initialProfile: ProfileData 
                 <span className="group flex items-center gap-2 cursor-pointer" onClick={() => setIsEditingPseudo(true)}>
                   {profile.pseudo}
                   <button
-                    className="text-zinc-500 transition-colors hover:text-[#00FF87]"
+                    className="text-zinc-500 transition-colors hover:text-white"
                   >
                     <Pencil className="h-3.5 w-3.5" />
                   </button>
@@ -229,7 +229,7 @@ export function ProfileClient({ initialProfile }: { initialProfile: ProfileData 
             } 
           />
           <InfoRow label="Email" value={profile.email} />
-          <InfoRow label="Rôle" value={profile.role === "golden_ball" ? <><Star className="inline h-4 w-4 text-amber-500 mr-1" /> Golden Ball</> : <><Circle className="inline h-4 w-4 font-bold text-[#00FF87] mr-1" /> Basic</>} />
+          <InfoRow label="Rôle" value={profile.role === "golden_ball" ? <><Star className="inline h-4 w-4 text-amber-500 mr-1" /> Golden Ball</> : <><Circle className="inline h-4 w-4 font-bold text-[#00A651] mr-1" /> Basic</>} />
           <InfoRow label="Membre depuis" value={profile.joinDate} />
         </div>
       </section>
@@ -287,14 +287,14 @@ export function ProfileClient({ initialProfile }: { initialProfile: ProfileData 
           </div>
 
           {profile.role !== "golden_ball" && (
-            <div className="mt-4 space-y-2 rounded-lg bg-[#FFE600]/5 p-3">
-              <div className="flex items-center gap-2 text-xs text-[#FFE600]">
+            <div className="mt-4 space-y-2 rounded-lg bg-[#C5E86C]/5 p-3">
+              <div className="flex items-center gap-2 text-xs text-[#C5E86C]">
                 <Star className="h-3.5 w-3.5" /> Zéro publicité
               </div>
-              <div className="flex items-center gap-2 text-xs text-[#FFE600]">
+              <div className="flex items-center gap-2 text-xs text-[#C5E86C]">
                 <Star className="h-3.5 w-3.5" /> Badge exclusif Golden Ball
               </div>
-              <div className="flex items-center gap-2 text-xs text-[#FFE600]">
+              <div className="flex items-center gap-2 text-xs text-[#C5E86C]">
                 <Star className="h-3.5 w-3.5" /> Accès prioritaire aux nouveautés
               </div>
             </div>

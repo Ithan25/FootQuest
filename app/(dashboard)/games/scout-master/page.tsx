@@ -12,7 +12,7 @@ export default function ScoutMasterPage() {
     <div className="space-y-6">
       <section>
         <h1 className="flex items-center gap-3 text-2xl font-bold tracking-tight">
-          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-blue-600 to-indigo-700 shadow-md">
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-[#00A651] to-emerald-800 shadow-md">
             <Image src="/images/ScoutMaster.svg" width={24} height={24} className="drop-shadow-sm" alt="Scout Master logo" />
           </div>
           Scout Master

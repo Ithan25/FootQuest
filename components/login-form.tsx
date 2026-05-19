@@ -57,10 +57,10 @@ export default function LoginForm() {
   };
 
   return (
-    <Card className="border-zinc-800 bg-zinc-900/80 shadow-2xl backdrop-blur-xl">
+    <Card className="border-[#252536] bg-[#141420]/80 shadow-2xl backdrop-blur-xl">
       <CardHeader className="space-y-2 text-center">
         {/* Logo */}
-        <div className="mx-auto mb-2 flex h-16 w-16 items-center justify-center rounded-lg bg-gradient-to-br from-[#00FF87] to-emerald-500 shadow-lg shadow-[#00FF87]/25">
+        <div className="mx-auto mb-2 flex h-16 w-16 items-center justify-center rounded-lg bg-white shadow-lg shadow-white/10">
           <Trophy className="h-8 w-8 text-zinc-950 drop-shadow-md" />
         </div>
         <CardTitle className="text-2xl font-black tracking-tight text-white">
@@ -75,7 +75,7 @@ export default function LoginForm() {
         {/* Google OAuth */}
         <Button
           variant="outline"
-          className="w-full gap-2 border-zinc-700 bg-zinc-800/50 text-zinc-200 transition-all hover:bg-zinc-800 hover:text-white"
+          className="w-full gap-2 border-[#252536] bg-[#1E1E2E]/50 text-zinc-200 transition-all hover:bg-[#1E1E2E] hover:text-white"
           onClick={handleGoogleLogin}
           type="button"
         >
@@ -103,10 +103,10 @@ export default function LoginForm() {
         {/* Divider */}
         <div className="relative">
           <div className="absolute inset-0 flex items-center">
-            <div className="w-full border-t border-zinc-700/50" />
+            <div className="w-full border-t border-[#252536]/50" />
           </div>
           <div className="relative flex justify-center text-xs uppercase">
-            <span className="bg-zinc-900/80 px-2 text-zinc-500 backdrop-blur-xl">
+            <span className="bg-[#141420]/80 px-2 text-zinc-500 backdrop-blur-xl">
               ou par email
             </span>
           </div>
@@ -123,7 +123,7 @@ export default function LoginForm() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="border-zinc-700 bg-zinc-800/50 text-white placeholder:text-zinc-500"
+              className="border-[#252536] bg-[#1E1E2E]/50 text-white placeholder:text-zinc-500"
             />
           </div>
 
@@ -137,7 +137,7 @@ export default function LoginForm() {
               onChange={(e) => setPassword(e.target.value)}
               required
               minLength={6}
-              className="border-zinc-700 bg-zinc-800/50 text-white placeholder:text-zinc-500"
+              className="border-[#252536] bg-[#1E1E2E]/50 text-white placeholder:text-zinc-500"
             />
           </div>
 
@@ -149,12 +149,12 @@ export default function LoginForm() {
 
           <Button
             type="submit"
-            className="w-full bg-[#00FF87] font-bold text-zinc-950 shadow-lg shadow-[#00FF87]/25 transition-all hover:bg-[#00FF87]/90 hover:shadow-[#00FF87]/40 hover:shadow-xl"
+            className="w-full bg-white font-bold text-zinc-950 shadow-lg shadow-white/10 transition-all hover:shadow-white/20 hover:shadow-xl"
             disabled={loading}
           >
             {loading ? (
               <span className="flex items-center gap-2">
-                <span className="h-4 w-4 animate-spin rounded-full border-2 border-zinc-950/30 border-t-zinc-950" />
+                <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
                 Connexion...
               </span>
             ) : (
@@ -169,7 +169,7 @@ export default function LoginForm() {
           Pas encore de compte ?{" "}
           <Link
             href="/signup"
-            className="font-medium text-[#00FF87] underline-offset-4 transition-colors hover:text-[#00FF87]/80 hover:underline"
+            className="font-medium text-[#C5E86C] underline-offset-4 transition-colors hover:text-[#C5E86C]/80 hover:underline"
           >
             Créer un compte
           </Link>

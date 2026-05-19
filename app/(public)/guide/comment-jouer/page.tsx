@@ -12,23 +12,23 @@ export default function HowToPlayPage() {
   return (
     <div className="mx-auto max-w-4xl px-4 py-16 sm:px-6 sm:py-24">
       <div className="text-center">
-        <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#00FF87]/20 bg-[#00FF87]/5 px-4 py-1.5 text-sm font-semibold text-[#00FF87]">
+        <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#3B1F8E]/30 bg-[#3B1F8E]/10 px-4 py-1.5 text-sm font-semibold text-[#C5E86C]">
           <Gamepad2 className="h-4 w-4" /> Guide complet
         </div>
         <h1 className="text-4xl font-black tracking-tight text-white sm:text-5xl">
-          Comment jouer à <span className="bg-gradient-to-r from-[#00FF87] to-emerald-300 bg-clip-text text-transparent">FootQuest</span>
+          Comment jouer à <span className="text-white">FootQuest</span>
         </h1>
         <p className="mx-auto mt-4 max-w-xl text-zinc-400">
           Découvre les règles, les mécaniques et les astuces de chaque mini-jeu pour maximiser tes FootPoints et grimper dans le classement mondial.
         </p>
       </div>
 
-      <nav className="mx-auto mt-12 max-w-md rounded-xl border border-zinc-800 bg-zinc-900/50 p-6">
+      <nav className="mx-auto mt-12 max-w-md rounded-xl border border-[#252536] bg-[#141420]/50 p-6">
         <h2 className="text-sm font-bold uppercase tracking-wider text-zinc-400">Sommaire</h2>
         <ul className="mt-3 space-y-2">
-          <li><a href="#scout-master" className="flex items-center gap-2 text-sm text-zinc-300 hover:text-[#00FF87]"><ChevronRight className="h-3 w-3 text-[#00FF87]" /> Scout Master</a></li>
-          <li><a href="#missing-piece" className="flex items-center gap-2 text-sm text-zinc-300 hover:text-[#FF007F]"><ChevronRight className="h-3 w-3 text-[#FF007F]" /> The Missing Piece</a></li>
-          <li><a href="#foot-trivia" className="flex items-center gap-2 text-sm text-zinc-300 hover:text-[#FFE600]"><ChevronRight className="h-3 w-3 text-[#FFE600]" /> Foot Trivia</a></li>
+          <li><a href="#scout-master" className="flex items-center gap-2 text-sm text-zinc-300 hover:text-[#00A651]"><ChevronRight className="h-3 w-3 text-[#00A651]" /> Scout Master</a></li>
+          <li><a href="#missing-piece" className="flex items-center gap-2 text-sm text-zinc-300 hover:text-[#E2001A]"><ChevronRight className="h-3 w-3 text-[#E2001A]" /> The Missing Piece</a></li>
+          <li><a href="#foot-trivia" className="flex items-center gap-2 text-sm text-zinc-300 hover:text-white"><ChevronRight className="h-3 w-3 text-white" /> Foot Trivia</a></li>
           <li><a href="#astuces" className="flex items-center gap-2 text-sm text-zinc-300 hover:text-white"><ChevronRight className="h-3 w-3 text-zinc-500" /> Astuces générales</a></li>
         </ul>
       </nav>
@@ -37,7 +37,7 @@ export default function HowToPlayPage() {
         {/* SCOUT MASTER */}
         <section id="scout-master" className="scroll-mt-24 space-y-6">
           <div className="flex items-center gap-4">
-            <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-[#00FF87] to-emerald-700 shadow-lg shadow-[#00FF87]/20">
+            <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-[#00A651] to-emerald-800 shadow-lg shadow-[#00A651]/20">
               <Search className="h-7 w-7 text-white" />
             </div>
             <div>
@@ -60,16 +60,16 @@ export default function HowToPlayPage() {
 
             <h3 className="text-lg font-bold text-white">⚙️ Niveaux de difficulté</h3>
             <div className="grid gap-3 sm:grid-cols-3">
-              <div className="rounded-lg border border-[#00FF87]/20 bg-[#00FF87]/5 p-4">
-                <span className="text-sm font-bold text-[#00FF87]">Facile</span>
+              <div className="rounded-lg border border-[#00A651]/20 bg-[#00A651]/5 p-4">
+                <span className="text-sm font-bold text-[#00A651]">Facile</span>
                 <p className="mt-1 text-xs text-zinc-400">5 clubs affichés dès le départ, 90 secondes pour répondre. Idéal pour découvrir le jeu.</p>
               </div>
-              <div className="rounded-lg border border-[#FFE600]/20 bg-[#FFE600]/5 p-4">
-                <span className="text-sm font-bold text-[#FFE600]">Moyen</span>
+              <div className="rounded-lg border border-[#C5E86C]/20 bg-[#C5E86C]/5 p-4">
+                <span className="text-sm font-bold text-[#C5E86C]">Moyen</span>
                 <p className="mt-1 text-xs text-zinc-400">3 clubs affichés, 60 secondes. Points multipliés par 1,5.</p>
               </div>
-              <div className="rounded-lg border border-[#FF007F]/20 bg-[#FF007F]/5 p-4">
-                <span className="text-sm font-bold text-[#FF007F]">Difficile</span>
+              <div className="rounded-lg border border-[#E2001A]/20 bg-[#E2001A]/5 p-4">
+                <span className="text-sm font-bold text-[#E2001A]">Difficile</span>
                 <p className="mt-1 text-xs text-zinc-400">1 seul club affiché, 30 secondes. Points multipliés par 2 !</p>
               </div>
             </div>
@@ -82,7 +82,7 @@ export default function HowToPlayPage() {
         {/* THE MISSING PIECE */}
         <section id="missing-piece" className="scroll-mt-24 space-y-6">
           <div className="flex items-center gap-4">
-            <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-[#FF007F] to-fuchsia-700 shadow-lg shadow-[#FF007F]/20">
+            <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-[#E2001A] to-red-800 shadow-lg shadow-[#E2001A]/20">
               <Puzzle className="h-7 w-7 text-white" />
             </div>
             <div>
@@ -111,7 +111,7 @@ export default function HowToPlayPage() {
         {/* FOOT TRIVIA */}
         <section id="foot-trivia" className="scroll-mt-24 space-y-6">
           <div className="flex items-center gap-4">
-            <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-[#FFE600] to-amber-600 shadow-lg shadow-[#FFE600]/20">
+            <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-[#3B1F8E] to-purple-900 shadow-lg shadow-[#3B1F8E]/20">
               <HelpCircle className="h-7 w-7 text-white" />
             </div>
             <div>
@@ -134,20 +134,20 @@ export default function HowToPlayPage() {
 
             <h3 className="text-lg font-bold text-white">📚 Catégories de questions</h3>
             <div className="grid gap-3 sm:grid-cols-2">
-              <div className="rounded-lg border border-zinc-800 bg-zinc-900/50 p-4">
-                <span className="text-sm font-bold text-[#FFE600]">🏆 Palmarès</span>
+              <div className="rounded-lg border border-[#252536] bg-[#141420]/50 p-4">
+                <span className="text-sm font-bold text-[#C5E86C]">🏆 Palmarès</span>
                 <p className="mt-1 text-xs text-zinc-400">Qui a remporté le mondial en 1998 ? Combien d&apos;étoiles pour le Brésil ?</p>
               </div>
-              <div className="rounded-lg border border-zinc-800 bg-zinc-900/50 p-4">
-                <span className="text-sm font-bold text-[#FFE600]">⚽ Records</span>
+              <div className="rounded-lg border border-[#252536] bg-[#141420]/50 p-4">
+                <span className="text-sm font-bold text-[#C5E86C]">⚽ Records</span>
                 <p className="mt-1 text-xs text-zinc-400">Meilleur buteur de l&apos;histoire des Coupes du Monde, plus jeune joueur…</p>
               </div>
-              <div className="rounded-lg border border-zinc-800 bg-zinc-900/50 p-4">
-                <span className="text-sm font-bold text-[#FFE600]">🌍 Géographie</span>
+              <div className="rounded-lg border border-[#252536] bg-[#141420]/50 p-4">
+                <span className="text-sm font-bold text-[#C5E86C]">🌍 Géographie</span>
                 <p className="mt-1 text-xs text-zinc-400">Quels pays ont accueilli le mondial ? Où se jouera 2026 ?</p>
               </div>
-              <div className="rounded-lg border border-zinc-800 bg-zinc-900/50 p-4">
-                <span className="text-sm font-bold text-[#FFE600]">🔥 Moments iconiques</span>
+              <div className="rounded-lg border border-[#252536] bg-[#141420]/50 p-4">
+                <span className="text-sm font-bold text-[#C5E86C]">🔥 Moments iconiques</span>
                 <p className="mt-1 text-xs text-zinc-400">Le coup de tête de Zidane, la main de Dieu, le 7-1 de 2014…</p>
               </div>
             </div>
@@ -160,7 +160,7 @@ export default function HowToPlayPage() {
         {/* ASTUCES GÉNÉRALES */}
         <section id="astuces" className="scroll-mt-24 space-y-6">
           <h2 className="text-2xl font-black text-white flex items-center gap-3">
-            <Star className="h-7 w-7 text-[#FFE600]" /> Astuces générales pour progresser
+            <Star className="h-7 w-7 text-[#C5E86C]" /> Astuces générales pour progresser
           </h2>
           <ol className="ml-4 list-inside list-decimal space-y-3 text-base leading-relaxed text-zinc-400">
             <li><strong className="text-white">Joue tous les jours</strong> — La régularité est la clé. Avec 10 parties par jour, tu accumules des FootPoints rapidement.</li>
@@ -172,14 +172,14 @@ export default function HowToPlayPage() {
         </section>
       </div>
 
-      <div className="mt-16 rounded-xl border border-zinc-800 bg-gradient-to-r from-zinc-900 to-zinc-900/50 p-8 text-center">
+      <div className="mt-16 rounded-xl border border-[#252536] bg-gradient-to-r from-[#141420] to-[#141420]/50 p-8 text-center">
         <h3 className="text-xl font-bold text-white">Prêt à jouer ?</h3>
         <p className="mt-2 text-sm text-zinc-400">Maintenant que tu connais les règles, prouve tes connaissances !</p>
         <div className="mt-6 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
-          <Link href="/signup" className="group flex items-center gap-2 rounded-xl bg-[#00FF87] px-8 py-3 text-sm font-bold text-zinc-950 transition-all hover:-translate-y-0.5 hover:shadow-[0_0_15px_rgba(0,255,135,0.4)]">
+          <Link href="/signup" className="group flex items-center gap-2 rounded-xl bg-white px-8 py-3 text-sm font-bold text-zinc-950 transition-all hover:-translate-y-0.5 hover:shadow-[0_0_15px_rgba(255,255,255,0.15)]">
             Créer mon compte <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
           </Link>
-          <Link href="/guide/systeme-de-points" className="flex items-center gap-2 rounded-xl border border-zinc-700 px-8 py-3 text-sm font-semibold text-zinc-300 hover:border-zinc-500 hover:text-white">
+          <Link href="/guide/systeme-de-points" className="flex items-center gap-2 rounded-xl border border-zinc-700 px-8 py-3 text-sm font-semibold text-zinc-300 hover:border-[#3B1F8E]/50 hover:text-white">
             Comprendre les points
           </Link>
         </div>

@@ -8,12 +8,12 @@ export default function AuthLayout({
       {/* Animated background */}
       <div className="pointer-events-none absolute inset-0 -z-10">
         {/* Gradient base */}
-        <div className="absolute inset-0 bg-gradient-to-br from-emerald-950 via-background to-emerald-950/60" />
+        <div className="absolute inset-0 bg-gradient-to-br from-[#3B1F8E]/30 via-background to-[#E2001A]/10" />
 
         {/* Floating orbs */}
-        <div className="absolute -left-32 -top-32 h-96 w-96 animate-pulse rounded-full bg-emerald-500/10 blur-3xl" />
-        <div className="absolute -bottom-32 -right-32 h-96 w-96 animate-pulse rounded-full bg-emerald-400/8 blur-3xl [animation-delay:2s]" />
-        <div className="absolute left-1/2 top-1/2 h-64 w-64 -translate-x-1/2 -translate-y-1/2 animate-pulse rounded-full bg-emerald-600/5 blur-3xl [animation-delay:4s]" />
+        <div className="absolute -left-32 -top-32 h-96 w-96 animate-pulse rounded-full bg-[#3B1F8E]/10 blur-3xl" />
+        <div className="absolute -bottom-32 -right-32 h-96 w-96 animate-pulse rounded-full bg-[#E2001A]/8 blur-3xl [animation-delay:2s]" />
+        <div className="absolute left-1/2 top-1/2 h-64 w-64 -translate-x-1/2 -translate-y-1/2 animate-pulse rounded-full bg-[#00A651]/5 blur-3xl [animation-delay:4s]" />
 
         {/* Subtle grid pattern */}
         <div

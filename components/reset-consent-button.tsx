@@ -3,7 +3,7 @@
 export function ResetConsentButton() {
   return (
     <button
-      className="text-[#FF007F] hover:underline"
+      className="text-[#E2001A] hover:underline"
       onClick={() => {
         localStorage.removeItem("cookie-consent");
         window.location.reload();

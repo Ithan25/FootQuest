@@ -4,8 +4,8 @@
   "description": "L'application ultime de mini-jeux de football.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#000000",
-  "theme_color": "#000000",
+  "background_color": "#0A0A0F",
+  "theme_color": "#3B1F8E",
   "icons": [
     {
       "src": "/images/icon-192.png",

@@ -39,17 +39,17 @@ export function BottomNav() {
 
   const activeColor = isPremium
     ? "text-amber-400"
-    : "text-[#00FF87]";
+    : "text-[#C5E86C]";
 
   const glowColor = isPremium
     ? "bg-amber-400 shadow-[0_0_8px_rgba(251,191,36,0.6)]"
-    : "bg-[#00FF87] shadow-[0_0_8px_rgba(0,255,135,0.6)]";
+    : "bg-[#3B1F8E] shadow-[0_0_8px_rgba(59,31,142,0.6)]";
 
   return (
     <nav className={`fixed bottom-0 left-0 right-0 z-50 border-t backdrop-blur-xl ${
       isPremium
-        ? "border-amber-500/10 bg-[#09090b]/95"
-        : "border-zinc-800/80 bg-[#09090b]/95"
+        ? "border-amber-500/10 bg-[#0A0A0F]/95"
+        : "border-[#252536]/80 bg-[#0A0A0F]/95"
     }`}>
       <div className="mx-auto flex max-w-5xl items-center justify-around py-1">
         {navItems.map((item) => {

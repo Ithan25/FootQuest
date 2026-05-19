@@ -21,7 +21,7 @@ export default function ContactPage() {
     <div className="mx-auto max-w-4xl px-4 py-16 sm:px-6 sm:py-24">
       {/* Header */}
       <div className="text-center">
-        <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#00FF87]/20 bg-[#00FF87]/5 px-4 py-1.5 text-sm font-semibold text-[#00FF87]">
+        <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#3B1F8E]/30 bg-[#3B1F8E]/10 px-4 py-1.5 text-sm font-semibold text-[#C5E86C]">
           <MessageCircle className="h-4 w-4" />
           Nous contacter
         </div>
@@ -36,22 +36,22 @@ export default function ContactPage() {
 
       {/* Contact info cards */}
       <div className="mt-14 grid gap-6 sm:grid-cols-3">
-        <div className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-6 text-center transition-all hover:border-zinc-700">
-          <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-lg bg-[#00FF87]/10">
-            <Mail className="h-6 w-6 text-[#00FF87]" />
+        <div className="rounded-xl border border-[#252536] bg-[#141420]/50 p-6 text-center transition-all hover:border-[#3B1F8E]/30">
+          <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-lg bg-[#3B1F8E]/15">
+            <Mail className="h-6 w-6 text-white" />
           </div>
           <h3 className="mt-4 text-base font-bold text-white">Email</h3>
           <a
             href="mailto:ithan.boismard@gmail.com"
-            className="mt-2 block text-sm text-[#00FF87] transition-colors hover:underline"
+            className="mt-2 block text-sm text-[#C5E86C] transition-colors hover:underline"
           >
             ithan.boismard@gmail.com
           </a>
         </div>
 
-        <div className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-6 text-center transition-all hover:border-zinc-700">
-          <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-lg bg-[#FFE600]/10">
-            <Clock className="h-6 w-6 text-[#FFE600]" />
+        <div className="rounded-xl border border-[#252536] bg-[#141420]/50 p-6 text-center transition-all hover:border-[#3B1F8E]/30">
+          <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-lg bg-[#C5E86C]/10">
+            <Clock className="h-6 w-6 text-[#C5E86C]" />
           </div>
           <h3 className="mt-4 text-base font-bold text-white">Délai de réponse</h3>
           <p className="mt-2 text-sm text-zinc-400">
@@ -59,9 +59,9 @@ export default function ContactPage() {
           </p>
         </div>
 
-        <div className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-6 text-center transition-all hover:border-zinc-700">
-          <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-lg bg-[#FF007F]/10">
-            <MapPin className="h-6 w-6 text-[#FF007F]" />
+        <div className="rounded-xl border border-[#252536] bg-[#141420]/50 p-6 text-center transition-all hover:border-[#3B1F8E]/30">
+          <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-lg bg-[#E2001A]/10">
+            <MapPin className="h-6 w-6 text-[#E2001A]" />
           </div>
           <h3 className="mt-4 text-base font-bold text-white">Localisation</h3>
           <p className="mt-2 text-sm text-zinc-400">
@@ -74,7 +74,7 @@ export default function ContactPage() {
       <div className="mt-20">
         <div className="text-center">
           <h2 className="flex items-center justify-center gap-2 text-2xl font-black tracking-tight text-white">
-            <HelpCircle className="h-6 w-6 text-[#FFE600]" />
+            <HelpCircle className="h-6 w-6 text-[#C5E86C]" />
             Questions fréquentes
           </h2>
           <p className="mt-2 text-sm text-zinc-500">
@@ -115,14 +115,14 @@ export default function ContactPage() {
       </div>
 
       {/* Final note */}
-      <div className="mt-16 rounded-xl border border-zinc-800 bg-zinc-900/50 p-8 text-center">
+      <div className="mt-16 rounded-xl border border-[#252536] bg-[#141420]/50 p-8 text-center">
         <p className="text-base text-zinc-300">
           Tu peux aussi consulter nos{" "}
-          <Link href="/cgu" className="text-[#00FF87] hover:underline">Conditions Générales d'Utilisation</Link>,
+          <Link href="/cgu" className="text-[#C5E86C] hover:underline">Conditions Générales d'Utilisation</Link>,
           notre{" "}
-          <Link href="/politique-confidentialite" className="text-[#00FF87] hover:underline">Politique de Confidentialité</Link>{" "}
+          <Link href="/politique-confidentialite" className="text-[#C5E86C] hover:underline">Politique de Confidentialité</Link>{" "}
           et nos{" "}
-          <Link href="/mentions-legales" className="text-[#00FF87] hover:underline">Mentions Légales</Link>{" "}
+          <Link href="/mentions-legales" className="text-[#C5E86C] hover:underline">Mentions Légales</Link>{" "}
           pour plus d'informations sur le fonctionnement du site.
         </p>
       </div>
@@ -132,12 +132,12 @@ export default function ContactPage() {
 
 function FaqItem({ question, answer }: { question: string; answer: string }) {
   return (
-    <details className="group rounded-xl border border-zinc-800 bg-zinc-900/50 transition-all hover:border-zinc-700">
+    <details className="group rounded-xl border border-[#252536] bg-[#141420]/50 transition-all hover:border-[#3B1F8E]/30">
       <summary className="flex cursor-pointer items-center justify-between px-6 py-4 text-sm font-bold text-white [&::-webkit-details-marker]:hidden">
         {question}
         <span className="ml-4 shrink-0 text-zinc-500 transition-transform group-open:rotate-45">+</span>
       </summary>
-      <div className="border-t border-zinc-800 px-6 py-4 text-sm leading-relaxed text-zinc-400">
+      <div className="border-t border-[#252536] px-6 py-4 text-sm leading-relaxed text-zinc-400">
         {answer}
       </div>
     </details>

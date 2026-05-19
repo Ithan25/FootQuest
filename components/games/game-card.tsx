@@ -10,20 +10,20 @@ interface GameCardProps {
   href: string;
   gradient: string;
   shadowColor: string;
-  hoverColor?: "green" | "magenta" | "yellow";
+  hoverColor?: "green" | "red" | "purple";
   disabled?: boolean;
 }
 
 const HOVER_STYLES = {
-  green: "hover:border-[#00FF87]/60 hover:shadow-[0_0_20px_rgba(0,255,135,0.15)]",
-  magenta: "hover:border-[#FF007F]/60 hover:shadow-[0_0_20px_rgba(255,0,127,0.15)]",
-  yellow: "hover:border-[#FFE600]/60 hover:shadow-[0_0_20px_rgba(255,230,0,0.15)]",
+  green: "hover:border-[#00A651]/60 hover:shadow-[0_0_20px_rgba(0,166,81,0.15)]",
+  red: "hover:border-[#E2001A]/60 hover:shadow-[0_0_20px_rgba(226,0,26,0.15)]",
+  purple: "hover:border-[#3B1F8E]/60 hover:shadow-[0_0_20px_rgba(59,31,142,0.15)]",
 };
 
 const PLAY_BUTTON_STYLES = {
-  green: "bg-[#00FF87]/20 text-[#00FF87]",
-  magenta: "bg-[#FF007F]/20 text-[#FF007F]",
-  yellow: "bg-[#FFE600]/20 text-[#FFE600]",
+  green: "bg-[#00A651]/20 text-[#00A651]",
+  red: "bg-[#E2001A]/20 text-[#E2001A]",
+  purple: "bg-[#3B1F8E]/20 text-[#C5E86C]",
 };
 
 export function GameCard({
@@ -40,7 +40,7 @@ export function GameCard({
   const content = (
     <div
       className={cn(
-        "group relative overflow-hidden rounded-lg border border-zinc-800 bg-zinc-900 transition-all duration-300",
+        "group relative overflow-hidden rounded-lg border border-[#252536] bg-[#141420] transition-all duration-300",
         !disabled && `hover:-translate-y-1.5 cursor-pointer ${HOVER_STYLES[hoverColor]}`,
         disabled && "opacity-40 cursor-not-allowed"
       )}

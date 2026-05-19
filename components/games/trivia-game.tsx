@@ -161,10 +161,10 @@ export function TriviaGame() {
       <div className="mx-auto flex max-w-md flex-col items-center space-y-6 pt-8">
         {/* Game icon */}
         <div className="relative">
-          <div className="flex h-28 w-28 items-center justify-center rounded-2xl bg-gradient-to-br from-[#FFE600] to-amber-600 shadow-xl shadow-[#FFE600]/25">
+          <div className="flex h-28 w-28 items-center justify-center rounded-2xl bg-gradient-to-br from-[#3B1F8E] to-purple-900 shadow-xl shadow-[#3B1F8E]/25">
             <Image src="/images/FootTrivia.svg" width={48} height={48} className="drop-shadow-md" alt="Foot Trivia logo" />
           </div>
-          <div className="absolute -right-2 -top-2 flex h-8 w-8 items-center justify-center rounded-full bg-[#00FF87] text-xs font-bold text-zinc-950 shadow-lg">
+          <div className="absolute -right-2 -top-2 flex h-8 w-8 items-center justify-center rounded-full bg-[#00A651] text-xs font-bold text-white shadow-lg">
             {QUESTIONS_PER_GAME}
           </div>
         </div>
@@ -184,15 +184,15 @@ export function TriviaGame() {
           </h3>
           <ul className="space-y-1.5 text-sm text-muted-foreground">
             <li className="flex items-start gap-2">
-              <span className="text-[#FFE600]">•</span>
+              <span className="text-[#C5E86C]">•</span>
               Réponds à {QUESTIONS_PER_GAME} questions de culture foot
             </li>
             <li className="flex items-start gap-2">
-              <span className="text-[#FFE600]">•</span>
+              <span className="text-[#C5E86C]">•</span>
               {TRIVIA_TIMER_SECONDS} secondes par question
             </li>
             <li className="flex items-start gap-2">
-              <span className="text-[#FFE600]">•</span>
+              <span className="text-[#C5E86C]">•</span>
               Bonus progressif (streak) dès 3 bonnes réponses d&apos;affilée ! <Flame className="inline h-4 w-4 text-orange-500 ml-1" />
             </li>
           </ul>
@@ -209,7 +209,7 @@ export function TriviaGame() {
 
     return (
       <div className="mx-auto flex max-w-md flex-col items-center space-y-6 pt-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
-        <div className="flex h-24 w-24 items-center justify-center rounded-2xl bg-gradient-to-br from-[#FFE600] to-amber-600 shadow-xl shadow-[#FFE600]/25">
+        <div className="flex h-24 w-24 items-center justify-center rounded-2xl bg-gradient-to-br from-[#3B1F8E] to-purple-900 shadow-xl shadow-[#3B1F8E]/25">
           {percentage >= 80 ? <Trophy className="h-10 w-10 text-white" /> : percentage >= 50 ? <ThumbsUp className="h-10 w-10 text-white" /> : <Zap className="h-10 w-10 text-white" />}
         </div>
 
@@ -222,11 +222,11 @@ export function TriviaGame() {
 
         {/* Stats */}
         <div className="grid w-full grid-cols-3 gap-3">
-          <StatBox label="Score" value={`${percentage}%`} icon={<Target className="h-6 w-6 text-[#FFE600]" />} />
+          <StatBox label="Score" value={`${percentage}%`} icon={<Target className="h-6 w-6 text-white" />} />
           <StatBox
             label="Points"
             value={`+${session.pointsEarned}`}
-            icon={<Medal className="h-6 w-6 text-[#FF007F]" />}
+            icon={<Medal className="h-6 w-6 text-[#C5E86C]" />}
           />
           <StatBox
             label="Temps"
@@ -239,7 +239,7 @@ export function TriviaGame() {
         <div className="w-full space-y-2">
           <div className="h-3 w-full overflow-hidden rounded-full bg-muted">
             <div
-              className="h-full rounded-full bg-gradient-to-r from-[#FFE600] to-amber-500 transition-all duration-1000 ease-out"
+              className="h-full rounded-full bg-white transition-all duration-1000 ease-out"
               style={{ width: `${percentage}%` }}
             />
           </div>
@@ -248,7 +248,7 @@ export function TriviaGame() {
         <div className="flex w-full gap-3">
           <button
             onClick={() => session.resetGame()}
-            className="flex-1 rounded-lg bg-[#FFE600] px-6 py-3 font-bold text-zinc-950 shadow-lg shadow-[#FFE600]/25 transition-all hover:-translate-y-0.5 hover:shadow-xl"
+            className="flex-1 rounded-lg bg-white px-6 py-3 font-bold text-zinc-950 shadow-lg shadow-white/10 transition-all hover:-translate-y-0.5 hover:shadow-xl"
           >
             <span className="flex items-center justify-center gap-2"><RefreshCw className="h-5 w-5" /> Rejouer</span>
           </button>
@@ -357,7 +357,7 @@ export function TriviaGame() {
 
       {/* Category + Difficulty */}
       <div className="flex items-center gap-2">
-        <span className="rounded-full bg-[#FFE600]/15 px-3 py-1 text-xs font-semibold text-[#FFE600]">
+        <span className="rounded-full bg-[#3B1F8E]/15 px-3 py-1 text-xs font-semibold text-[#C5E86C]">
           {currentQuestion.categorie}
         </span>
         <span
@@ -471,7 +471,7 @@ export function TriviaGame() {
       {/* Score display */}
       <div className="flex items-center justify-between rounded-lg border border-zinc-800 bg-zinc-900 px-4 py-2.5">
         <span className="text-xs text-muted-foreground">Score actuel</span>
-        <span className="flex items-center gap-1.5 font-bold text-[#FFE600]">
+        <span className="flex items-center gap-1.5 font-bold text-[#C5E86C]">
           <Medal className="h-4 w-4" /> {session.pointsEarned} pts
         </span>
       </div>

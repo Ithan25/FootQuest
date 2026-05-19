@@ -21,12 +21,12 @@ export default function AboutPage() {
     <div className="mx-auto max-w-4xl px-4 py-16 sm:px-6 sm:py-24">
       {/* Header */}
       <div className="text-center">
-        <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#00FF87]/20 bg-[#00FF87]/5 px-4 py-1.5 text-sm font-semibold text-[#00FF87]">
+        <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#3B1F8E]/30 bg-[#3B1F8E]/10 px-4 py-1.5 text-sm font-semibold text-[#C5E86C]">
           <Heart className="h-4 w-4" />
           Notre histoire
         </div>
         <h1 className="text-4xl font-black tracking-tight text-white sm:text-5xl">
-          À propos de <span className="bg-gradient-to-r from-[#00FF87] to-emerald-300 bg-clip-text text-transparent">FootQuest</span>
+          À propos de <span className="text-white">FootQuest</span>
         </h1>
       </div>
 
@@ -34,7 +34,7 @@ export default function AboutPage() {
       <div className="mt-12 space-y-10 text-base leading-relaxed text-zinc-300">
         <section className="space-y-4">
           <h2 className="text-2xl font-bold text-white flex items-center gap-2">
-            <Globe className="h-6 w-6 text-[#00FF87]" />
+            <Globe className="h-6 w-6 text-[#00A651]" />
             Notre mission
           </h2>
           <p>
@@ -53,7 +53,7 @@ export default function AboutPage() {
 
         <section className="space-y-4">
           <h2 className="text-2xl font-bold text-white flex items-center gap-2">
-            <Gamepad2 className="h-6 w-6 text-[#FF007F]" />
+            <Gamepad2 className="h-6 w-6 text-[#E2001A]" />
             Nos jeux
           </h2>
           <p>
@@ -84,7 +84,7 @@ export default function AboutPage() {
 
         <section className="space-y-4">
           <h2 className="text-2xl font-bold text-white flex items-center gap-2">
-            <Code className="h-6 w-6 text-[#FFE600]" />
+            <Code className="h-6 w-6 text-[#C5E86C]" />
             Qui se cache derrière FootQuest ?
           </h2>
           <p>
@@ -102,7 +102,7 @@ export default function AboutPage() {
 
         <section className="space-y-4">
           <h2 className="text-2xl font-bold text-white flex items-center gap-2">
-            <Trophy className="h-6 w-6 text-[#FFE600]" />
+            <Trophy className="h-6 w-6 text-[#C5E86C]" />
             Coupe du Monde 2026
           </h2>
           <p>
@@ -111,30 +111,30 @@ export default function AboutPage() {
             représentation sans précédent du football mondial.
           </p>
           <p>
-            Notre design s'inspire directement de l'identité visuelle du mondial avec des couleurs néon vibrantes
-            (vert, magenta et jaune) qui reflètent l'énergie et la modernité de cet événement historique. Les données
+            Notre design s'inspire directement de l'identité visuelle du mondial avec les couleurs officielles
+            (violet, rouge, vert et lime) qui reflètent l'énergie et la modernité de cet événement historique. Les données
             de nos jeux sont régulièrement mises à jour pour refléter les compositions les plus récentes de chaque sélection.
           </p>
         </section>
 
         {/* Values */}
         <section className="mt-16 grid gap-6 sm:grid-cols-3">
-          <div className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-6 text-center">
-            <Users className="mx-auto h-8 w-8 text-[#00FF87]" />
+          <div className="rounded-xl border border-[#252536] bg-[#141420]/50 p-6 text-center">
+            <Users className="mx-auto h-8 w-8 text-white" />
             <h3 className="mt-3 text-lg font-bold text-white">Communauté</h3>
             <p className="mt-2 text-sm text-zinc-400">
               Un classement mondial pour se comparer et progresser ensemble.
             </p>
           </div>
-          <div className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-6 text-center">
-            <Star className="mx-auto h-8 w-8 text-[#FFE600]" />
+          <div className="rounded-xl border border-[#252536] bg-[#141420]/50 p-6 text-center">
+            <Star className="mx-auto h-8 w-8 text-[#C5E86C]" />
             <h3 className="mt-3 text-lg font-bold text-white">Qualité</h3>
             <p className="mt-2 text-sm text-zinc-400">
               Des données vérifiées et une expérience soignée pour chaque joueur.
             </p>
           </div>
-          <div className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-6 text-center">
-            <Heart className="mx-auto h-8 w-8 text-[#FF007F]" />
+          <div className="rounded-xl border border-[#252536] bg-[#141420]/50 p-6 text-center">
+            <Heart className="mx-auto h-8 w-8 text-[#E2001A]" />
             <h3 className="mt-3 text-lg font-bold text-white">Passion</h3>
             <p className="mt-2 text-sm text-zinc-400">
               Créé par un fan pour les fans. Le football, c'est plus qu'un sport.
@@ -147,7 +147,7 @@ export default function AboutPage() {
       <div className="mt-16 text-center">
         <Link
           href="/signup"
-          className="group inline-flex items-center gap-2 rounded-xl bg-[#00FF87] px-8 py-4 text-base font-bold text-zinc-950 shadow-lg shadow-[#00FF87]/25 transition-all hover:-translate-y-1 hover:shadow-[0_0_25px_rgba(0,255,135,0.4)]"
+          className="group inline-flex items-center gap-2 rounded-xl bg-white px-8 py-4 text-base font-bold text-zinc-950 shadow-lg shadow-white/10 transition-all hover:-translate-y-1 hover:shadow-[0_0_25px_rgba(255,255,255,0.15)]"
         >
           Rejoindre FootQuest
           <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />

@@ -43,7 +43,7 @@ export default function PrivacyPolicyPage() {
           </p>
           <p className="bg-zinc-800/50 p-3 rounded-lg border border-zinc-700">
             <strong>Important :</strong> Vous pouvez en savoir plus sur la façon dont Google collecte et utilise vos données en consultant la page : <br />
-            <a href="https://www.google.com/policies/privacy/partners/" target="_blank" rel="noopener noreferrer" className="text-[#00FF87] hover:underline break-all">
+            <a href="https://www.google.com/policies/privacy/partners/" target="_blank" rel="noopener noreferrer" className="text-[#C5E86C] hover:underline break-all">
               Comment Google utilise les données collectées via les sites ou applications de ses partenaires
             </a>.
           </p>
@@ -55,14 +55,14 @@ export default function PrivacyPolicyPage() {
             Lors de votre première visite, une bannière vous a permis d'accepter ou de refuser le dépôt de cookies publicitaires. Si vous souhaitez modifier ce choix, vous pouvez <ResetConsentButton />.
           </p>
           <p>
-            Vous pouvez également désactiver la publicité personnalisée dans les paramètres de votre compte Google, ou via le site <a href="http://www.aboutads.info/choices/" target="_blank" rel="noopener noreferrer" className="text-[#00FF87] hover:underline">aboutads.info</a>.
+            Vous pouvez également désactiver la publicité personnalisée dans les paramètres de votre compte Google, ou via le site <a href="http://www.aboutads.info/choices/" target="_blank" rel="noopener noreferrer" className="text-[#C5E86C] hover:underline">aboutads.info</a>.
           </p>
         </section>
 
         <section className="space-y-3">
           <h2 className="text-xl font-bold text-white">4. Vos droits (RGPD)</h2>
           <p>
-            Conformément au Règlement Général sur la Protection des Données (RGPD), vous disposez d'un droit d'accès, de rectification, de suppression et d'opposition au traitement de vos données. Vous pouvez exercer ce droit en nous contactant à l'adresse fournie dans nos <Link href="/mentions-legales" className="text-[#00FF87] hover:underline">Mentions Légales</Link>.
+            Conformément au Règlement Général sur la Protection des Données (RGPD), vous disposez d'un droit d'accès, de rectification, de suppression et d'opposition au traitement de vos données. Vous pouvez exercer ce droit en nous contactant à l'adresse fournie dans nos <Link href="/mentions-legales" className="text-[#C5E86C] hover:underline">Mentions Légales</Link>.
           </p>
         </section>
       </div>

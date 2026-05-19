@@ -55,7 +55,7 @@ export default function MentionsLegalesPage() {
         <section className="space-y-3">
           <h2 className="text-xl font-bold text-white">4. Cookies et données personnelles</h2>
           <p>
-            Pour en savoir plus sur la gestion de vos données personnelles et l'utilisation des cookies (y compris les cookies publicitaires Google AdSense), veuillez consulter notre <Link href="/politique-confidentialite" className="text-[#00FF87] hover:underline">Politique de Confidentialité</Link>.
+            Pour en savoir plus sur la gestion de vos données personnelles et l'utilisation des cookies (y compris les cookies publicitaires Google AdSense), veuillez consulter notre <Link href="/politique-confidentialite" className="text-[#C5E86C] hover:underline">Politique de Confidentialité</Link>.
           </p>
         </section>
       </div>

@@ -11,7 +11,7 @@ export default function FootTriviaPage() {
     <div className="space-y-6">
       <section>
         <h1 className="flex items-center gap-3 text-2xl font-bold tracking-tight">
-          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-amber-500 to-orange-500 shadow-md">
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-[#3B1F8E] to-purple-900 shadow-md">
             <Image src="/images/FootTrivia.svg" width={24} height={24} className="drop-shadow-sm" alt="Foot Trivia logo" />
           </div>
           Foot Trivia

@@ -22,7 +22,7 @@ export default function ShopPage() {
     <div className="space-y-8">
       <section>
         <h1 className="flex items-center gap-2 text-2xl font-bold tracking-tight text-white">
-          <Gift className="h-6 w-6 text-[#FF007F]" /> Boutique
+          <Gift className="h-6 w-6 text-[#E2001A]" /> Boutique
         </h1>
         <p className="mt-1 text-sm text-zinc-500">
           Échange tes FootPoints contre des récompenses
@@ -30,7 +30,7 @@ export default function ShopPage() {
       </section>
 
       {/* Premium Card */}
-      <section className="relative overflow-hidden rounded-lg border border-amber-500/30 bg-gradient-to-br from-amber-950/50 via-zinc-900 to-yellow-950/30 shadow-xl shadow-amber-500/10">
+      <section className="relative overflow-hidden rounded-lg border border-amber-500/30 bg-gradient-to-br from-amber-950/50 via-[#141420] to-yellow-950/30 shadow-xl shadow-amber-500/10">
         {/* Decorative elements */}
         <div className="absolute -right-8 -top-8 h-32 w-32 rounded-full bg-amber-500/10 blur-2xl" />
         <div className="absolute -bottom-12 -left-12 h-40 w-40 rounded-full bg-yellow-500/10 blur-3xl" />
@@ -48,7 +48,7 @@ export default function ShopPage() {
               </div>
             </div>
             {isPremium && (
-              <span className="flex items-center gap-1 rounded-lg bg-[#00FF87]/20 px-3 py-1 text-xs font-bold text-[#00FF87]">
+              <span className="flex items-center gap-1 rounded-lg bg-[#00A651]/20 px-3 py-1 text-xs font-bold text-[#00A651]">
                 <Star className="h-3 w-3 fill-current" /> Actif
               </span>
             )}
@@ -57,17 +57,17 @@ export default function ShopPage() {
           {/* Benefits */}
           <div className="mt-6 grid gap-3 sm:grid-cols-3">
             <BenefitCard
-              icon={<Ban className="h-5 w-5 text-[#FFE600]" />}
+              icon={<Ban className="h-5 w-5 text-[#C5E86C]" />}
               title="Zéro publicité"
               description="Joue sans aucune interruption publicitaire"
             />
             <BenefitCard
-              icon={<Zap className="h-5 w-5 text-[#FFE600]" />}
+              icon={<Zap className="h-5 w-5 text-[#C5E86C]" />}
               title="Parties illimitées"
               description="Plus de limite quotidienne de parties"
             />
             <BenefitCard
-              icon={<Sparkles className="h-5 w-5 text-[#FFE600]" />}
+              icon={<Sparkles className="h-5 w-5 text-[#C5E86C]" />}
               title="Badge exclusif"
               description="Affiche ton statut Golden Ball partout"
             />
@@ -111,10 +111,10 @@ export default function ShopPage() {
       {/* Rewards section */}
       <section className="space-y-4">
         <h2 className="flex items-center gap-2 text-lg font-bold tracking-tight text-white">
-          <ShoppingCart className="h-5 w-5 text-[#FF007F]" /> Récompenses
+          <ShoppingCart className="h-5 w-5 text-[#E2001A]" /> Récompenses
         </h2>
-        <div className="flex flex-col items-center justify-center rounded-lg border border-zinc-800 bg-zinc-900 p-12 text-center">
-          <ShoppingCart className="h-12 w-12 text-[#FF007F]" />
+        <div className="flex flex-col items-center justify-center rounded-lg border border-[#252536] bg-[#141420] p-12 text-center">
+          <ShoppingCart className="h-12 w-12 text-[#E2001A]" />
           <h3 className="mt-4 text-lg font-bold text-white">Bientôt disponible</h3>
           <p className="mt-1 text-sm text-zinc-500">
             Les récompenses de nos partenaires arrivent bientôt.

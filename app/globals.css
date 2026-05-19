@@ -39,10 +39,12 @@
     --color-foreground: var(--foreground);
     --color-background: var(--background);
 
-    /* Custom WC2026 neon colors */
-    --color-neon-green: #00FF87;
-    --color-neon-magenta: #FF007F;
-    --color-neon-yellow: #FFE600;
+    /* WC2026 Official Palette */
+    --color-wc-purple: #3B1F8E;
+    --color-wc-red: #E2001A;
+    --color-wc-green: #00A651;
+    --color-wc-lime: #C5E86C;
+    --color-wc-blue: #003DA5;
 
     --radius-sm: calc(var(--radius) * 0.6);
     --radius-md: calc(var(--radius) * 0.8);
@@ -59,93 +61,93 @@
  */
 :root {
     /* Core */
-    --background: #09090b;
+    --background: #0A0A0F;
     --foreground: #fafafa;
 
     /* Cards / Surfaces */
-    --card: #18181b;
+    --card: #141420;
     --card-foreground: #fafafa;
-    --popover: #18181b;
+    --popover: #141420;
     --popover-foreground: #fafafa;
 
-    /* Primary — Neon Green */
-    --primary: #00FF87;
-    --primary-foreground: #09090b;
+    /* Primary — WC2026 Purple */
+    --primary: #3B1F8E;
+    --primary-foreground: #fafafa;
 
-    /* Secondary — Magenta / Fuchsia */
-    --secondary: #FF007F;
+    /* Secondary — WC2026 Red */
+    --secondary: #E2001A;
     --secondary-foreground: #fafafa;
 
     /* Muted */
-    --muted: #27272a;
+    --muted: #1E1E2E;
     --muted-foreground: #a1a1aa;
 
-    /* Accent — Solar Yellow / Gold (for FootPoints, rewards) */
-    --accent: #FFE600;
-    --accent-foreground: #09090b;
+    /* Accent — WC2026 Lime (for FootPoints, rewards) */
+    --accent: #C5E86C;
+    --accent-foreground: #0A0A0F;
 
     /* Destructive */
     --destructive: #ef4444;
 
     /* Borders & inputs */
-    --border: #27272a;
-    --input: #27272a;
-    --ring: #00FF87;
+    --border: #252536;
+    --input: #252536;
+    --ring: #3B1F8E;
 
     /* Radius — sporty & technical */
     --radius: 0.5rem;
 
     /* Charts */
-    --chart-1: #00FF87;
-    --chart-2: #FF007F;
-    --chart-3: #FFE600;
-    --chart-4: #38bdf8;
-    --chart-5: #a78bfa;
+    --chart-1: #3B1F8E;
+    --chart-2: #E2001A;
+    --chart-3: #00A651;
+    --chart-4: #C5E86C;
+    --chart-5: #003DA5;
 
     /* Sidebar (same dark palette) */
-    --sidebar: #18181b;
+    --sidebar: #141420;
     --sidebar-foreground: #fafafa;
-    --sidebar-primary: #00FF87;
-    --sidebar-primary-foreground: #09090b;
-    --sidebar-accent: #27272a;
+    --sidebar-primary: #3B1F8E;
+    --sidebar-primary-foreground: #fafafa;
+    --sidebar-accent: #1E1E2E;
     --sidebar-accent-foreground: #fafafa;
-    --sidebar-border: #27272a;
-    --sidebar-ring: #00FF87;
+    --sidebar-border: #252536;
+    --sidebar-ring: #3B1F8E;
 }
 
 /* Keep .dark for compatibility with next-themes class strategy */
 .dark {
-    --background: #09090b;
+    --background: #0A0A0F;
     --foreground: #fafafa;
-    --card: #18181b;
+    --card: #141420;
     --card-foreground: #fafafa;
-    --popover: #18181b;
+    --popover: #141420;
     --popover-foreground: #fafafa;
-    --primary: #00FF87;
-    --primary-foreground: #09090b;
-    --secondary: #FF007F;
+    --primary: #3B1F8E;
+    --primary-foreground: #fafafa;
+    --secondary: #E2001A;
     --secondary-foreground: #fafafa;
-    --muted: #27272a;
+    --muted: #1E1E2E;
     --muted-foreground: #a1a1aa;
-    --accent: #FFE600;
-    --accent-foreground: #09090b;
+    --accent: #C5E86C;
+    --accent-foreground: #0A0A0F;
     --destructive: #ef4444;
-    --border: #27272a;
-    --input: #27272a;
-    --ring: #00FF87;
-    --chart-1: #00FF87;
-    --chart-2: #FF007F;
-    --chart-3: #FFE600;
-    --chart-4: #38bdf8;
-    --chart-5: #a78bfa;
-    --sidebar: #18181b;
+    --border: #252536;
+    --input: #252536;
+    --ring: #3B1F8E;
+    --chart-1: #3B1F8E;
+    --chart-2: #E2001A;
+    --chart-3: #00A651;
+    --chart-4: #C5E86C;
+    --chart-5: #003DA5;
+    --sidebar: #141420;
     --sidebar-foreground: #fafafa;
-    --sidebar-primary: #00FF87;
-    --sidebar-primary-foreground: #09090b;
-    --sidebar-accent: #27272a;
+    --sidebar-primary: #3B1F8E;
+    --sidebar-primary-foreground: #fafafa;
+    --sidebar-accent: #1E1E2E;
     --sidebar-accent-foreground: #fafafa;
-    --sidebar-border: #27272a;
-    --sidebar-ring: #00FF87;
+    --sidebar-border: #252536;
+    --sidebar-ring: #3B1F8E;
 }
 
 @layer base {
@@ -174,20 +176,20 @@
 
 /* ===== WC2026 Animations ===== */
 
-/* Neon glow pulse — used on buttons, active nav items */
+/* Purple glow pulse — used on buttons, active nav items */
 @keyframes glow-pulse {
-  0%, 100% { box-shadow: 0 0 8px rgba(0, 255, 135, 0.4); }
-  50% { box-shadow: 0 0 20px rgba(0, 255, 135, 0.7), 0 0 40px rgba(0, 255, 135, 0.3); }
+  0%, 100% { box-shadow: 0 0 8px rgba(59, 31, 142, 0.4); }
+  50% { box-shadow: 0 0 20px rgba(59, 31, 142, 0.7), 0 0 40px rgba(59, 31, 142, 0.3); }
 }
 
 .animate-glow-pulse {
   animation: glow-pulse 2s ease-in-out infinite;
 }
 
-/* Neon border glow — for card hovers */
+/* Purple border glow — for card hovers */
 @keyframes border-glow {
-  0%, 100% { border-color: rgba(0, 255, 135, 0.3); }
-  50% { border-color: rgba(0, 255, 135, 0.8); }
+  0%, 100% { border-color: rgba(59, 31, 142, 0.3); }
+  50% { border-color: rgba(59, 31, 142, 0.8); }
 }
 
 /* Ad interstitial shimmer animation */

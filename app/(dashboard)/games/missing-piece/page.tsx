@@ -12,7 +12,7 @@ export default function MissingPiecePage() {
     <div className="space-y-6">
       <section>
         <h1 className="flex items-center gap-3 text-2xl font-bold tracking-tight">
-          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 shadow-md">
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-[#E2001A] to-red-800 shadow-md">
             <Image src="/images/TheMissingPiece.svg" width={24} height={24} className="drop-shadow-sm" alt="The Missing Piece logo" />
           </div>
           The Missing Piece

@@ -8,13 +8,15 @@ export async function middleware(request: NextRequest) {
 export const config = {
   matcher: [
     /*
-     * Match all request paths except for the ones starting with:
-     * - _next/static (static files)
-     * - _next/image (image optimization files)
-     * - favicon.ico (favicon file)
-     * - manifest.json (PWA manifest)
-     * - ads.txt (AdSense)
+     * Only match authenticated routes (dashboard).
+     * All public pages, static assets, and SEO files are excluded
+     * so that Googlebot (and unauthenticated users) can access them
+     * without being redirected by the Supabase session middleware.
      */
-    "/((?!_next/static|_next/image|favicon.ico|manifest.json|ads.txt|robots.txt|sitemap.xml|google31ad35b3c46d6e07.html|cgu|mentions-legales|politique-confidentialite|a-propos|contact|guide|blog|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
+    "/hub/:path*",
+    "/games/:path*",
+    "/leaderboard/:path*",
+    "/shop/:path*",
+    "/profile/:path*",
   ],
 };

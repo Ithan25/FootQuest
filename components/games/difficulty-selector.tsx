@@ -7,23 +7,23 @@ import { DIFFICULTY_MULTIPLIER } from "@/lib/constants";
 interface DifficultySelectorProps {
   onSelect: (difficulty: Difficulty | "all") => void;
   loading?: boolean;
-  accentColor?: "green" | "amber" | "magenta";
+  accentColor?: "green" | "amber" | "red";
 }
 
 const ACCENT_CLASSES = {
   green: {
-    allBg: "from-[#00FF87] to-emerald-600",
-    allShadow: "shadow-[#00FF87]/25 hover:shadow-[#00FF87]/40",
-    allText: "text-zinc-950",
+    allBg: "from-[#00A651] to-emerald-700",
+    allShadow: "shadow-[#00A651]/25 hover:shadow-[#00A651]/40",
+    allText: "text-white",
   },
   amber: {
-    allBg: "from-[#FFE600] to-amber-500",
-    allShadow: "shadow-[#FFE600]/25 hover:shadow-[#FFE600]/40",
+    allBg: "from-[#C5E86C] to-[#00A651]",
+    allShadow: "shadow-[#C5E86C]/25 hover:shadow-[#C5E86C]/40",
     allText: "text-zinc-950",
   },
-  magenta: {
-    allBg: "from-[#FF007F] to-fuchsia-600",
-    allShadow: "shadow-[#FF007F]/25 hover:shadow-[#FF007F]/40",
+  red: {
+    allBg: "from-[#E2001A] to-red-700",
+    allShadow: "shadow-[#E2001A]/25 hover:shadow-[#E2001A]/40",
     allText: "text-white",
   },
 };
@@ -33,25 +33,25 @@ const LEVELS = [
     key: "facile" as Difficulty,
     label: "Facile",
     icon: Shield,
-    gradient: "from-emerald-600 to-emerald-500",
-    shadow: "shadow-emerald-500/30 hover:shadow-emerald-500/50",
-    ring: "ring-emerald-500/40",
+    gradient: "from-[#00A651] to-emerald-600",
+    shadow: "shadow-[#00A651]/30 hover:shadow-[#00A651]/50",
+    ring: "ring-[#00A651]/40",
   },
   {
     key: "moyen" as Difficulty,
     label: "Moyen",
     icon: Swords,
-    gradient: "from-amber-600 to-yellow-500",
-    shadow: "shadow-amber-500/30 hover:shadow-amber-500/50",
-    ring: "ring-amber-500/40",
+    gradient: "from-[#C5E86C] to-[#00A651]",
+    shadow: "shadow-[#C5E86C]/30 hover:shadow-[#C5E86C]/50",
+    ring: "ring-[#C5E86C]/40",
   },
   {
     key: "difficile" as Difficulty,
     label: "Difficile",
     icon: Flame,
-    gradient: "from-red-600 to-rose-500",
-    shadow: "shadow-red-500/30 hover:shadow-red-500/50",
-    ring: "ring-red-500/40",
+    gradient: "from-[#E2001A] to-red-700",
+    shadow: "shadow-[#E2001A]/30 hover:shadow-[#E2001A]/50",
+    ring: "ring-[#E2001A]/40",
   },
 ];
 
