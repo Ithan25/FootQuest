@@ -1,6 +1,14 @@
 import { BottomNav } from "@/components/layout/bottom-nav";
 import { DashboardHeader } from "@/components/layout/dashboard-header";
 import { PremiumProvider } from "@/components/premium-context";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  robots: {
+    index: false,
+    follow: false,
+  },
+};
 
 export default function DashboardLayout({
   children,
