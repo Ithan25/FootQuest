@@ -22,6 +22,7 @@ export interface ScoutTeamData {
   drapeau: string;
   formation: string;
   joueurs: ScoutPlayer[];
+  difficulty?: Difficulty;
 }
 
 export const SCOUT_TEAMS: ScoutTeamData[] = [

@@ -84,12 +84,15 @@ async function getUserStats() {
       return <Gamepad2 className="h-5 w-5" />;
     };
 
-    const recentGames = recentGamesData?.map((session) => ({
-      gameName: session.jeu?.nom || "Jeu Inconnu",
-      gameIcon: getGameIcon(session.jeu?.icone),
-      points_gagnes: session.points_gagnes,
-      created_at: session.created_at,
-    })) || [];
+    const recentGames = recentGamesData?.map((session) => {
+      const jeu = session.jeu as unknown as { nom: string; icone: string; type: string } | null;
+      return {
+        gameName: jeu?.nom || "Jeu Inconnu",
+        gameIcon: getGameIcon(jeu?.icone ?? null),
+        points_gagnes: session.points_gagnes,
+        created_at: session.created_at,
+      };
+    }) || [];
 
     return {
       pseudo: profile?.pseudo || user.email?.split("@")[0] || "Joueur",
