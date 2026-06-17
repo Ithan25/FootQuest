@@ -122,6 +122,7 @@ export function Flag({ country, size = "md", className = "" }: FlagProps) {
   }
 
   return (
+    /* eslint-disable-next-line @next/next/no-img-element */
     <img
       src={getFlagUrl(code, px)}
       alt={`Drapeau ${country}`}

@@ -10,6 +10,7 @@ export function AdSenseScript() {
     // Check if user has accepted cookies
     const consent = localStorage.getItem("cookie-consent");
     if (consent === "accepted") {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setConsentGranted(true);
     }
   }, []);

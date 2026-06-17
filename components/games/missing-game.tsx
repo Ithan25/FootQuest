@@ -3,7 +3,7 @@
 import { useState, useCallback, useEffect, useRef } from "react";
 import { Flag } from "@/components/ui/flag";
 import { useTimer } from "@/hooks/use-timer";
-import { Puzzle, Shield, Trophy, Timer, Medal, CheckCircle2, XCircle, Users, Gamepad2, Zap, Target, RefreshCw, Home } from "lucide-react";
+import { Puzzle, Trophy, Timer, Medal, CheckCircle2, XCircle, Users, Zap, Target, RefreshCw, Home } from "lucide-react";
 import Image from "next/image";
 import { useGameSession } from "@/hooks/use-game-session";
 import { usePremiumContext } from "@/components/premium-context";
@@ -278,13 +278,13 @@ export function MissingGame() {
           <span className="rounded-full bg-[#E2001A]/15 px-2 py-0.5 text-xs font-semibold text-[#E2001A]">
             {team.formation}
           </span>
-          {(team as any).difficulty && (
+          {team.difficulty && (
             <span className={`rounded-full px-2 py-0.5 text-[10px] font-semibold ${
-              (team as any).difficulty === 'facile' ? 'bg-emerald-500/15 text-emerald-500' :
-              (team as any).difficulty === 'moyen' ? 'bg-amber-500/15 text-amber-500' :
+              team.difficulty === 'facile' ? 'bg-emerald-500/15 text-emerald-500' :
+              team.difficulty === 'moyen' ? 'bg-amber-500/15 text-amber-500' :
               'bg-red-500/15 text-red-500'
             }`}>
-              {(team as any).difficulty === 'facile' ? 'Facile' : (team as any).difficulty === 'moyen' ? 'Moyen' : 'Difficile'}
+              {team.difficulty === 'facile' ? 'Facile' : team.difficulty === 'moyen' ? 'Moyen' : 'Difficile'}
             </span>
           )}
         </div>
@@ -460,8 +460,8 @@ export function MissingGame() {
         >
           <div className="text-sm font-bold">
             {isCorrect
-              ? <span className="flex justify-center items-center gap-1.5"><CheckCircle2 className="h-4 w-4" /> Bravo ! C'est bien {missingPlayer.prenom} {missingPlayer.nom} !</span>
-              : <span className="flex justify-center items-center gap-1.5"><XCircle className="h-4 w-4" /> C'était {missingPlayer.prenom} {missingPlayer.nom}</span>}
+              ? <span className="flex justify-center items-center gap-1.5"><CheckCircle2 className="h-4 w-4" /> Bravo ! C&apos;est bien {missingPlayer.prenom} {missingPlayer.nom} !</span>
+              : <span className="flex justify-center items-center gap-1.5"><XCircle className="h-4 w-4" /> C&apos;était {missingPlayer.prenom} {missingPlayer.nom}</span>}
           </div>
         </div>
       )}

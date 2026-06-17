@@ -9,7 +9,6 @@ interface GameCardProps {
   imageSrc?: string;
   href: string;
   gradient: string;
-  shadowColor: string;
   hoverColor?: "green" | "red" | "purple";
   disabled?: boolean;
 }
@@ -33,7 +32,6 @@ export function GameCard({
   imageSrc,
   href,
   gradient,
-  shadowColor,
   hoverColor = "green",
   disabled = false,
 }: GameCardProps) {

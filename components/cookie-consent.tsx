@@ -9,6 +9,7 @@ export function CookieConsent() {
   useEffect(() => {
     const consent = localStorage.getItem("cookie-consent");
     if (!consent) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setShowBanner(true);
     }
   }, []);
@@ -42,7 +43,7 @@ export function CookieConsent() {
             onClick={handleDecline}
             className="rounded-lg border border-[#252536] bg-[#141420] px-4 py-2 text-sm font-semibold text-zinc-300 transition-colors hover:bg-[#1E1E2E] hover:text-white"
           >
-            Refuser l'essentiel
+            Refuser l&apos;essentiel
           </button>
           <button
             onClick={handleAccept}

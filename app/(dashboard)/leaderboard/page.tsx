@@ -1,4 +1,4 @@
-import { Trophy, Medal, Crown } from "lucide-react";
+import { Trophy, Crown } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import { cn } from "@/lib/utils";
 
@@ -104,7 +104,7 @@ export default async function LeaderboardPage() {
         {/* 2ND PLACE */}
         {second && (
           <div className="flex w-[30%] max-w-[140px] flex-col items-center">
-            <PodiumAvatar player={second} rank={2} size="md" color="slate" />
+            <PodiumAvatar player={second} size="md" color="slate" />
             <div className="relative mt-2 flex w-full flex-col items-center justify-start rounded-t-2xl bg-gradient-to-t from-zinc-700/40 to-zinc-800/20 px-2 py-3 shadow-lg sm:mt-3 sm:p-4 h-[100px] sm:h-[130px] border-t-4 border-zinc-500">
               {/* Neon Base Effect */}
               <div className="absolute inset-x-0 bottom-0 h-1 bg-zinc-400/40 blur-sm" />
@@ -121,7 +121,7 @@ export default async function LeaderboardPage() {
         {first && (
           <div className="z-10 flex w-[34%] max-w-[160px] flex-col items-center">
             <Crown className="mb-1 h-6 w-6 animate-bounce text-[#C5E86C] drop-shadow-[0_0_8px_rgba(197,232,108,0.8)] sm:mb-2 sm:h-8 sm:w-8" />
-            <PodiumAvatar player={first} rank={1} size="lg" color="gold" />
+            <PodiumAvatar player={first} size="lg" color="gold" />
             <div className="relative mt-2 flex w-full flex-col items-center justify-start rounded-t-2xl bg-gradient-to-t from-[#C5E86C]/15 to-[#3B1F8E]/10 px-2 py-3 shadow-2xl sm:mt-3 sm:p-4 h-[130px] sm:h-[170px] border-t-4 border-[#C5E86C]">
               {/* Neon Base Effect */}
               <div className="absolute inset-x-0 bottom-0 h-1 bg-[#C5E86C]/60 blur-sm" />
@@ -137,7 +137,7 @@ export default async function LeaderboardPage() {
         {/* 3RD PLACE */}
         {third && (
           <div className="flex w-[30%] max-w-[140px] flex-col items-center">
-            <PodiumAvatar player={third} rank={3} size="md" color="bronze" />
+            <PodiumAvatar player={third} size="md" color="bronze" />
             <div className="relative mt-2 flex w-full flex-col items-center justify-start rounded-t-2xl bg-gradient-to-t from-orange-900/30 to-orange-950/10 px-2 py-3 shadow-lg sm:mt-3 sm:p-4 h-[90px] sm:h-[110px] border-t-4 border-orange-600">
               {/* Neon Base Effect */}
               <div className="absolute inset-x-0 bottom-0 h-1 bg-orange-500/40 blur-sm" />
@@ -172,7 +172,7 @@ export default async function LeaderboardPage() {
   );
 }
 
-function PodiumAvatar({ player, rank, size, color }: { player: UserRank; rank: number; size: "md" | "lg", color: "gold" | "slate" | "bronze" }) {
+function PodiumAvatar({ player, size, color }: { player: UserRank; size: "md" | "lg", color: "gold" | "slate" | "bronze" }) {
   const sizeClasses = size === "lg" ? "h-20 w-20 sm:h-24 sm:w-24 border-4" : "h-16 w-16 sm:h-20 sm:w-20 border-[3px]";
   const borderColors = {
     gold: "border-[#C5E86C] shadow-[#C5E86C]/50",
@@ -183,6 +183,7 @@ function PodiumAvatar({ player, rank, size, color }: { player: UserRank; rank: n
   return (
     <div className={cn("relative rounded-full shadow-xl bg-[#1E1E2E] flex items-center justify-center overflow-hidden", sizeClasses, borderColors[color])}>
       {player.avatar_url ? (
+        /* eslint-disable-next-line @next/next/no-img-element */
         <img src={player.avatar_url} alt={player.pseudo} className="h-full w-full object-cover" />
       ) : (
         <span className={cn("font-black text-zinc-500", size === "lg" ? "text-3xl" : "text-2xl")}>
@@ -209,6 +210,7 @@ function LeaderboardRow({ player, isCurrentUser, hideBorder = false }: { player:
         {/* Avatar */}
         <div className="flex h-10 w-10 overflow-hidden rounded-full bg-[#1E1E2E] shrink-0">
           {player.avatar_url ? (
+            /* eslint-disable-next-line @next/next/no-img-element */
             <img src={player.avatar_url} alt={player.pseudo} className="h-full w-full object-cover" />
           ) : (
             <span className="flex h-full w-full items-center justify-center text-xs font-bold text-zinc-500">

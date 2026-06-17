@@ -3,7 +3,7 @@
 import { useState, useCallback, useEffect, useRef } from "react";
 import { Flag } from "@/components/ui/flag";
 import { useTimer } from "@/hooks/use-timer";
-import { Search, Shield, Trophy, Timer, Medal, CheckCircle2, XCircle, Gamepad2, Zap, Target, RefreshCw, Home } from "lucide-react";
+import { Search, Shield, Trophy, Timer, Medal, CheckCircle2, XCircle, Zap, Target, RefreshCw, Home } from "lucide-react";
 import Image from "next/image";
 import { useGameSession } from "@/hooks/use-game-session";
 import { usePremiumContext } from "@/components/premium-context";
@@ -276,13 +276,13 @@ export function ScoutGame() {
           <span className="rounded-full bg-[#00A651]/15 px-3 py-1 text-xs font-semibold text-[#00A651]">
             {team.formation}
           </span>
-          {(team as any).difficulty && (
+          {team.difficulty && (
             <span className={`rounded-full px-2 py-0.5 text-[10px] font-semibold ${
-              (team as any).difficulty === 'facile' ? 'bg-emerald-500/15 text-emerald-500' :
-              (team as any).difficulty === 'moyen' ? 'bg-amber-500/15 text-amber-500' :
+              team.difficulty === 'facile' ? 'bg-emerald-500/15 text-emerald-500' :
+              team.difficulty === 'moyen' ? 'bg-amber-500/15 text-amber-500' :
               'bg-red-500/15 text-red-500'
             }`}>
-              {(team as any).difficulty === 'facile' ? 'Facile' : (team as any).difficulty === 'moyen' ? 'Moyen' : 'Difficile'}
+              {team.difficulty === 'facile' ? 'Facile' : team.difficulty === 'moyen' ? 'Moyen' : 'Difficile'}
             </span>
           )}
           <span className="text-xs text-muted-foreground">
@@ -443,8 +443,8 @@ export function ScoutGame() {
           <div className="flex justify-center"><Flag country={currentLevel.team.pays} size="lg" /></div>
           <div className="mt-1.5 text-sm font-bold">
             {isCorrect
-              ? <span className="flex justify-center items-center gap-1.5"><CheckCircle2 className="h-4 w-4" /> Bravo ! C'est bien {currentLevel.team.pays} !</span>
-              : <span className="flex justify-center items-center gap-1.5"><XCircle className="h-4 w-4" /> C'était {currentLevel.team.pays}</span>}
+              ? <span className="flex justify-center items-center gap-1.5"><CheckCircle2 className="h-4 w-4" /> Bravo ! C&apos;est bien {team.pays} !</span>
+              : <span className="flex justify-center items-center gap-1.5"><XCircle className="h-4 w-4" /> C&apos;était {team.pays}</span>}
           </div>
         </div>
       )}

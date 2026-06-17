@@ -2,13 +2,13 @@
 
 import { useState, useCallback, useEffect } from "react";
 import { useTimer } from "@/hooks/use-timer";
-import { Flame, Trophy, ThumbsUp, Medal, Timer, Target, Zap, CheckCircle2, XCircle, Gamepad2, RefreshCw, Home } from "lucide-react";
+import { Flame, Trophy, ThumbsUp, Medal, Timer, Target, Zap, CheckCircle2, XCircle, RefreshCw, Home } from "lucide-react";
 import Image from "next/image";
 import { useGameSession } from "@/hooks/use-game-session";
 import { usePremiumContext } from "@/components/premium-context";
 import { AdInterstitial } from "@/components/games/ad-interstitial";
 import { DifficultySelector } from "@/components/games/difficulty-selector";
-import { TRIVIA_TIMER_SECONDS, TRIVIA_CONFIG, DIFFICULTY_MULTIPLIER, POINTS_CONFIG } from "@/lib/constants";
+import { TRIVIA_TIMER_SECONDS, TRIVIA_CONFIG, DIFFICULTY_MULTIPLIER } from "@/lib/constants";
 import type { Difficulty } from "@/lib/constants";
 import type { TriviaQuestionWithAnswers } from "@/app/(dashboard)/games/foot-trivia/actions";
 import {
@@ -464,7 +464,7 @@ export function TriviaGame() {
                   </span>
                 );
               })()
-            : <span className="flex justify-center items-center gap-1.5"><XCircle className="h-4 w-4" /> Mauvaise réponse ! C'était : {correctAnswer?.reponse}</span>}
+            : <span className="flex justify-center items-center gap-1.5"><XCircle className="h-4 w-4" /> Mauvaise réponse ! C&apos;était : {correctAnswer?.reponse}</span>}
         </div>
       )}
 

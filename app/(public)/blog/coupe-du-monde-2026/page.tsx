@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import { Globe, Calendar, Users, MapPin, Trophy, Star, ArrowRight, Gamepad2 } from "lucide-react";
+import { Globe, Calendar, Users, MapPin, Trophy, ArrowRight, Gamepad2 } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Coupe du Monde 2026 — Guide Complet du Mondial à 48 Équipes | FootQuest",

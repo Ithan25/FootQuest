@@ -77,14 +77,14 @@ async function getUserStats() {
       .order("created_at", { ascending: false })
       .limit(3);
 
-    const getGameIcon = (iconText: string | any) => {
+    const getGameIcon = (iconText: string | null) => {
       if (iconText === "🔍") return <Search className="h-5 w-5" />;
       if (iconText === "🧩") return <Puzzle className="h-5 w-5" />;
       if (iconText === "❓") return <HelpCircle className="h-5 w-5" />;
       return <Gamepad2 className="h-5 w-5" />;
     };
 
-    const recentGames = recentGamesData?.map((session: any) => ({
+    const recentGames = recentGamesData?.map((session) => ({
       gameName: session.jeu?.nom || "Jeu Inconnu",
       gameIcon: getGameIcon(session.jeu?.icone),
       points_gagnes: session.points_gagnes,
@@ -162,7 +162,7 @@ export default async function HubPage() {
         </div>
 
         <div className="grid gap-5 sm:grid-cols-3">
-          {games.map((game: any) => (
+          {games.map((game) => (
             <GameCard key={game.href} {...game} />
           ))}
         </div>
