@@ -266,7 +266,7 @@ export function ScoutGame() {
   const totalClues = team.joueurs.length;
 
   return (
-    <div className="space-y-4">
+    <div className="mx-auto max-w-md space-y-4">
       {/* Top bar */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
