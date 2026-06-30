@@ -54,7 +54,7 @@ export default function PointsSystemPage() {
                 <Star className="h-5 w-5" />
                 <h3 className="font-bold">Précision</h3>
               </div>
-              <p className="mt-2 text-sm text-zinc-400">Répondre correctement du premier coup rapporte le maximum de points. Chaque tentative incorrecte réduit le nombre de FootPoints pour cette question.</p>
+              <p className="mt-2 text-sm text-zinc-400">Chaque question ne te laisse qu&apos;une seule chance : une bonne réponse rapporte les points, une mauvaise réponse ne rapporte rien. Pas de deuxième essai !</p>
             </div>
             <div className="rounded-xl border border-[#252536] bg-[#141420]/50 p-5">
               <div className="flex items-center gap-2 text-[#E2001A]">
