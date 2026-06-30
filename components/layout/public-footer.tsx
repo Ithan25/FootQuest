@@ -9,7 +9,7 @@ export function PublicFooter() {
           {/* Brand */}
           <div className="space-y-4">
             <Link href="/" className="flex items-center gap-2">
-              <Image src="/images/Logo.svg" alt="FootQuest" width={32} height={32} />
+              <Image src="/images/logo-footquest/Footquest_48.png" alt="FootQuest" width={32} height={32} />
               <span className="text-lg font-black text-white">
                 Foot<span className="text-white">Quest</span>
               </span>

@@ -30,9 +30,9 @@ export const metadata: Metadata = {
   },
   description: "Plateforme gratuite de mini-jeux de football : Scout Master, The Missing Piece et Foot Trivia. Teste tes connaissances sur les 48 sélections de la Coupe du Monde 2026 !",
   icons: {
-    icon: "/images/icon-192.png",
+    icon: "/images/logo-footquest/Footquest_192.png",
     shortcut: "/favicon.ico",
-    apple: "/images/apple-icon.png",
+    apple: "/images/logo-footquest/Footquest_180.png",
   },
   manifest: "/manifest.json",
   appleWebApp: {

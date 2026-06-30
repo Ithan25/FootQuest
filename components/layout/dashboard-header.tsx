@@ -37,7 +37,7 @@ export function DashboardHeader() {
         {/* Logo */}
         <Link href="/hub" className="group flex shrink-0 items-center gap-2 sm:gap-3">
           <div className="relative flex h-8 w-8 items-center justify-center transition-transform group-hover:scale-105 sm:h-10 sm:w-10">
-            <Image src="/images/Logo.svg" alt="FootQuest Logo" width={40} height={40} className="drop-shadow-md" />
+            <Image src="/images/logo-footquest/Footquest_48.png" alt="FootQuest Logo" width={40} height={40} className="drop-shadow-md" />
           </div>
           <span className="text-lg font-black tracking-tight text-white sm:text-xl">
             Foot<span className={`${
