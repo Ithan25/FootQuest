@@ -70,7 +70,7 @@ export default function LandingPage() {
             </div>
             <div className="mt-14 grid gap-8 lg:grid-cols-3">
               <GameArticle icon={<Search className="h-7 w-7 text-white" />} gradient="from-[#00A651] to-emerald-800" shadow="shadow-[#00A651]/20" hoverBorder="hover:border-[#00A651]/30" hoverShadow="hover:shadow-[0_0_30px_rgba(0,166,81,0.08)]" title="Scout Master" tagColor="text-[#00A651]" tag="Reconnaissance • Déduction • Culture club" tagIcon={<Target className="h-4 w-4" />}>
-                <p className="mt-3 leading-relaxed text-zinc-400">Mets-toi dans la peau d&apos;un recruteur de talent. On te montre les clubs dans lesquels jouent les membres d&apos;une sélection nationale et tu dois deviner de quelle équipe il s&apos;agit en tapant le nom du pays. Connais-tu assez bien les effectifs des 48 nations qualifiées pour la Coupe du Monde 2026 ?</p>
+                <p className="mt-3 leading-relaxed text-zinc-400">Mets-toi dans la peau d&apos;un recruteur de talent. On te montre les clubs dans lesquels évoluent les joueurs d&apos;une sélection nationale et tu dois deviner de quelle équipe il s&apos;agit en tapant le nom du pays. Connais-tu assez bien les effectifs des 48 nations qualifiées pour la Coupe du Monde 2026 ?</p>
                 <p className="mt-3 leading-relaxed text-zinc-400">Le jeu propose plusieurs niveaux de difficulté : en mode Facile, tu vois 5 clubs et tu as 90 secondes ; en mode Difficile, un seul indice et 30 secondes. Plus tu joues, plus tu apprends à reconnaître les profils de chaque sélection.</p>
               </GameArticle>
               <GameArticle icon={<Puzzle className="h-7 w-7 text-white" />} gradient="from-[#E2001A] to-red-800" shadow="shadow-[#E2001A]/20" hoverBorder="hover:border-[#E2001A]/30" hoverShadow="hover:shadow-[0_0_30px_rgba(226,0,26,0.08)]" title="The Missing Piece" tagColor="text-[#E2001A]" tag="Mémoire • Tactique • Connaissance des effectifs" tagIcon={<Puzzle className="h-4 w-4" />}>
@@ -78,8 +78,8 @@ export default function LandingPage() {
                 <p className="mt-3 leading-relaxed text-zinc-400">Ce jeu teste ta connaissance approfondie des compositions. Connais-tu le titulaire habituel en milieu de terrain de l&apos;Arabie Saoudite ? Le gardien titulaire du Japon ? Plus la sélection est méconnue, plus le défi est grand.</p>
               </GameArticle>
               <GameArticle icon={<HelpCircle className="h-7 w-7 text-white" />} gradient="from-[#3B1F8E] to-purple-900" shadow="shadow-[#3B1F8E]/20" hoverBorder="hover:border-[#3B1F8E]/30" hoverShadow="hover:shadow-[0_0_30px_rgba(59,31,142,0.08)]" title="Foot Trivia" tagColor="text-white" tag="Culture générale • Rapidité • Histoire" tagIcon={<Zap className="h-4 w-4" />}>
-                <p className="mt-3 leading-relaxed text-zinc-400">Le quiz ultime sur la Coupe du Monde ! Des questions variées couvrant toute l&apos;histoire du football international : records, palmarès, moments iconiques et statistiques. Chaque question est chronométrée.</p>
-                <p className="mt-3 leading-relaxed text-zinc-400">Qui a marqué le plus de buts en Coupe du Monde ? Quel pays a accueilli le premier tournoi en 1930 ? Le quiz couvre aussi la préparation pour le mondial 2026.</p>
+                <p className="mt-3 leading-relaxed text-zinc-400">Le quiz ultime sur la Coupe du Monde ! Des questions variées couvrant toute l&apos;histoire du football international : records, palmarès, faits marquants et statistiques. Chaque question est chronométrée.</p>
+                <p className="mt-3 leading-relaxed text-zinc-400">Qui a marqué le plus de buts en Coupe du Monde ? Quel pays a accueilli la première édition en 1930 ? Le quiz couvre aussi la préparation pour le mondial 2026.</p>
               </GameArticle>
             </div>
           </div>

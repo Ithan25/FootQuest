@@ -44,7 +44,7 @@ async function getUserStats() {
     } = await supabase.auth.getUser();
 
     if (!user) {
-      return { pseudo: "Joueur", footPoints: 0, partiesJoueesAujourdHui: 0, role: "basic" as const, recentGames: [] };
+      return { pseudo: "Joueur", footPoints: 0, partiesJoueesAujourdHui: 0, role: "basic" as const, recentGames: [], rank: "—" };
     }
 
     const { data: profile } = await supabase
@@ -94,15 +94,25 @@ async function getUserStats() {
       };
     }) || [];
 
+    let rank = "—";
+    if (profile) {
+      const { count } = await supabase
+        .from("utilisateur")
+        .select("*", { count: "exact", head: true })
+        .gt("foot_points", profile.foot_points);
+      rank = ((count || 0) + 1).toString();
+    }
+
     return {
       pseudo: profile?.pseudo || user.email?.split("@")[0] || "Joueur",
       footPoints: profile?.foot_points || 0,
       partiesJoueesAujourdHui: todayGames || 0,
       role: (profile?.role || "basic") as "basic" | "golden_ball",
       recentGames: recentGames || [],
+      rank,
     };
   } catch {
-    return { pseudo: "Joueur", footPoints: 0, partiesJoueesAujourdHui: 0, role: "basic" as const, recentGames: [] };
+    return { pseudo: "Joueur", footPoints: 0, partiesJoueesAujourdHui: 0, role: "basic" as const, recentGames: [], rank: "—" };
   }
 }
 
@@ -141,7 +151,7 @@ export default async function HubPage() {
         <div className="flex gap-2 sm:gap-3">
           <StatPill icon={<Coins className="h-4 w-4 text-[#C5E86C]" />} value={user.footPoints.toLocaleString("fr-FR")} label="FP" color="text-[#C5E86C]" />
           <StatPill icon={<Gamepad2 className="h-4 w-4 text-[#00A651]" />} value={`${user.partiesJoueesAujourdHui}/${maxGames}`} label="Parties" color="text-[#00A651]" />
-          <StatPill icon={<Trophy className="h-4 w-4 text-[#E2001A]" />} value="—" label="Rang" color="text-[#E2001A]" />
+          <StatPill icon={<Trophy className="h-4 w-4 text-[#E2001A]" />} value={user.rank} label="Rang" color="text-[#E2001A]" />
         </div>
       </section>
 

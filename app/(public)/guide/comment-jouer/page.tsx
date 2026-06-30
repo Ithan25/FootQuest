@@ -47,7 +47,7 @@ export default function HowToPlayPage() {
           </div>
           <div className="space-y-4 text-base leading-relaxed text-zinc-300">
             <h3 className="text-lg font-bold text-white">🎯 Objectif</h3>
-            <p>Dans Scout Master, tu incarnes un recruteur international. On te présente une liste de clubs dans lesquels jouent les membres d&apos;une sélection nationale qualifiée pour la Coupe du Monde 2026. Ton objectif : <strong className="text-white">deviner de quelle équipe nationale il s&apos;agit</strong>.</p>
+            <p>Dans Scout Master, tu incarnes un recruteur international. On te présente une liste de clubs dans lesquels évoluent les joueurs d&apos;une sélection nationale qualifiée pour la Coupe du Monde 2026. Ton objectif : <strong className="text-white">deviner de quelle équipe nationale il s&apos;agit</strong>.</p>
 
             <h3 className="text-lg font-bold text-white">📋 Règles du jeu</h3>
             <ul className="ml-4 list-inside list-disc space-y-2 text-zinc-400">
@@ -147,7 +147,7 @@ export default function HowToPlayPage() {
                 <p className="mt-1 text-xs text-zinc-400">Quels pays ont accueilli le mondial ? Où se jouera 2026 ?</p>
               </div>
               <div className="rounded-lg border border-[#252536] bg-[#141420]/50 p-4">
-                <span className="text-sm font-bold text-[#C5E86C]">🔥 Moments iconiques</span>
+                <span className="text-sm font-bold text-[#C5E86C]">🔥 Faits marquants</span>
                 <p className="mt-1 text-xs text-zinc-400">Le coup de tête de Zidane, la main de Dieu, le 7-1 de 2014…</p>
               </div>
             </div>

@@ -29,7 +29,7 @@ export default function ContactPage() {
           Une question ? On est là.
         </h1>
         <p className="mx-auto mt-4 max-w-xl text-zinc-400">
-          Tu as une question, une suggestion d'amélioration, ou tu souhaites signaler un bug ?
+          Tu as une question, une suggestion d'amélioration ou tu souhaites signaler un bug ?
           N'hésite pas à nous contacter, nous répondons à tous les messages.
         </p>
       </div>
