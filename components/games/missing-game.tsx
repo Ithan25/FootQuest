@@ -423,7 +423,7 @@ export function MissingGame() {
               setShowSuggestions(true);
             }}
             onFocus={() => setShowSuggestions(true)}
-            placeholder="Quel joueur ? Tape ton guess..."
+            placeholder="Quel joueur ? Tape ta réponse..."
             className="w-full rounded-lg border border-zinc-800 bg-zinc-900 px-4 py-3 text-sm text-white transition-all focus:border-[#E2001A]/50 focus:outline-none focus:ring-2 focus:ring-[#E2001A]/20"
           />
           <button
