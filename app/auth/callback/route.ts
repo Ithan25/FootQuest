@@ -38,9 +38,14 @@ export async function GET(request: Request) {
         return NextResponse.redirect(`${origin}${next}`);
       }
     }
-    console.error("OAuth code exchange failed:", error.message);
+    console.error("OAuth code exchange failed:", error.message, error);
+    // Pass the error detail in the URL for easier debugging
+    const errorDetail = encodeURIComponent(error.message || "unknown");
+    return NextResponse.redirect(
+      `${origin}/login?error=auth_callback_failed&detail=${errorDetail}`
+    );
   }
 
-  // Redirect to login on error
-  return NextResponse.redirect(`${origin}/login?error=auth_callback_failed`);
+  // No code provided at all
+  return NextResponse.redirect(`${origin}/login?error=auth_callback_failed&detail=no_code`);
 }

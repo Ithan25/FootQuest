@@ -1,4 +1,4 @@
-import { Trophy, Crown } from "lucide-react";
+import { Trophy, Crown, Award } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import { cn } from "@/lib/utils";
 
@@ -9,6 +9,8 @@ type UserRank = {
   foot_points: number;
   avatar_url?: string;
   role?: string;
+  active_title?: string;
+  active_badge?: string;
   rank: number;
 };
 
@@ -17,14 +19,27 @@ async function getLeaderboardData(): Promise<{ top50: UserRank[]; currentUserRan
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
 
-  // Get top 50 users
-  const { data: topUsers, error } = await supabase
+  // Try selecting with active_title and active_badge
+  let topUsers: UserRank[] | null = null;
+  const { data: fullTopUsers, error: fullErr } = await supabase
     .from("utilisateur")
-    .select("id, pseudo, foot_points, avatar_url, role")
+    .select("id, pseudo, foot_points, avatar_url, role, active_title, active_badge")
     .order("foot_points", { ascending: false })
     .limit(50);
 
-  if (error || !topUsers) {
+  if (fullErr) {
+    // Fallback if active_title/active_badge columns don't exist yet
+    const { data: basicTopUsers } = await supabase
+      .from("utilisateur")
+      .select("id, pseudo, foot_points, avatar_url, role")
+      .order("foot_points", { ascending: false })
+      .limit(50);
+    topUsers = (basicTopUsers as unknown as UserRank[]) || [];
+  } else {
+    topUsers = (fullTopUsers as unknown as UserRank[]) || [];
+  }
+
+  if (!topUsers || topUsers.length === 0) {
     return { top50: [] };
   }
 
@@ -42,11 +57,23 @@ async function getLeaderboardData(): Promise<{ top50: UserRank[]; currentUserRan
       currentUserRank = inTop;
     } else {
       // User is not in Top 50, figure out their rank
-      const { data: userData } = await supabase
+      let userData: UserRank | null = null;
+      const { data: fullUserData, error: userErr } = await supabase
         .from("utilisateur")
-        .select("id, pseudo, foot_points, avatar_url, role")
+        .select("id, pseudo, foot_points, avatar_url, role, active_title, active_badge")
         .eq("id", user.id)
         .single();
+
+      if (userErr) {
+        const { data: basicUserData } = await supabase
+          .from("utilisateur")
+          .select("id, pseudo, foot_points, avatar_url, role")
+          .eq("id", user.id)
+          .single();
+        userData = (basicUserData as unknown as UserRank) || null;
+      } else {
+        userData = (fullUserData as unknown as UserRank) || null;
+      }
 
       if (userData) {
         // Count how many users have strictly more points
@@ -229,6 +256,14 @@ function LeaderboardRow({ player, isCurrentUser, hideBorder = false }: { player:
           </span>
           {player.role === "golden_ball" && (
             <span className="text-[10px] font-bold text-amber-500 uppercase tracking-wider">Golden Ball</span>
+          )}
+          {player.active_badge && (
+            <span className="flex items-center gap-0.5 text-[10px] font-bold text-[#C5E86C]">
+              <Award className="h-2.5 w-2.5" /> {player.active_badge}
+            </span>
+          )}
+          {player.active_title && (
+            <span className="text-[10px] font-semibold text-amber-400">{player.active_title}</span>
           )}
         </div>
       </div>

@@ -1,13 +1,8 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { X } from "lucide-react";
-
-declare global {
-  interface Window {
-    adsbygoogle: Record<string, unknown>[];
-  }
-}
+import Image from "next/image";
 
 interface AdInterstitialProps {
   onClose: () => void;
@@ -18,10 +13,6 @@ const AD_DURATION = 5; // seconds before user can skip
 export function AdInterstitial({ onClose }: AdInterstitialProps) {
   const [countdown, setCountdown] = useState(AD_DURATION);
   const [canSkip, setCanSkip] = useState(false);
-  const adRef = useRef<HTMLDivElement>(null);
-  const adPushed = useRef(false);
-
-  const hasAdSense = !!process.env.NEXT_PUBLIC_ADSENSE_ID;
 
   useEffect(() => {
     if (countdown <= 0) {
@@ -33,18 +24,6 @@ export function AdInterstitial({ onClose }: AdInterstitialProps) {
     return () => clearTimeout(timer);
   }, [countdown]);
 
-  // Push AdSense ad when component mounts (production only)
-  useEffect(() => {
-    if (hasAdSense && !adPushed.current) {
-      try {
-        (window.adsbygoogle = window.adsbygoogle || []).push({});
-        adPushed.current = true;
-      } catch {
-        // AdSense not ready yet, that's OK
-      }
-    }
-  }, [hasAdSense]);
-
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center">
       {/* Backdrop */}
@@ -52,7 +31,7 @@ export function AdInterstitial({ onClose }: AdInterstitialProps) {
 
       {/* Ad container */}
       <div className="relative z-10 mx-4 w-full max-w-sm animate-in fade-in zoom-in-95 duration-500">
-        {/* Header : "Publicité" label + Permanent Close Button */}
+        {/* Header : "Publicité" label + Close / Skip Button */}
         <div className="mb-3 flex items-center justify-between">
           <span className="rounded bg-black/40 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-white/50 backdrop-blur-sm">
             Publicité
@@ -80,40 +59,17 @@ export function AdInterstitial({ onClose }: AdInterstitialProps) {
           )}
         </div>
 
-        {/* Ad content */}
+        {/* Ad content — static image */}
         <div className="overflow-hidden rounded-lg border border-zinc-800 bg-gradient-to-br from-zinc-900 via-zinc-800 to-zinc-900 shadow-2xl">
-          {hasAdSense ? (
-            /* Real Google AdSense ad slot */
-            <div ref={adRef} className="min-h-[250px] flex items-center justify-center p-2">
-              <ins
-                className="adsbygoogle"
-                style={{ display: "block", width: "100%", minHeight: "250px" }}
-                data-ad-client={process.env.NEXT_PUBLIC_ADSENSE_ID}
-                data-ad-slot="auto"
-                data-ad-format="auto"
-                data-full-width-responsive="true"
-              />
-            </div>
-          ) : (
-            /* Dev placeholder — shown when no AdSense ID is configured */
-            <div className="flex min-h-[300px] flex-col items-center justify-center gap-4 p-6">
-              <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-white/10">
-                <svg className="h-8 w-8 text-white/40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                  <rect x="2" y="3" width="20" height="18" rx="2" />
-                  <path d="M8 7h8M8 11h5M8 15h8" />
-                </svg>
-              </div>
-              <div className="text-center">
-                <p className="text-sm font-bold text-white/60">Espace publicitaire</p>
-                <p className="mt-1 text-xs text-white/30">
-                  Google AdSense s&apos;affichera ici en production
-                </p>
-                <p className="mt-2 text-[10px] text-white/20">
-                  Ajoute NEXT_PUBLIC_ADSENSE_ID dans .env.local
-                </p>
-              </div>
-            </div>
-          )}
+          <div className="relative aspect-[4/5] w-full">
+            <Image
+              src="/images/pub.png"
+              alt="Publicité"
+              fill
+              className="object-cover"
+              priority
+            />
+          </div>
 
           {/* Footer */}
           <div className="border-t border-white/5 px-4 py-2">

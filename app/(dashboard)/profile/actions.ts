@@ -16,7 +16,7 @@ export async function getProfile() {
 
   const { data: fullProfile, error: fullErr } = await supabase
     .from("utilisateur")
-    .select("pseudo, foot_points, role, avatar_url, banner_url, created_at")
+    .select("pseudo, foot_points, role, avatar_url, banner_url, active_title, active_badge, created_at")
     .eq("id", user.id)
     .single();
 
@@ -60,6 +60,8 @@ export async function getProfile() {
     role: ((profile?.role as string) || "basic"),
     avatarUrl: (profile?.avatar_url as string) || null,
     bannerUrl: (profile?.banner_url as string) || null,
+    activeTitle: (profile?.active_title as string) || null,
+    activeBadge: (profile?.active_badge as string) || null,
     totalGames: totalGames || 0,
     totalPoints,
     bestScore: bestScore?.[0]?.points_gagnes || 0,
@@ -196,4 +198,33 @@ export async function updatePseudo(newPseudo: string): Promise<{
   revalidatePath("/profile");
   revalidatePath("/hub");
   return { pseudo: newPseudo, error: null };
+}
+
+export async function removeEquippedItem(
+  type: "badge" | "title"
+): Promise<{ success: boolean; error: string | null }> {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) return { success: false, error: "Non authentifié" };
+
+  const column = type === "badge" ? "active_badge" : "active_title";
+
+  const { error } = await supabase
+    .from("utilisateur")
+    .update({ [column]: null })
+    .eq("id", user.id);
+
+  if (error) {
+    console.error(`Error removing ${type}:`, error);
+    return { success: false, error: error.message };
+  }
+
+  revalidatePath("/profile");
+  revalidatePath("/hub");
+  revalidatePath("/leaderboard");
+
+  return { success: true, error: null };
 }

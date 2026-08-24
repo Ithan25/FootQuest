@@ -1,8 +1,8 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { User, Star, Coins, Gamepad2, Medal, Trophy, Camera, Loader2, ClipboardList, Circle, LogOut, Crown, Sparkles, Pencil, Check, X } from "lucide-react";
-import { uploadProfileImage, togglePremium, updatePseudo } from "./actions";
+import { User, Star, Coins, Gamepad2, Medal, Trophy, Camera, Loader2, ClipboardList, Circle, LogOut, Crown, Sparkles, Pencil, Check, X, Award, Tag } from "lucide-react";
+import { uploadProfileImage, togglePremium, updatePseudo, removeEquippedItem } from "./actions";
 
 export type ProfileData = {
   id: string;
@@ -12,6 +12,8 @@ export type ProfileData = {
   role: string;
   avatarUrl: string | null;
   bannerUrl: string | null;
+  activeTitle: string | null;
+  activeBadge: string | null;
   totalGames: number;
   totalPoints: number;
   bestScore: number;
@@ -25,8 +27,21 @@ export function ProfileClient({ initialProfile }: { initialProfile: ProfileData 
   const [isEditingPseudo, setIsEditingPseudo] = useState(false);
   const [pseudoInput, setPseudoInput] = useState(initialProfile.pseudo);
   const [updatingPseudo, setUpdatingPseudo] = useState(false);
+  const [removingItem, setRemovingItem] = useState<"badge" | "title" | null>(null);
   const avatarInputRef = useRef<HTMLInputElement>(null);
   const bannerInputRef = useRef<HTMLInputElement>(null);
+
+  const handleRemoveEquipped = async (type: "badge" | "title") => {
+    setRemovingItem(type);
+    const res = await removeEquippedItem(type);
+    if (res.success) {
+      setProfile((prev) => ({
+        ...prev,
+        ...(type === "badge" ? { activeBadge: null } : { activeTitle: null }),
+      }));
+    }
+    setRemovingItem(null);
+  };
 
   const handleUpdatePseudo = async () => {
     if (pseudoInput === profile.pseudo) {
@@ -77,21 +92,17 @@ export function ProfileClient({ initialProfile }: { initialProfile: ProfileData 
   return (
     <div className="space-y-8">
       {/* Profile card with banner + avatar */}
-      <section className="relative overflow-hidden rounded-lg border border-zinc-800 bg-zinc-900">
-        {/* Banner */}
+      <section className="relative overflow-hidden rounded-lg border border-zinc-800 bg-zinc-900">        {/* Banner */}
         <div
           className="group relative h-32 cursor-pointer overflow-hidden bg-gradient-to-r from-[#3B1F8E] via-[#E2001A] to-[#00A651] sm:h-40"
           onClick={() => bannerInputRef.current?.click()}
         >
-          {profile.bannerUrl && (
-            <img
-              src={profile.bannerUrl}
-              alt="Bannière"
-              className="absolute inset-0 h-full w-full object-cover"
+          {profile.bannerUrl ? (
+            <div
+              className="absolute inset-0 h-full w-full bg-cover bg-center"
+              style={{ backgroundImage: `url(${profile.bannerUrl})` }}
             />
-          )}
-          {/* Decorative circles fallback */}
-          {!profile.bannerUrl && (
+          ) : (
             <>
               <div className="absolute -right-10 -top-10 h-40 w-40 rounded-full bg-white/10" />
               <div className="absolute -bottom-12 -left-8 h-32 w-32 rounded-full bg-black/20" />
@@ -117,17 +128,17 @@ export function ProfileClient({ initialProfile }: { initialProfile: ProfileData 
 
         {/* Avatar + info */}
         <div className="relative px-6 pb-6">
-          <div className="-mt-12 flex items-end gap-4 sm:-mt-14">
+          <div className="flex flex-col sm:flex-row sm:items-end gap-4">
             {/* Avatar */}
             <div
-              className="group relative shrink-0 cursor-pointer"
+              className="-mt-12 sm:-mt-14 group relative shrink-0 cursor-pointer"
               onClick={() => avatarInputRef.current?.click()}
             >
-              <div className="flex h-24 w-24 items-center justify-center overflow-hidden rounded-lg border-4 border-[#0A0A0F] bg-[#3B1F8E] shadow-xl sm:h-28 sm:w-28">
+              <div className="flex h-24 w-24 items-center justify-center overflow-hidden rounded-xl border-4 border-[#141420] bg-[#3B1F8E] shadow-xl sm:h-28 sm:w-28">
                 {profile.avatarUrl ? (
                   <img
                     src={profile.avatarUrl}
-                    alt="Avatar"
+                    alt=""
                     className="h-full w-full object-cover"
                   />
                 ) : (
@@ -135,7 +146,7 @@ export function ProfileClient({ initialProfile }: { initialProfile: ProfileData 
                 )}
               </div>
               {/* Hover overlay */}
-              <div className="absolute inset-0 flex items-center justify-center rounded-lg border-4 border-transparent bg-black/0 transition-all group-hover:bg-black/50">
+              <div className="absolute inset-0 flex items-center justify-center rounded-xl border-4 border-transparent bg-black/0 transition-all group-hover:bg-black/50">
                 <span className="flex items-center text-xl opacity-0 transition-opacity group-hover:opacity-100 text-white">
                   {uploading === "avatar" ? <Loader2 className="h-5 w-5 animate-spin" /> : <Camera className="h-5 w-5" />}
                 </span>
@@ -152,19 +163,62 @@ export function ProfileClient({ initialProfile }: { initialProfile: ProfileData 
               />
             </div>
 
-            {/* Name + role */}
-            <div className="flex-1 pb-1">
-              <div className="flex items-center gap-2">
-                <h1 className="text-xl font-black text-white sm:text-2xl">
+            {/* Name + role + badge + title */}
+            <div className="pt-2 sm:pt-4 flex-1 space-y-1">
+              {/* First row: Pseudo + Role + Badge */}
+              <div className="flex flex-wrap items-center gap-2 sm:gap-3">
+                <h1 className="text-2xl font-black tracking-tight text-white sm:text-3xl leading-none">
                   {profile.pseudo}
                 </h1>
+
                 {profile.role === "golden_ball" && (
-                  <span className="flex items-center rounded-full bg-gradient-to-r from-amber-500 to-yellow-400 px-2.5 py-0.5 text-[10px] font-bold text-black ml-2">
+                  <span className="inline-flex items-center rounded-full bg-gradient-to-r from-amber-500 to-yellow-400 px-2.5 py-0.5 text-[10px] font-bold text-amber-950 shadow-sm">
                     <Star className="mr-1 h-3 w-3 fill-current" /> PREMIUM
                   </span>
                 )}
+
+                {profile.activeBadge && (
+                  <div className="inline-flex items-center gap-1.5 rounded-full border border-[#C5E86C]/40 bg-[#C5E86C]/10 px-2.5 py-0.5 text-xs font-bold text-[#C5E86C] leading-none">
+                    <Award className="h-3.5 w-3.5" />
+                    <span>{profile.activeBadge}</span>
+                    <button
+                      onClick={() => handleRemoveEquipped("badge")}
+                      disabled={removingItem === "badge"}
+                      className="ml-0.5 text-zinc-400 transition-colors hover:text-red-400"
+                      title="Retirer le badge"
+                    >
+                      {removingItem === "badge" ? (
+                        <Loader2 className="h-3 w-3 animate-spin" />
+                      ) : (
+                        <X className="h-3 w-3" />
+                      )}
+                    </button>
+                  </div>
+                )}
               </div>
-              <p className="text-sm text-zinc-500">
+
+              {/* Second row: Title */}
+              {profile.activeTitle && (
+                <div className="flex items-center gap-1.5 text-xs font-bold text-amber-400">
+                  <Tag className="h-3.5 w-3.5" />
+                  <span>{profile.activeTitle}</span>
+                  <button
+                    onClick={() => handleRemoveEquipped("title")}
+                    disabled={removingItem === "title"}
+                    className="text-amber-400/60 transition-colors hover:text-red-400"
+                    title="Retirer le titre"
+                  >
+                    {removingItem === "title" ? (
+                      <Loader2 className="h-3 w-3 animate-spin" />
+                    ) : (
+                      <X className="h-3 w-3" />
+                    )}
+                  </button>
+                </div>
+              )}
+
+              {/* Third row: Join Date */}
+              <p className="text-xs text-zinc-500">
                 Membre depuis {profile.joinDate}
               </p>
             </div>
